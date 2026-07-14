@@ -37,21 +37,6 @@
       color: var(--ink);
     }
 
-    .watermark {
-      position: fixed;
-      left: 12px;
-      bottom: 10px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(31, 41, 51, 0.45);
-      pointer-events: none;
-      user-select: none;
-      opacity: 0.55;
-      z-index: 0;
-    }
-
     main {
       width: min(960px, calc(100% - 32px));
       margin: 0 auto;
@@ -185,8 +170,8 @@
     }
 
     .toolbar strong {
+      display: none;
       min-height: 42px;
-      display: inline-flex;
       align-items: center;
       border-radius: 8px;
       padding: 0 12px;
@@ -198,6 +183,10 @@
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
+    }
+
+    .phase-tabs button {
+      cursor: default;
     }
 
     .grade-tabs {
@@ -294,6 +283,18 @@
       background: var(--accent-dark);
     }
 
+    #studyModeButton.active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: white;
+    }
+
+    #testModeButton.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+
     .blue-button {
       background: var(--blue);
       border-color: var(--blue);
@@ -302,6 +303,16 @@
 
     .blue-button:hover {
       background: var(--blue-dark);
+    }
+
+    .study-action-button {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: white;
+    }
+
+    .study-action-button:hover {
+      border-color: #08746f;
     }
 
     .restart-test-button {
@@ -334,6 +345,7 @@
     }
 
     .prompt-label {
+      display: none;
       margin: 0 0 8px;
       color: var(--muted);
       font-size: 0.86rem;
@@ -702,6 +714,19 @@
       transition: width 180ms ease;
     }
 
+    .test-progress-fill {
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+    }
+
+    .progress-caption {
+      margin: -4px 0 10px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
     .level-tracker {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -835,6 +860,59 @@
       min-width: 0;
     }
 
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(31, 41, 51, 0.34);
+    }
+
+    .modal-overlay.active {
+      display: grid;
+    }
+
+    .celebration-modal {
+      width: min(460px, 100%);
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid rgba(47, 111, 237, 0.18);
+      background: white;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(31, 41, 51, 0.24);
+    }
+
+    .confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 12% 18%, var(--gold) 0 5px, transparent 6px),
+        radial-gradient(circle at 82% 22%, var(--teal) 0 5px, transparent 6px),
+        radial-gradient(circle at 22% 82%, var(--accent) 0 5px, transparent 6px),
+        radial-gradient(circle at 78% 74%, var(--blue) 0 5px, transparent 6px);
+      opacity: 0.75;
+    }
+
+    .celebration-modal h2 {
+      position: relative;
+      margin: 0 0 10px;
+      color: var(--blue-dark);
+      font-size: 1.8rem;
+    }
+
+    .celebration-modal p {
+      position: relative;
+      margin: 0 0 18px;
+      color: var(--ink);
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
     @media (max-width: 760px) {
       header,
       .practice {
@@ -874,7 +952,7 @@
         <button id="grade4PreviewButton" class="grade-preview-button" type="button">Teacher Preview Grade 4</button>
       </div>
       <div class="visual-card" aria-hidden="true">
-        <strong id="gradeBadge">马立平三年级</strong>
+        <strong id="gradeBadge">马立平中文</strong>
       </div>
       <section class="scoreboard" id="scoreboard" aria-label="Score">
         <div class="stat"><strong id="score">0</strong><span>Score</span></div>
@@ -884,12 +962,12 @@
     </header>
 
     <section class="toolbar" aria-label="Practice settings">
-      <strong id="levelTitle">Level 1</strong>
+      <strong id="levelTitle"></strong>
       <div class="phase-tabs">
         <button id="studyModeButton" class="active" type="button">Study</button>
         <button id="testModeButton" type="button">Test</button>
       </div>
-      <button id="startTestButton" class="blue-button" type="button">Start Test</button>
+      <button id="startTestButton" class="blue-button" type="button">Go Test</button>
       <div class="final-test-area">
         <button id="finalTestButton" class="blue-button" type="button">Final Test</button>
         <button id="teacherPreviewButton" class="teacher-preview-button" type="button">Teacher Preview</button>
@@ -901,7 +979,7 @@
 
     <section class="practice">
       <article class="question-panel">
-        <p class="prompt-label" id="promptLabel">Choose the correct pinyin</p>
+        <p class="prompt-label" id="promptLabel"></p>
         <div class="study-card active" id="studyCard">
           <div>
             <p class="study-pinyin" id="studyPinyin">xié zi</p>
@@ -937,6 +1015,7 @@
             <div class="progress-bar" aria-label="Study level progress">
               <div class="progress-fill" id="studyProgressFill"></div>
             </div>
+            <p class="progress-caption">Level Progress</p>
           </div>
           <h2>Full Word List of This Level</h2>
           <div class="vocab-list" id="vocabList"></div>
@@ -958,8 +1037,9 @@
             </div>
           </div>
           <div class="progress-bar" aria-label="Test progress">
-            <div class="progress-fill" id="progressFill"></div>
+            <div class="progress-fill test-progress-fill" id="progressFill"></div>
           </div>
+          <p class="progress-caption">Test Progress</p>
           <div class="review-bank-actions">
             <button id="studyMissedButton" class="review-bank-button" type="button">Study Missed Words</button>
             <button id="reviewMissedButton" class="review-bank-button" type="button">Test Missed Words</button>
@@ -970,9 +1050,15 @@
         </div>
       </aside>
     </section>
+    <div class="modal-overlay" id="celebrationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="celebration-modal">
+        <div class="confetti" aria-hidden="true"></div>
+        <h2 id="modalTitle">Great work!</h2>
+        <p id="modalMessage">You passed this level.</p>
+        <button id="modalCloseButton" class="primary" type="button">Keep Going</button>
+      </div>
+    </div>
   </main>
-
-  <div class="watermark" aria-hidden="true">added to Github by Kasper</div>
 
   <script>
 const gradeData = {
@@ -1543,6 +1629,7 @@ let levels = gradeData[currentGrade].levels;
     let storedMissedWords = [];
     let reviewBankCorrectWords = [];
     let activeReviewSource = "";
+    let missedWordsReviewedForFinal = false;
     let nextAction = null;
     const finalTestSize = 30;
     const progressKeyBase = "mlp-2026-summer-review-progress";
@@ -1553,6 +1640,10 @@ let levels = gradeData[currentGrade].levels;
     const promptLabel = document.querySelector("#promptLabel");
     const choices = document.querySelector("#choices");
     const feedback = document.querySelector("#feedback");
+    const celebrationModal = document.querySelector("#celebrationModal");
+    const modalTitle = document.querySelector("#modalTitle");
+    const modalMessage = document.querySelector("#modalMessage");
+    const modalCloseButton = document.querySelector("#modalCloseButton");
     const gradeBadge = document.querySelector("#gradeBadge");
     const scoreboard = document.querySelector("#scoreboard");
     const scoreDisplay = document.querySelector("#score");
@@ -1641,6 +1732,7 @@ let levels = gradeData[currentGrade].levels;
         level: levels[levelIndex].name
       }));
       storedMissedWords = uniqueWords([...stamped, ...storedMissedWords]).slice(0, 60);
+      missedWordsReviewedForFinal = false;
       saveProgress();
       updateDashboard();
     }
@@ -1653,6 +1745,41 @@ let levels = gradeData[currentGrade].levels;
       saveProgress();
       updateDashboard();
       return before - storedMissedWords.length;
+    }
+
+    function showModal(title, message, buttonText = "Keep Going") {
+      modalTitle.textContent = title;
+      modalMessage.textContent = message;
+      modalCloseButton.textContent = buttonText;
+      celebrationModal.classList.add("active");
+    }
+
+    function hideModal() {
+      celebrationModal.classList.remove("active");
+    }
+
+    function updateModeAction() {
+      const inTest = phase === "test";
+      startTestButton.textContent = inTest ? "Go Study" : "Go Test";
+      startTestButton.classList.toggle("study-action-button", inTest);
+      startTestButton.classList.toggle("blue-button", !inTest);
+    }
+
+    function remindMissedReviewIfNeeded() {
+      if (storedMissedWords.length < 15) return;
+      showModal(
+        "Nice progress!",
+        `You have ${storedMissedWords.length} saved missed words. This is a good moment to pause, review them, and make the next level easier.`,
+        "Review Soon"
+      );
+    }
+
+    function celebratePass(title, message) {
+      if (storedMissedWords.length >= 15) {
+        remindMissedReviewIfNeeded();
+      } else {
+        showModal(title, message, "Great!");
+      }
     }
 
     function shuffle(items) {
@@ -2101,7 +2228,7 @@ let levels = gradeData[currentGrade].levels;
       phase = "study";
       studyIndex = 0;
       nextButton.textContent = "Next Question";
-      levelTitle.textContent = `${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`;
+      levelTitle.textContent = "";
       updateGradeDisplay();
       renderVocabularyList();
       updateScore();
@@ -2125,16 +2252,18 @@ let levels = gradeData[currentGrade].levels;
           });
         }
         storedMissedWords = Array.isArray(saved.missedWords) ? saved.missedWords : [];
+        missedWordsReviewedForFinal = saved.missedWordsReviewedForFinal === true;
       } catch {
         levelIndex = 0;
         passedLevels.clear();
         storedMissedWords = [];
+        missedWordsReviewedForFinal = false;
       }
     }
 
     function updateGradeDisplay() {
       const grade4Unlocked = gradeIsComplete("grade3");
-      gradeBadge.textContent = gradeData[currentGrade].label;
+      gradeBadge.textContent = "马立平中文";
       grade3Button.classList.toggle("active", currentGrade === "grade3");
       grade4Button.classList.toggle("active", currentGrade === "grade4");
       grade4Button.disabled = !grade4Unlocked;
@@ -2168,7 +2297,8 @@ let levels = gradeData[currentGrade].levels;
         localStorage.setItem(currentProgressKey(), JSON.stringify({
           levelIndex,
           passedLevels: [...passedLevels],
-          missedWords: storedMissedWords
+          missedWords: storedMissedWords,
+          missedWordsReviewedForFinal
         }));
       } catch {
         // Progress saving is helpful, but the quiz should still work if browser storage is unavailable.
@@ -2200,11 +2330,16 @@ let levels = gradeData[currentGrade].levels;
       testModeButton.classList.remove("active");
       studyPanel.classList.add("active");
       dashboardPanel.classList.remove("active");
-      promptLabel.textContent = `${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}: Study first`;
+      promptLabel.textContent = "";
+      updateModeAction();
       updateDashboard();
     }
 
-    function startTest() {
+    function handleModeAction() {
+      if (phase === "test") {
+        showStudyMode();
+        return;
+      }
       if (testMode === "review-bank" && phase === "study" && storedMissedWords.length) {
         startStoredMissedPractice();
         return;
@@ -2215,8 +2350,20 @@ let levels = gradeData[currentGrade].levels;
       beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
     }
 
+    function startTest() {
+      handleModeAction();
+    }
+
     function startFinalTest() {
       if (!allLevelsPassed()) return;
+      if (storedMissedWords.length && !missedWordsReviewedForFinal) {
+        showModal(
+          "Review first",
+          `You still have ${storedMissedWords.length} saved missed words. Complete Test Missed Words once, then the Final Test will be ready.`,
+          "OK"
+        );
+        return;
+      }
       startFinalTestPreview();
     }
 
@@ -2262,14 +2409,15 @@ let levels = gradeData[currentGrade].levels;
       nextAction = null;
       nextButton.style.display = "none";
       nextButton.textContent = "Next Question";
-      startTestButton.style.display = "none";
+      startTestButton.style.display = "";
       restartButton.classList.remove("restart-test-button");
       finalTestButton.style.display = "";
       studyModeButton.classList.add("active");
       testModeButton.classList.remove("active");
       studyPanel.classList.add("active");
       dashboardPanel.classList.remove("active");
-      promptLabel.textContent = "Missed Word Review: Study first";
+      promptLabel.textContent = "";
+      updateModeAction();
       updateStudyCard();
       renderVocabularyList();
       updateDashboard();
@@ -2287,11 +2435,11 @@ let levels = gradeData[currentGrade].levels;
       levelMissedWords = [];
       reviewBankCorrectWords = [];
       nextAction = null;
-      levelTitle.textContent = title;
+      levelTitle.textContent = "";
       nextButton.disabled = false;
       nextButton.style.display = "none";
       nextButton.textContent = "Next Question";
-      startTestButton.style.display = "none";
+      startTestButton.style.display = "";
       restartButton.classList.add("restart-test-button");
       scoreboard.style.display = "none";
       questionPanel.classList.remove("is-study");
@@ -2303,6 +2451,7 @@ let levels = gradeData[currentGrade].levels;
       studyPanel.classList.remove("active");
       dashboardPanel.classList.add("active");
       updateScore();
+      updateModeAction();
       updateDashboard();
       chooseQuestion();
     }
@@ -2332,14 +2481,7 @@ let levels = gradeData[currentGrade].levels;
       const correctAnswer = current.pinyin;
       const answers = answerChoicesFor(current);
 
-      const testLabel = testMode === "final"
-        ? "Final Test"
-        : testMode === "review"
-        ? "Missed Words"
-        : testMode === "review-bank"
-        ? "Missed Word Review"
-        : `${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`;
-      promptLabel.textContent = `${testLabel}: Choose the correct pinyin`;
+      promptLabel.textContent = "";
       prompt.textContent = current.character;
       choices.innerHTML = "";
 
@@ -2480,12 +2622,15 @@ let levels = gradeData[currentGrade].levels;
 
     function updateFinalTestState() {
       const unlocked = allLevelsPassed();
+      const blockedByMisses = unlocked && storedMissedWords.length > 0 && !missedWordsReviewedForFinal;
       finalTestButton.style.display = "";
-      finalTestButton.disabled = !unlocked;
+      finalTestButton.disabled = !unlocked || blockedByMisses;
       finalTestNote.style.display = "";
-      finalTestNote.textContent = unlocked
-        ? "Unlocked: 30 random words from all levels."
-        : "Complete all levels to unlock.";
+      finalTestNote.textContent = !unlocked
+        ? "Complete all levels to unlock."
+        : blockedByMisses
+        ? "Test saved missed words once to unlock."
+        : "Unlocked: 30 random words from all levels.";
     }
 
     function stopForRestart() {
@@ -2519,8 +2664,9 @@ let levels = gradeData[currentGrade].levels;
 
       if (score >= passScore) {
         showPromptMessage("wán chéng", "完成");
-        feedback.textContent = `Final Test passed: ${score}/${vocabulary.length} correct.`;
+        feedback.textContent = `Final Test passed: ${score}/${vocabulary.length} correct!`;
         feedback.className = "feedback good";
+        showModal("Excellent work!", "You passed the Final Test!", "Celebrate");
       } else {
         showPromptMessage("fù xí", "复习");
         feedback.textContent = `Final Test score: ${score}/${vocabulary.length}. Review the missed words below, then try again.`;
@@ -2570,6 +2716,11 @@ let levels = gradeData[currentGrade].levels;
       choices.innerHTML = "";
       showPromptMessage("fù xí", "复习");
       const removedCount = activeReviewSource === "stored" ? removeMasteredMissedWords(reviewBankCorrectWords) : 0;
+      if (activeReviewSource === "stored") {
+        missedWordsReviewedForFinal = true;
+        saveProgress();
+        updateDashboard();
+      }
       feedback.textContent = activeReviewSource === "stored"
         ? `Missed-word practice complete: ${score}/${vocabulary.length} correct. ${removedCount} word${removedCount === 1 ? "" : "s"} removed from your missed list. ${storedMissedWords.length} still left to review.`
         : `Missed-word practice complete: ${score}/${vocabulary.length} correct.`;
@@ -2596,12 +2747,14 @@ let levels = gradeData[currentGrade].levels;
       const percentCorrect = score / vocabulary.length;
 
       if (percentCorrect >= 0.9 && levelIndex < levels.length - 1) {
+        rememberMissedWords(levelMissedWords);
         passedLevels.add(levelIndex);
         saveProgress();
         updateDashboard();
         showPromptMessage("shēng jí", "升级");
-        feedback.textContent = `Great work: ${score}/${vocabulary.length} correct. You passed ${levels[levelIndex].name}.`;
+        feedback.textContent = `Great work: ${score}/${vocabulary.length} correct! You passed ${levels[levelIndex].name}!`;
         feedback.className = "feedback good";
+        celebratePass("Great work!", `You passed ${levels[levelIndex].name}!`);
         const advanceButton = document.createElement("button");
         advanceButton.className = "primary advance-button";
         advanceButton.type = "button";
@@ -2609,12 +2762,14 @@ let levels = gradeData[currentGrade].levels;
         advanceButton.addEventListener("click", () => startLevel(levelIndex + 1));
         feedback.append(document.createElement("br"), advanceButton);
       } else if (percentCorrect >= 0.9) {
+        rememberMissedWords(levelMissedWords);
         passedLevels.add(levelIndex);
         saveProgress();
         updateDashboard();
         showPromptMessage("wán chéng", "完成");
-        feedback.textContent = `Excellent: ${score}/${vocabulary.length} correct. All levels are complete.`;
+        feedback.textContent = `Excellent: ${score}/${vocabulary.length} correct! All levels are complete!`;
         feedback.className = "feedback good";
+        celebratePass("Excellent work!", "All levels are complete!");
         const finalButton = document.createElement("button");
         finalButton.className = "primary advance-button";
         finalButton.type = "button";
@@ -2653,8 +2808,7 @@ let levels = gradeData[currentGrade].levels;
     startTestButton.addEventListener("click", startTest);
     finalTestButton.addEventListener("click", startFinalTest);
     teacherPreviewButton.addEventListener("click", startFinalTestPreview);
-    studyModeButton.addEventListener("click", showStudyMode);
-    testModeButton.addEventListener("click", startTest);
+    modalCloseButton.addEventListener("click", hideModal);
     previousStudyButton.addEventListener("click", () => {
       studyIndex = (studyIndex - 1 + vocabulary.length) % vocabulary.length;
       updateStudyCard();
