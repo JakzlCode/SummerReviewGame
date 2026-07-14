@@ -1,0 +1,2675 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2026 Summer Review</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1f2933;
+      --muted: #667085;
+      --line: #d6dde8;
+      --paper: #ffffff;
+      --accent: #e65336;
+      --accent-dark: #c13b24;
+      --blue: #2f6fed;
+      --blue-dark: #244fa8;
+      --charcoal: #1c2533;
+      --good: #177245;
+      --bad: #b42318;
+      --soft: #f3f6fb;
+      --gold: #f3a51d;
+      --teal: #14a7a0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        linear-gradient(135deg, rgba(47, 111, 237, 0.07) 25%, transparent 25%) 0 0 / 28px 28px,
+        linear-gradient(180deg, #f7faff 0%, #fffdf8 46%, #eef7f5 100%);
+      color: var(--ink);
+    }
+
+    .watermark {
+      position: fixed;
+      left: 12px;
+      bottom: 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(31, 41, 51, 0.45);
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.55;
+      z-index: 0;
+    }
+
+    main {
+      width: min(960px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 40px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 310px);
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 18px;
+      border: 1px solid rgba(217, 222, 231, 0.9);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 251, 255, 0.88)),
+        linear-gradient(135deg, rgba(20, 167, 160, 0.08), rgba(47, 111, 237, 0.08));
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 18px 45px rgba(31, 41, 51, 0.07);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .title-pinyin {
+      margin: 0 0 8px;
+      color: var(--blue-dark);
+      font-size: clamp(1rem, 2.6vw, 1.45rem);
+      font-weight: 800;
+    }
+
+    .hero-copy {
+      max-width: 520px;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .visual-card {
+      width: min(310px, 100%);
+      min-height: 150px;
+      border-radius: 8px;
+      background:
+        linear-gradient(145deg, rgba(28, 37, 51, 0.98), rgba(34, 49, 72, 0.96));
+      color: white;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(28, 37, 51, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      display: grid;
+      place-items: center;
+    }
+
+    .visual-card::before {
+      content: "";
+      position: absolute;
+      inset: -58px -38px auto auto;
+      width: 190px;
+      height: 190px;
+      border-radius: 34px;
+      transform: rotate(18deg);
+      background: rgba(20, 167, 160, 0.72);
+    }
+
+    .visual-card::after {
+      content: "";
+      position: absolute;
+      inset: auto auto -78px -36px;
+      width: 185px;
+      height: 185px;
+      border-radius: 50%;
+      border: 22px solid rgba(47, 111, 237, 0.68);
+    }
+
+    .visual-card strong {
+      position: relative;
+      z-index: 1;
+      display: block;
+      font-size: 1.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      color: rgba(255, 255, 255, 0.94);
+      text-align: center;
+    }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(76px, 1fr));
+      gap: 8px;
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.82);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.35rem;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      border-block: 1px solid var(--line);
+      padding: 14px 0;
+      margin-bottom: 22px;
+    }
+
+    .toolbar strong {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 8px;
+      padding: 0 12px;
+      background: rgba(47, 111, 237, 0.09);
+      color: var(--blue-dark);
+    }
+
+    .phase-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .grade-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 16px;
+      padding: 8px;
+      border: 1px solid rgba(47, 111, 237, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.76);
+    }
+
+    .grade-tabs button {
+      min-height: 54px;
+      font-size: 1.05rem;
+      border-color: rgba(20, 167, 160, 0.28);
+      background: rgba(235, 248, 247, 0.92);
+      color: #08746f;
+    }
+
+    .grade-tabs button.active {
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      border-color: transparent;
+      color: white;
+    }
+
+    .grade-lock-note {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .final-test-area {
+      display: grid;
+      gap: 4px;
+    }
+
+    .final-test-note {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      max-width: 190px;
+    }
+
+    .teacher-preview-button {
+      min-height: 34px;
+      color: var(--muted);
+      border-style: dashed;
+      font-size: 0.86rem;
+    }
+
+    .grade-preview-button {
+      min-height: 34px;
+      margin-top: 8px;
+      color: var(--blue-dark);
+      border-color: rgba(47, 111, 237, 0.26);
+      border-style: dashed;
+      background: rgba(47, 111, 237, 0.08);
+      font-size: 0.86rem;
+    }
+
+    button {
+      min-height: 42px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 0 14px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      border-color: var(--accent);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    button.active,
+    button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    button.primary:hover {
+      background: var(--accent-dark);
+    }
+
+    .blue-button {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+
+    .blue-button:hover {
+      background: var(--blue-dark);
+    }
+
+    .restart-test-button {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #382407;
+    }
+
+    .restart-test-button:hover {
+      border-color: #c77d05;
+    }
+
+    .practice {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .question-panel,
+    .list-panel {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .question-panel {
+      min-height: 430px;
+    }
+
+    .prompt-label {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .character {
+      display: grid;
+      place-items: center;
+      min-height: 210px;
+      margin: 0 0 16px;
+      border-radius: 8px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: inset 0 -8px 0 rgba(47, 111, 237, 0.04);
+      font-size: clamp(4rem, 16vw, 8rem);
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .prompt-stack {
+      display: grid;
+      gap: 12px;
+      place-items: center;
+    }
+
+    .prompt-pinyin {
+      color: var(--blue-dark);
+      font-size: clamp(1.2rem, 4vw, 2rem);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .prompt-chinese {
+      font-size: clamp(3.4rem, 14vw, 7rem);
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .study-card {
+      display: none;
+      min-height: 290px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(248, 251, 255, 0.96)),
+        radial-gradient(circle at 22px 22px, rgba(20, 167, 160, 0.12) 2px, transparent 3px);
+      background-size: auto, 38px 38px;
+      border: 1px solid var(--line);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .study-card.active {
+      display: grid;
+      place-items: center;
+    }
+
+    .study-word {
+      font-size: clamp(3rem, 12vw, 6.5rem);
+      line-height: 1.05;
+      font-weight: 900;
+      margin: 10px 0 0;
+    }
+
+    .study-pinyin {
+      margin: 0 0 12px;
+      color: var(--blue-dark);
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      font-weight: 800;
+    }
+
+    .study-meaning {
+      min-height: 1.35em;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .study-controls {
+      display: none;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .study-controls.active {
+      display: grid;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      padding: 4px;
+    }
+
+    .choice {
+      white-space: normal;
+      line-height: 1.2;
+      padding: 14px 18px;
+      min-height: 64px;
+      border-radius: 999px;
+      border: 2px solid rgba(47, 111, 237, 0.16);
+      background:
+        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.95) 0 18%, transparent 19%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(238, 247, 245, 0.96));
+      box-shadow: 0 10px 24px rgba(47, 111, 237, 0.1);
+      color: var(--blue-dark);
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+
+    .choice:nth-child(2) {
+      border-color: rgba(20, 167, 160, 0.22);
+      color: #08746f;
+    }
+
+    .choice:nth-child(3) {
+      border-color: rgba(243, 165, 29, 0.28);
+      color: #86540a;
+    }
+
+    .choice:nth-child(4) {
+      border-color: rgba(230, 83, 54, 0.2);
+      color: var(--accent-dark);
+    }
+
+    .choice:hover {
+      transform: translateY(-2px);
+      border-color: currentColor;
+      box-shadow: 0 14px 30px rgba(31, 41, 51, 0.13);
+    }
+
+    .choice:disabled {
+      cursor: default;
+      transform: none;
+    }
+
+    .choice.correct-answer {
+      border-color: rgba(20, 125, 75, 0.72);
+      background:
+        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.96) 0 18%, transparent 19%),
+        linear-gradient(135deg, rgba(222, 247, 232, 0.98), rgba(198, 239, 217, 0.96));
+      color: var(--good);
+      box-shadow: 0 14px 30px rgba(20, 125, 75, 0.16);
+    }
+
+    .choice.wrong-answer {
+      border-color: rgba(230, 83, 54, 0.72);
+      background:
+        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.92) 0 18%, transparent 19%),
+        linear-gradient(135deg, rgba(255, 232, 226, 0.98), rgba(250, 208, 198, 0.92));
+      color: var(--bad);
+    }
+
+    .feedback {
+      min-height: 32px;
+      margin: 14px 0 0;
+      font-weight: 800;
+    }
+
+    .feedback.good {
+      color: var(--good);
+    }
+
+    .feedback.bad {
+      color: var(--bad);
+    }
+
+    .answer-action-row {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .answer-reveal {
+      display: inline-grid;
+      gap: 5px;
+      border-radius: 8px;
+      border: 1px solid rgba(20, 125, 75, 0.24);
+      background: rgba(20, 125, 75, 0.08);
+      color: var(--ink);
+      padding: 10px 12px;
+    }
+
+    .answer-reveal strong {
+      color: var(--good);
+      font-size: 1.18rem;
+    }
+
+    .list-panel h2 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+
+    .panel-view {
+      display: none;
+    }
+
+    .panel-view.active {
+      display: block;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .dashboard-stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .dash-card {
+      min-height: 76px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      padding: 10px;
+    }
+
+    .dash-card.current-test-level {
+      min-height: 76px;
+      background:
+        linear-gradient(135deg, rgba(47, 111, 237, 0.16), rgba(20, 167, 160, 0.14)),
+        white;
+      border-color: rgba(47, 111, 237, 0.38);
+      box-shadow: 0 14px 30px rgba(47, 111, 237, 0.12);
+    }
+
+    .dash-card strong {
+      display: block;
+      font-size: 1.35rem;
+      line-height: 1.1;
+    }
+
+    .dash-card.current-test-level strong {
+      color: var(--blue-dark);
+      font-size: 2rem;
+    }
+
+    .dash-card span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .study-progress {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .current-level-card {
+      display: grid;
+      gap: 6px;
+      align-items: center;
+      border-radius: 8px;
+      padding: 10px;
+      background:
+        linear-gradient(135deg, rgba(47, 111, 237, 0.12), rgba(20, 167, 160, 0.1)),
+        white;
+      border: 1px solid rgba(47, 111, 237, 0.24);
+    }
+
+    .current-level-card strong {
+      display: block;
+      color: var(--blue-dark);
+      font-size: 2.05rem;
+      line-height: 1;
+    }
+
+    .current-level-card span {
+      display: block;
+      margin-top: 0;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .grade-kicker {
+      color: #08746f;
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .level-card-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .level-label {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .study-progress-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .mini-stat {
+      min-height: 48px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      padding: 8px;
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .mini-stat span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .study-progress .progress-bar {
+      height: 8px;
+      margin: 0;
+    }
+
+    .progress-bar {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #eef2f7;
+      margin: 10px 0 16px;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--teal), var(--gold));
+      transition: width 180ms ease;
+    }
+
+    .level-tracker {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .level-dot {
+      min-height: 34px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 0.82rem;
+    }
+
+    .advance-button {
+      margin-top: 14px;
+    }
+
+    .review-bank-button {
+      width: 100%;
+      margin: 12px 0 8px;
+      border-color: rgba(20, 167, 160, 0.3);
+      background: rgba(235, 248, 247, 0.96);
+      color: #08746f;
+    }
+
+    .review-bank-actions {
+      display: grid;
+      gap: 8px;
+      margin: 12px 0 8px;
+    }
+
+    .review-bank-actions .review-bank-button {
+      margin: 0;
+    }
+
+    .missed-review {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+      text-align: left;
+    }
+
+    .missed-review-note {
+      border-radius: 8px;
+      border: 1px solid rgba(230, 83, 54, 0.22);
+      background: rgba(230, 83, 54, 0.08);
+      color: var(--bad);
+      padding: 10px 12px;
+      font-weight: 900;
+    }
+
+    .missed-review-note span {
+      display: block;
+      margin-top: 3px;
+      color: var(--ink);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .missed-review div {
+      display: grid;
+      grid-template-columns: minmax(86px, max-content) 1fr;
+      gap: 10px;
+      align-items: center;
+      border-radius: 8px;
+      background: var(--soft);
+      padding: 8px;
+    }
+
+    .missed-review b {
+      white-space: nowrap;
+      font-size: 1.25rem;
+    }
+
+    .missed-review span {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .level-dot.current {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+
+    .level-dot.passed {
+      background: rgba(23, 114, 69, 0.12);
+      border-color: rgba(23, 114, 69, 0.4);
+      color: var(--good);
+    }
+
+    .dashboard-note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .vocab-list {
+      display: grid;
+      gap: 8px;
+      max-height: 385px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .vocab-item {
+      display: grid;
+      grid-template-columns: minmax(86px, max-content) 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 8px;
+      border-radius: 8px;
+      background: var(--soft);
+    }
+
+    .vocab-item b {
+      font-size: 1.55rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .vocab-item span {
+      color: var(--muted);
+      font-weight: 700;
+      min-width: 0;
+    }
+
+    @media (max-width: 760px) {
+      header,
+      .practice {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      header {
+        align-items: stretch;
+      }
+
+      .visual-card {
+        width: 100%;
+      }
+
+      .choices {
+        grid-template-columns: 1fr;
+      }
+
+      .study-controls {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="hero-copy">
+        <h1>2026 Summer Review</h1>
+        <p class="subtitle">Study the words, then clear each level by choosing the correct pinyin.</p>
+        <div class="grade-tabs" aria-label="Grade selection">
+          <button id="grade3Button" class="active" type="button">Grade 3</button>
+          <button id="grade4Button" type="button">Grade 4</button>
+        </div>
+        <span class="grade-lock-note" id="gradeLockNote">Grade 4 unlocks after Grade 3 is complete.</span>
+        <button id="grade4PreviewButton" class="grade-preview-button" type="button">Teacher Preview Grade 4</button>
+      </div>
+      <div class="visual-card" aria-hidden="true">
+        <strong id="gradeBadge">马立平三年级</strong>
+      </div>
+      <section class="scoreboard" id="scoreboard" aria-label="Score">
+        <div class="stat"><strong id="score">0</strong><span>Score</span></div>
+        <div class="stat"><strong id="missed">0</strong><span>Missed</span></div>
+        <div class="stat"><strong id="progress">0/0</strong><span>Progress</span></div>
+      </section>
+    </header>
+
+    <section class="toolbar" aria-label="Practice settings">
+      <strong id="levelTitle">Level 1</strong>
+      <div class="phase-tabs">
+        <button id="studyModeButton" class="active" type="button">Study</button>
+        <button id="testModeButton" type="button">Test</button>
+      </div>
+      <button id="startTestButton" class="blue-button" type="button">Start Test</button>
+      <div class="final-test-area">
+        <button id="finalTestButton" class="blue-button" type="button">Final Test</button>
+        <button id="teacherPreviewButton" class="teacher-preview-button" type="button">Teacher Preview</button>
+        <span class="final-test-note" id="finalTestNote">Complete all levels to unlock.</span>
+      </div>
+      <button id="nextButton" class="primary" type="button" style="display: none;">Next Question</button>
+      <button id="restartButton" type="button">Restart Level</button>
+    </section>
+
+    <section class="practice">
+      <article class="question-panel">
+        <p class="prompt-label" id="promptLabel">Choose the correct pinyin</p>
+        <div class="study-card active" id="studyCard">
+          <div>
+            <p class="study-pinyin" id="studyPinyin">xié zi</p>
+            <p class="study-word" id="studyWord">鞋子</p>
+            <p class="study-meaning" id="studyMeaning"></p>
+          </div>
+        </div>
+        <div class="study-controls active" id="studyControls">
+          <button id="previousStudyButton" type="button">Previous</button>
+          <button id="shuffleStudyButton" type="button">Shuffle</button>
+          <button id="nextStudyButton" type="button">Next</button>
+        </div>
+        <div class="character" id="prompt">你</div>
+        <div class="choices" id="choices"></div>
+        <p class="feedback" id="feedback" aria-live="polite"></p>
+      </article>
+
+      <aside class="list-panel">
+        <div class="panel-view active" id="studyPanel">
+          <div class="study-progress">
+            <div class="current-level-card">
+              <span class="grade-kicker" id="studyCurrentGrade">Grade 3</span>
+              <div class="level-card-row">
+                <strong id="studyCurrentLevel">1.1</strong>
+                <span class="level-label">Current Level</span>
+              </div>
+            </div>
+            <div class="study-progress-row">
+              <div class="mini-stat"><strong id="studyLevelPosition">1/9</strong><span>Level</span></div>
+              <div class="mini-stat"><strong id="studyTotalLevels">9</strong><span>Total Levels</span></div>
+              <div class="mini-stat"><strong id="studyWordCount">16</strong><span>Words</span></div>
+            </div>
+            <div class="progress-bar" aria-label="Study level progress">
+              <div class="progress-fill" id="studyProgressFill"></div>
+            </div>
+          </div>
+          <h2>Full Word List of This Level</h2>
+          <div class="vocab-list" id="vocabList"></div>
+        </div>
+        <div class="panel-view" id="dashboardPanel">
+          <h2>Dashboard</h2>
+          <div class="dashboard-grid">
+            <div class="dash-card current-test-level">
+              <span class="grade-kicker" id="dashGrade">Grade 3</span>
+              <div class="level-card-row">
+                <strong id="dashLevel">1</strong>
+                <span class="level-label">Current Level</span>
+              </div>
+            </div>
+            <div class="dashboard-stat-row">
+              <div class="dash-card"><strong id="dashWords">0/16</strong><span>Correct</span></div>
+              <div class="dash-card"><strong id="dashAnswered">0</strong><span>Missed</span></div>
+              <div class="dash-card"><strong id="dashNeeded">15/16</strong><span id="dashNeededLabel">Needed</span></div>
+            </div>
+          </div>
+          <div class="progress-bar" aria-label="Test progress">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="review-bank-actions">
+            <button id="studyMissedButton" class="review-bank-button" type="button">Study Missed Words</button>
+            <button id="reviewMissedButton" class="review-bank-button" type="button">Test Missed Words</button>
+          </div>
+          <h2>Level Progress</h2>
+          <div class="level-tracker" id="levelTracker"></div>
+          <p class="dashboard-note" id="dashboardNote">The word list is hidden during the test.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <div class="watermark" aria-hidden="true">added to Github by Kasper</div>
+
+  <script>
+const gradeData = {
+  grade3: {
+    label: "马立平三年级",
+    shortLabel: "Grade 3",
+    levels: [
+      {
+        name: "1.1",
+        words: [
+          { character: "称象", pinyin: "chēng xiàng" },
+          { character: "从前", pinyin: "cóng qián" },
+          { character: "将军", pinyin: "jiāng jūn" },
+          { character: "名字", pinyin: "míng zi" },
+          { character: "运到", pinyin: "yùn dào" },
+          { character: "带着", pinyin: "dài zhe" },
+          { character: "喜欢", pinyin: "xǐ huan" },
+          { character: "办法", pinyin: "bàn fǎ" },
+          { character: "我先去", pinyin: "wǒ xiān qù" },
+          { character: "杀死", pinyin: "shā sǐ" },
+          { character: "切成", pinyin: "qiē chéng" },
+          { character: "一块", pinyin: "yí kuài" },
+          { character: "一直", pinyin: "yì zhí" },
+          { character: "摇头", pinyin: "yáo tóu" },
+          { character: "曹冲", pinyin: "cáo chōng" },
+          { character: "站出来", pinyin: "zhàn chū lái" },
+          { character: "站起来", pinyin: "zhàn qǐ lái" },
+          { character: "父亲", pinyin: "fù qīn" }
+        ]
+      },
+      {
+        name: "1.2",
+        words: [
+          { character: "母亲", pinyin: "mǔ qīn" },
+          { character: "合身的衣服", pinyin: "hé shēn de yī fu" },
+          { character: "赶路", pinyin: "gǎn lù" },
+          { character: "大船", pinyin: "dà chuán" },
+          { character: "沉下去", pinyin: "chén xià qù" },
+          { character: "沿着", pinyin: "yán zhe" },
+          { character: "旁边", pinyin: "páng biān" },
+          { character: "划线", pinyin: "huà xiàn" },
+          { character: "一条线", pinyin: "yì tiáo xiàn" },
+          { character: "上岸", pinyin: "shàng àn" },
+          { character: "装石头", pinyin: "zhuāng shí tou" },
+          { character: "等等我", pinyin: "děng deng wǒ" },
+          { character: "地方", pinyin: "dì fang" },
+          { character: "那些", pinyin: "nà xiē" },
+          { character: "多少斤", pinyin: "duō shǎo jīn" },
+          { character: "重量", pinyin: "zhòng liàng" }
+        ]
+      },
+      {
+        name: "2.1",
+        words: [
+          { character: "森林", pinyin: "sēn lín" },
+          { character: "老虎", pinyin: "lǎo hǔ" },
+          { character: "肚子", pinyin: "dù zi" },
+          { character: "饿肚子", pinyin: "è dù zi" },
+          { character: "找东西", pinyin: "zhǎo dōng xi" },
+          { character: "寻找", pinyin: "xún zhǎo" },
+          { character: "食物", pinyin: "shí wù" },
+          { character: "跳起来", pinyin: "tiào qǐ lái" },
+          { character: "扑过去", pinyin: "pū guò qù" },
+          { character: "抓住", pinyin: "zhuā zhù" },
+          { character: "狡猾", pinyin: "jiǎo huá" },
+          { character: "眼珠一转", pinyin: "yǎn zhū yí zhuàn" },
+          { character: "不要命", pinyin: "bú yào mìng" },
+          { character: "敢不敢", pinyin: "gǎn bu gǎn" },
+          { character: "反问", pinyin: "fǎn wèn" },
+          { character: "回答", pinyin: "huí dá" },
+          { character: "问题", pinyin: "wèn tí" },
+          { character: "吓死了", pinyin: "xià sǐ le" },
+          { character: "慢慢走", pinyin: "màn màn zǒu" }
+        ]
+      },
+      {
+        name: "2.2",
+        words: [
+          { character: "松开手", pinyin: "sōng kāi shǒu" },
+          { character: "爪子", pinyin: "zhuǎ zi" },
+          { character: "走一趟", pinyin: "zǒu yí tàng" },
+          { character: "威风", pinyin: "wēi fēng" },
+          { character: "一前一后", pinyin: "yì qián yí hòu" },
+          { character: "野猪", pinyin: "yě zhū" },
+          { character: "大灰狼", pinyin: "dà huī láng" },
+          { character: "梅花鹿", pinyin: "méi huā lù" },
+          { character: "平常", pinyin: "píng cháng" },
+          { character: "平时", pinyin: "píng shí" },
+          { character: "非常", pinyin: "fēi cháng" },
+          { character: "奇怪", pinyin: "qí guài" },
+          { character: "野兽", pinyin: "yě shòu" },
+          { character: "转身", pinyin: "zhuǎn shēn" },
+          { character: "凶恶", pinyin: "xiōng è" },
+          { character: "受骗", pinyin: "shòu piàn" },
+          { character: "借书", pinyin: "jiè shū" }
+        ]
+      },
+      {
+        name: "3.1",
+        words: [
+          { character: "公鸡", pinyin: "gōng jī" },
+          { character: "鸡蛋", pinyin: "jī dàn" },
+          { character: "皇帝", pinyin: "huáng dì" },
+          { character: "做官", pinyin: "zuò guān" },
+          { character: "孙子", pinyin: "sūn zi" },
+          { character: "总是", pinyin: "zǒng shì" },
+          { character: "饭菜", pinyin: "fàn cài" },
+          { character: "好像", pinyin: "hǎo xiàng" },
+          { character: "很重", pinyin: "hěn zhòng" },
+          { character: "很沉", pinyin: "hěn chén" },
+          { character: "很轻", pinyin: "hěn qīng" },
+          { character: "心事", pinyin: "xīn shì" },
+          { character: "关心", pinyin: "guān xīn" },
+          { character: "事情", pinyin: "shì qing" },
+          { character: "让人开心", pinyin: "ràng rén kāi xīn" },
+          { character: "让人放心", pinyin: "ràng rén fàng xīn" },
+          { character: "让我走", pinyin: "ràng wǒ zǒu" },
+          { character: "为难", pinyin: "wéi nán" },
+          { character: "帮助", pinyin: "bāng zhù" }
+        ]
+      },
+      {
+        name: "3.2",
+        words: [
+          { character: "摸着", pinyin: "mō zhe" },
+          { character: "肩膀", pinyin: "jiān bǎng" },
+          { character: "吸气", pinyin: "xī qì" },
+          { character: "苦笑", pinyin: "kǔ xiào" },
+          { character: "下令", pinyin: "xià lìng" },
+          { character: "命令", pinyin: "mìng lìng", meaning: "to order someone to do something; to instruct" },
+          { character: "两天之内", pinyin: "liǎng tiān zhī nèi" },
+          { character: "五天之内", pinyin: "wǔ tiān zhī nèi" },
+          { character: "实在", pinyin: "shí zài" },
+          { character: "办不到", pinyin: "bàn bú dào" },
+          { character: "虽然", pinyin: "suī rán" },
+          { character: "但是", pinyin: "dàn shì" },
+          { character: "改变", pinyin: "gǎi biàn" },
+          { character: "主意", pinyin: "zhǔ yi" },
+          { character: "好主意", pinyin: "hǎo zhǔ yi" },
+          { character: "坏主意", pinyin: "huài zhǔ yi" },
+          { character: "一定", pinyin: "yí dìng" },
+          { character: "放心", pinyin: "fàng xīn" },
+          { character: "说服", pinyin: "shuō fú" },
+          { character: "更好", pinyin: "gèng hǎo" }
+        ]
+      },
+      {
+        name: "3.3",
+        words: [
+          { character: "答应", pinyin: "dā yìng" },
+          { character: "留在", pinyin: "liú zài" },
+          { character: "外面", pinyin: "wài miàn" },
+          { character: "散步", pinyin: "sàn bù" },
+          { character: "跪下", pinyin: "guì xià" },
+          { character: "低头", pinyin: "dī tóu" },
+          { character: "请假", pinyin: "qǐng jià" },
+          { character: "病了", pinyin: "bìng le" },
+          { character: "昨天", pinyin: "zuó tiān" },
+          { character: "胡说", pinyin: "hú shuō" },
+          { character: "清楚", pinyin: "qīng chu" },
+          { character: "响亮", pinyin: "xiǎng liàng" },
+          { character: "既然", pinyin: "jì rán" },
+          { character: "求求你", pinyin: "qiú qiu nǐ" },
+          { character: "被打了", pinyin: "bèi dǎ le" },
+          { character: "被吃了", pinyin: "bèi chī le" },
+          { character: "被我吃了", pinyin: "bèi wǒ chī le" },
+          { character: "聪明", pinyin: "cōng míng" },
+          { character: "勇敢", pinyin: "yǒng gǎn" },
+          { character: "感动", pinyin: "gǎn dòng" },
+          { character: "立刻", pinyin: "lì kè" },
+          { character: "救人", pinyin: "jiù rén" }
+        ]
+      },
+      {
+        name: "4.1",
+        words: [
+          { character: "穷和尚", pinyin: "qióng hé shang" },
+          { character: "和尚", pinyin: "hé shang" },
+          { character: "富和尚", pinyin: "fù hé shang" },
+          { character: "穷人", pinyin: "qióng rén" },
+          { character: "富人", pinyin: "fù rén" },
+          { character: "西部", pinyin: "xī bù" },
+          { character: "四川", pinyin: "sì chuān" },
+          { character: "又胖又高", pinyin: "yòu pàng yòu gāo" },
+          { character: "另一个", pinyin: "lìng yí gè" },
+          { character: "另外", pinyin: "lìng wài" },
+          { character: "又瘦又穷", pinyin: "yòu shòu yòu qióng" },
+          { character: "南海", pinyin: "nán hǎi" },
+          { character: "拜佛", pinyin: "bài fó" },
+          { character: "愿意", pinyin: "yuàn yì" },
+          { character: "越过", pinyin: "yuè guò" },
+          { character: "打算", pinyin: "dǎ suàn" },
+          { character: "一碗米饭", pinyin: "yì wǎn mǐ fàn" },
+          { character: "木棒", pinyin: "mù bàng" },
+          { character: "足够", pinyin: "zú gòu" },
+          { character: "吃够了", pinyin: "chī gòu le" },
+          { character: "很久", pinyin: "hěn jiǔ" },
+          { character: "买好", pinyin: "mǎi hǎo" }
+        ]
+      },
+      {
+        name: "4.2",
+        words: [
+          { character: "需要", pinyin: "xū yào" },
+          { character: "很多钱", pinyin: "hěn duō qián" },
+          { character: "有钱", pinyin: "yǒu qián" },
+          { character: "因为", pinyin: "yīn wèi" },
+          { character: "很多", pinyin: "hěn duō" },
+          { character: "准备", pinyin: "zhǔn bèi" },
+          { character: "所以", pinyin: "suǒ yǐ" },
+          { character: "告别", pinyin: "gào bié" },
+          { character: "带着", pinyin: "dài zhe" },
+          { character: "日夜不停", pinyin: "rì yè bù tíng" },
+          { character: "饿了", pinyin: "è le" },
+          { character: "累了", pinyin: "lèi le" },
+          { character: "破庙", pinyin: "pò miào" },
+          { character: "休息", pinyin: "xiū xi" },
+          { character: "相信", pinyin: "xiāng xìn" },
+          { character: "一定", pinyin: "yí dìng" },
+          { character: "终于", pinyin: "zhōng yú" },
+          { character: "到达", pinyin: "dào dá" },
+          { character: "拜访", pinyin: "bài fǎng" },
+          { character: "送走", pinyin: "sòng zǒu" },
+          { character: "一本书", pinyin: "yì běn shū" },
+          { character: "课本", pinyin: "kè běn" },
+          { character: "课文", pinyin: "kè wén" }
+        ]
+      },
+      {
+        name: "5.1",
+        words: [
+          { character: "骆驼", pinyin: "luò tuó" },
+          { character: "商人", pinyin: "shāng rén" },
+          { character: "走丢了", pinyin: "zǒu diū le" },
+          { character: "一位老师", pinyin: "yí wèi lǎo shī" },
+          { character: "一位母亲", pinyin: "yí wèi mǔ qīn" },
+          { character: "赶紧", pinyin: "gǎn jǐn" },
+          { character: "迎上去", pinyin: "yíng shàng qù" },
+          { character: "受伤", pinyin: "shòu shāng" },
+          { character: "跟着", pinyin: "gēn zhe" },
+          { character: "驮着", pinyin: "tuó zhe" },
+          { character: "不错", pinyin: "bú cuò" },
+          { character: "缺少", pinyin: "quē shǎo" },
+          { character: "好极了", pinyin: "hǎo jí le" },
+          { character: "对极了", pinyin: "duì jí le" },
+          { character: "藏起来", pinyin: "cáng qǐ lái" }
+        ]
+      },
+      {
+        name: "5.2",
+        words: [
+          { character: "详细", pinyin: "xiáng xì" },
+          { character: "不紧不慢", pinyin: "bù jǐn bù màn" },
+          { character: "比较", pinyin: "bǐ jiào" },
+          { character: "深浅", pinyin: "shēn qiǎn" },
+          { character: "血迹", pinyin: "xuè jì" },
+          { character: "咬过", pinyin: "yǎo guò" },
+          { character: "牙齿", pinyin: "yá chǐ" },
+          { character: "牙齿印", pinyin: "yá chǐ yìn" },
+          { character: "究竟", pinyin: "jiū jìng" },
+          { character: "必须", pinyin: "bì xū" },
+          { character: "顺着", pinyin: "shùn zhe" },
+          { character: "脚印", pinyin: "jiǎo yìn" },
+          { character: "指点", pinyin: "zhǐ diǎn" },
+          { character: "继续", pinyin: "jì xù" },
+          { character: "果然", pinyin: "guǒ rán" }
+        ]
+      },
+      {
+        name: "6.1",
+        words: [
+          { character: "光阴", pinyin: "guāng yīn" },
+          { character: "返回", pinyin: "fǎn huí" },
+          { character: "谢谢", pinyin: "xiè xie" },
+          { character: "落地", pinyin: "luò dì" },
+          { character: "也许", pinyin: "yě xǔ" },
+          { character: "注意", pinyin: "zhù yì" },
+          { character: "不声不响", pinyin: "bù shēng bù xiǎng" },
+          { character: "匆忙", pinyin: "cōng máng" },
+          { character: "躺着", pinyin: "tǎng zhe" },
+          { character: "休息", pinyin: "xiū xi" },
+          { character: "方便", pinyin: "fāng biàn" },
+          { character: "床边", pinyin: "chuáng biān" },
+          { character: "床头", pinyin: "chuáng tóu" },
+          { character: "悄悄", pinyin: "qiāo qiāo" },
+          { character: "溜过去", pinyin: "liū guò qù" },
+          { character: "不知不觉", pinyin: "bù zhī bù jué" },
+          { character: "操场", pinyin: "cāo chǎng" },
+          { character: "打球", pinyin: "dǎ qiú" },
+          { character: "游戏", pinyin: "yóu xì" },
+          { character: "欢笑", pinyin: "huān xiào" },
+          { character: "墙上", pinyin: "qiáng shàng" }
+        ]
+      },
+      {
+        name: "6.2",
+        words: [
+          { character: "时钟", pinyin: "shí zhōng" },
+          { character: "或许", pinyin: "huò xǔ" },
+          { character: "响声", pinyin: "xiǎng shēng" },
+          { character: "一定", pinyin: "yí dìng" },
+          { character: "一秒钟", pinyin: "yì miǎo zhōng" },
+          { character: "一分钟", pinyin: "yì fēn zhōng" },
+          { character: "时间", pinyin: "shí jiān" },
+          { character: "很短", pinyin: "hěn duǎn" },
+          { character: "愿意", pinyin: "yuàn yì" },
+          { character: "实验", pinyin: "shí yàn" },
+          { character: "第一个", pinyin: "dì yī gè" },
+          { character: "拿东西", pinyin: "ná dōng xi" },
+          { character: "拿起笔", pinyin: "ná qǐ bǐ" },
+          { character: "开始", pinyin: "kāi shǐ" },
+          { character: "似乎", pinyin: "sì hū" },
+          { character: "使人放心", pinyin: "shǐ rén fàng xīn" },
+          { character: "使人开心", pinyin: "shǐ rén kāi xīn" },
+          { character: "许多", pinyin: "xǔ duō" },
+          { character: "伟大", pinyin: "wěi dà" },
+          { character: "人物", pinyin: "rén wù" },
+          { character: "动物", pinyin: "dòng wù" },
+          { character: "植物", pinyin: "zhí wù" },
+          { character: "成功", pinyin: "chéng gōng" },
+          { character: "一寸光阴", pinyin: "yí cùn guāng yīn" },
+          { character: "光阴", pinyin: "guāng yīn" },
+          { character: "努力", pinyin: "nǔ lì" },
+          { character: "懂了", pinyin: "dǒng le" }
+        ]
+      },
+      {
+        name: "7",
+        words: [
+          { character: "等一下", pinyin: "děng yí xià" },
+          { character: "再说", pinyin: "zài shuō" },
+          { character: "清晨", pinyin: "qīng chén" },
+          { character: "乡下", pinyin: "xiāng xià" },
+          { character: "年轻", pinyin: "nián qīng" },
+          { character: "小镇", pinyin: "xiǎo zhèn", meaning: "small town" },
+          { character: "市场", pinyin: "shì chǎng" },
+          { character: "两大筐", pinyin: "liǎng dà kuāng" },
+          { character: "驴子", pinyin: "lǘ zi", meaning: "donkey" },
+          { character: "饭店", pinyin: "fàn diàn" },
+          { character: "歪了", pinyin: "wāi le" },
+          { character: "收拾", pinyin: "shōu shi" },
+          { character: "没关系", pinyin: "méi guān xi" },
+          { character: "行人", pinyin: "xíng rén" },
+          { character: "简直", pinyin: "jiǎn zhí" },
+          { character: "山坡", pinyin: "shān pō" },
+          { character: "摔了", pinyin: "shuāi le" }
+        ]
+      }
+    ]
+  },
+  grade4: {
+    label: "马立平四年级",
+    shortLabel: "Grade 4",
+    levels: [
+      {
+        name: "1.1",
+        words: [
+          { character: "盼望", pinyin: "pàn wàng" },
+          { character: "试试", pinyin: "shì shi" },
+          { character: "穿过", pinyin: "chuān guò" },
+          { character: "鞋子", pinyin: "xié zi" },
+          { character: "戴过", pinyin: "dài guò" },
+          { character: "眼镜", pinyin: "yǎn jìng" },
+          { character: "围裙", pinyin: "wéi qún" },
+          { character: "一切", pinyin: "yí qiè" },
+          { character: "相反", pinyin: "xiāng fǎn" },
+          { character: "上班", pinyin: "shàng bān" },
+          { character: "作业", pinyin: "zuò yè" },
+          { character: "地板", pinyin: "dì bǎn" },
+          { character: "扫得", pinyin: "sǎo de" },
+          { character: "书架", pinyin: "shū jià" },
+          { character: "整理", pinyin: "zhěng lǐ" },
+          { character: "下楼", pinyin: "xià lóu" }
+        ]
+      },
+      {
+        name: "1.2",
+        words: [
+          { character: "惊奇", pinyin: "jīng qí" },
+          { character: "孙女", pinyin: "sūn nǚ" },
+          { character: "客人", pinyin: "kè rén" },
+          { character: "喝茶", pinyin: "hē chá" },
+          { character: "礼貌", pinyin: "lǐ mào" },
+          { character: "不但", pinyin: "bú dàn" },
+          { character: "而且", pinyin: "ér qiě" },
+          { character: "接待", pinyin: "jiē dài" },
+          { character: "尽管", pinyin: "jǐn guǎn" },
+          { character: "仍然", pinyin: "réng rán" },
+          { character: "短短", pinyin: "duǎn duǎn" },
+          { character: "感到", pinyin: "gǎn dào" },
+          { character: "衣服", pinyin: "yī fu" },
+          { character: "毫无用处", pinyin: "háo wú yòng chù" },
+          { character: "干干净净", pinyin: "gān gān jìng jìng" },
+          { character: "整整齐齐", pinyin: "zhěng zhěng qí qí" }
+        ]
+      },
+      {
+        name: "2.1",
+        words: [
+          { character: "生肖", pinyin: "shēng xiào" },
+          { character: "让步", pinyin: "ràng bù" },
+          { character: "种地", pinyin: "zhòng dì" },
+          { character: "种子", pinyin: "zhǒng zi" },
+          { character: "拉车", pinyin: "lā chē" },
+          { character: "帮手", pinyin: "bāng shǒu" },
+          { character: "眼珠", pinyin: "yǎn zhū" },
+          { character: "眼睛", pinyin: "yǎn jīng" },
+          { character: "眼镜", pinyin: "yǎn jìng" },
+          { character: "飞舞", pinyin: "fēi wǔ" },
+          { character: "白蛇", pinyin: "bái shé" },
+          { character: "青蛇", pinyin: "qīng shé" }
+        ]
+      },
+      {
+        name: "2.2",
+        words: [
+          { character: "骑兵", pinyin: "qí bīng" },
+          { character: "骑车", pinyin: "qí chē" },
+          { character: "冲杀", pinyin: "chōng shā" },
+          { character: "绵羊", pinyin: "mián yáng" },
+          { character: "衣裳", pinyin: "yī cháng" },
+          { character: "看家", pinyin: "kān jiā" },
+          { character: "小偷", pinyin: "xiǎo tōu" },
+          { character: "有趣", pinyin: "yǒu qù" },
+          { character: "小金龙", pinyin: "xiǎo jīn lóng" },
+          { character: "金丝猴", pinyin: "jīn sī hóu" },
+          { character: "翻跟斗", pinyin: "fān gēn dǒu" },
+          { character: "银环蛇", pinyin: "yín huán shé" },
+          { character: "旧衣服", pinyin: "jiù yī fu" },
+          { character: "我属猪", pinyin: "wǒ shǔ zhū" }
+        ]
+      },
+      {
+        name: "3.1",
+        words: [
+          { character: "抱一抱", pinyin: "bào yi bào" },
+          { character: "渔网", pinyin: "yú wǎng" },
+          { character: "扯来", pinyin: "chě lái" },
+          { character: "破布", pinyin: "pò bù" },
+          { character: "切碎", pinyin: "qiē suì" },
+          { character: "锅里", pinyin: "guō lǐ" },
+          { character: "煮面", pinyin: "zhǔ miàn" },
+          { character: "米糊", pinyin: "mǐ hú" },
+          { character: "纸浆", pinyin: "zhǐ jiāng" },
+          { character: "一层", pinyin: "yì céng" },
+          { character: "贴在", pinyin: "tiē zài" },
+          { character: "墙上", pinyin: "qiáng shàng" },
+          { character: "晒干", pinyin: "shài gān" },
+          { character: "晒太阳", pinyin: "shài tài yáng" },
+          { character: "试验", pinyin: "shì yàn" },
+          { character: "成功", pinyin: "chéng gōng" }
+        ]
+      },
+      {
+        name: "3.2",
+        words: [
+          { character: "厚衣服", pinyin: "hòu yī fu" },
+          { character: "舒服", pinyin: "shū fú" },
+          { character: "方便", pinyin: "fāng biàn" },
+          { character: "终于", pinyin: "zhōng yú" },
+          { character: "古代", pinyin: "gǔ dài" },
+          { character: "自行车", pinyin: "zì xíng chē" },
+          { character: "作出贡献", pinyin: "zuò chū gòng xiàn" },
+          { character: "之一", pinyin: "zhī yī" },
+          { character: "传到", pinyin: "chuán dào" },
+          { character: "亚洲", pinyin: "yà zhōu" },
+          { character: "欧洲", pinyin: "ōu zhōu" },
+          { character: "世界", pinyin: "shì jiè" },
+          { character: "文明", pinyin: "wén míng" },
+          { character: "贡献", pinyin: "gòng xiàn" },
+          { character: "四大发明", pinyin: "sì dà fā míng" }
+        ]
+      },
+      {
+        name: "4.1",
+        words: [
+          { character: "田忌", pinyin: "tián jì" },
+          { character: "赛马", pinyin: "sài mǎ" },
+          { character: "历史", pinyin: "lì shǐ" },
+          { character: "曾经", pinyin: "céng jīng" },
+          { character: "两段", pinyin: "liǎng duàn" },
+          { character: "特殊", pinyin: "tè shū" },
+          { character: "时期", pinyin: "shí qī" },
+          { character: "时间", pinyin: "shí jiān" },
+          { character: "战国", pinyin: "zhàn guó" },
+          { character: "原来", pinyin: "yuán lái" },
+          { character: "打仗", pinyin: "dǎ zhàng" },
+          { character: "抢夺", pinyin: "qiǎng duó" },
+          { character: "国家", pinyin: "guó jiā" },
+          { character: "外国", pinyin: "wài guó" },
+          { character: "战争", pinyin: "zhàn zhēng" },
+          { character: "扩大", pinyin: "kuò dà" },
+          { character: "灭亡", pinyin: "miè wáng" },
+          { character: "剩下", pinyin: "shèng xià" },
+          { character: "能够", pinyin: "néng gòu" },
+          { character: "统一", pinyin: "tǒng yī" },
+          { character: "齐国", pinyin: "qí guó" }
+        ]
+      },
+      {
+        name: "4.2",
+        words: [
+          { character: "大将", pinyin: "dà jiàng" },
+          { character: "喜欢", pinyin: "xǐ huān" },
+          { character: "比赛", pinyin: "bǐ sài" },
+          { character: "等级", pinyin: "děng jí" },
+          { character: "上等", pinyin: "shàng děng" },
+          { character: "中等", pinyin: "zhōng děng" },
+          { character: "下等", pinyin: "xià děng" },
+          { character: "因为", pinyin: "yīn wèi" },
+          { character: "所以", pinyin: "suǒ yǐ" },
+          { character: "因此", pinyin: "yīn cǐ" },
+          { character: "失败", pinyin: "shī bài" },
+          { character: "一匹马", pinyin: "yì pǐ mǎ" },
+          { character: "同样", pinyin: "tóng yàng" },
+          { character: "刚才", pinyin: "gāng cái" },
+          { character: "情形", pinyin: "qíng xíng" },
+          { character: "打断", pinyin: "dǎ duàn" },
+          { character: "挖苦", pinyin: "wā kǔ" },
+          { character: "取胜", pinyin: "qǔ shèng" },
+          { character: "半信半疑", pinyin: "bàn xìn bàn yí" },
+          { character: "另外", pinyin: "lìng wài" }
+        ]
+      },
+      {
+        name: "4.3",
+        words: [
+          { character: "换个时间", pinyin: "huàn gè shí jiān" },
+          { character: "换匹马", pinyin: "huàn pǐ mǎ" },
+          { character: "得意洋洋", pinyin: "dé yì yáng yáng" },
+          { character: "奔跑", pinyin: "bēn pǎo" },
+          { character: "胜利", pinyin: "shèng lì" },
+          { character: "箭头", pinyin: "jiàn tóu" },
+          { character: "服气", pinyin: "fú qì" },
+          { character: "当然", pinyin: "dāng rán" },
+          { character: "咱们", pinyin: "zán men" },
+          { character: "输了", pinyin: "shū le" },
+          { character: "接着", pinyin: "jiē zhe" },
+          { character: "结果", pinyin: "jié guǒ" },
+          { character: "赢了", pinyin: "yíng le" },
+          { character: "出场", pinyin: "chū chǎng" },
+          { character: "顺序", pinyin: "shùn xù" },
+          { character: "换个顺序", pinyin: "huàn gè shùn xù" },
+          { character: "转败为胜", pinyin: "zhuǎn bài wéi shèng" }
+        ]
+      }
+    ]
+  }
+};
+
+let currentGrade = "grade3";
+let levels = gradeData[currentGrade].levels;
+
+    let levelIndex = 0;
+    let vocabulary = levels[levelIndex].words;
+    let questionQueue = [];
+    let current = null;
+    let score = 0;
+    let missed = 0;
+    let answeredCount = 0;
+    let answered = false;
+    let testStopped = false;
+    let phase = "study";
+    let studyIndex = 0;
+    let testMode = "level";
+    let finalMissedWords = [];
+    let levelMissedWords = [];
+    let storedMissedWords = [];
+    let reviewBankCorrectWords = [];
+    let activeReviewSource = "";
+    let nextAction = null;
+    const finalTestSize = 30;
+    const progressKeyBase = "mlp-2026-summer-review-progress";
+    const passedLevels = new Set();
+
+    const questionPanel = document.querySelector(".question-panel");
+    const prompt = document.querySelector("#prompt");
+    const promptLabel = document.querySelector("#promptLabel");
+    const choices = document.querySelector("#choices");
+    const feedback = document.querySelector("#feedback");
+    const gradeBadge = document.querySelector("#gradeBadge");
+    const scoreboard = document.querySelector("#scoreboard");
+    const scoreDisplay = document.querySelector("#score");
+    const missedDisplay = document.querySelector("#missed");
+    const progressDisplay = document.querySelector("#progress");
+    const nextButton = document.querySelector("#nextButton");
+    const restartButton = document.querySelector("#restartButton");
+    const startTestButton = document.querySelector("#startTestButton");
+    const finalTestButton = document.querySelector("#finalTestButton");
+    const teacherPreviewButton = document.querySelector("#teacherPreviewButton");
+    const finalTestNote = document.querySelector("#finalTestNote");
+    const gradeLockNote = document.querySelector("#gradeLockNote");
+    const grade3Button = document.querySelector("#grade3Button");
+    const grade4Button = document.querySelector("#grade4Button");
+    const grade4PreviewButton = document.querySelector("#grade4PreviewButton");
+    const studyModeButton = document.querySelector("#studyModeButton");
+    const testModeButton = document.querySelector("#testModeButton");
+    const studyCard = document.querySelector("#studyCard");
+    const studyControls = document.querySelector("#studyControls");
+    const studyWord = document.querySelector("#studyWord");
+    const studyPinyin = document.querySelector("#studyPinyin");
+    const studyMeaning = document.querySelector("#studyMeaning");
+    const previousStudyButton = document.querySelector("#previousStudyButton");
+    const nextStudyButton = document.querySelector("#nextStudyButton");
+    const shuffleStudyButton = document.querySelector("#shuffleStudyButton");
+    const levelTitle = document.querySelector("#levelTitle");
+    const studyPanel = document.querySelector("#studyPanel");
+    const dashboardPanel = document.querySelector("#dashboardPanel");
+    const dashGrade = document.querySelector("#dashGrade");
+    const dashLevel = document.querySelector("#dashLevel");
+    const dashWords = document.querySelector("#dashWords");
+    const dashAnswered = document.querySelector("#dashAnswered");
+    const dashNeeded = document.querySelector("#dashNeeded");
+    const dashNeededLabel = document.querySelector("#dashNeededLabel");
+    const progressFill = document.querySelector("#progressFill");
+    const studyMissedButton = document.querySelector("#studyMissedButton");
+    const reviewMissedButton = document.querySelector("#reviewMissedButton");
+    const levelTracker = document.querySelector("#levelTracker");
+    const dashboardNote = document.querySelector("#dashboardNote");
+    const studyCurrentGrade = document.querySelector("#studyCurrentGrade");
+    const studyCurrentLevel = document.querySelector("#studyCurrentLevel");
+    const studyLevelPosition = document.querySelector("#studyLevelPosition");
+    const studyTotalLevels = document.querySelector("#studyTotalLevels");
+    const studyWordCount = document.querySelector("#studyWordCount");
+    const studyProgressFill = document.querySelector("#studyProgressFill");
+
+    function currentProgressKey() {
+      return `${progressKeyBase}-${currentGrade}`;
+    }
+
+    function progressKeyForGrade(gradeKey) {
+      return `${progressKeyBase}-${gradeKey}`;
+    }
+
+    function savedPassedLevelsForGrade(gradeKey) {
+      if (gradeKey === currentGrade) return [...passedLevels];
+      try {
+        const saved = JSON.parse(localStorage.getItem(progressKeyForGrade(gradeKey)) || "{}");
+        return Array.isArray(saved.passedLevels) ? saved.passedLevels : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function gradeIsComplete(gradeKey) {
+      const passed = new Set(savedPassedLevelsForGrade(gradeKey));
+      return gradeData[gradeKey].levels.every((level, index) => passed.has(index));
+    }
+
+    function uniqueWords(items) {
+      const seen = new Set();
+      return items.filter((item) => {
+        const key = `${item.character}|${item.pinyin}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+
+    function rememberMissedWords(items) {
+      if (!items.length) return;
+      const stamped = items.map((item) => ({
+        character: item.character,
+        pinyin: item.pinyin,
+        meaning: item.meaning || "",
+        level: levels[levelIndex].name
+      }));
+      storedMissedWords = uniqueWords([...stamped, ...storedMissedWords]).slice(0, 60);
+      saveProgress();
+      updateDashboard();
+    }
+
+    function removeMasteredMissedWords(items) {
+      if (!items.length) return 0;
+      const mastered = new Set(items.map((item) => `${item.character}|${item.pinyin}`));
+      const before = storedMissedWords.length;
+      storedMissedWords = storedMissedWords.filter((item) => !mastered.has(`${item.character}|${item.pinyin}`));
+      saveProgress();
+      updateDashboard();
+      return before - storedMissedWords.length;
+    }
+
+    function shuffle(items) {
+      return [...items].sort(() => Math.random() - 0.5);
+    }
+
+    function allWords() {
+      const seen = new Set();
+      return levels.flatMap((level) => level.words).filter((item) => {
+        const key = `${item.character}|${item.pinyin}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+
+    function allLevelsPassed() {
+      return levels.every((level, index) => passedLevels.has(index));
+    }
+
+    function countChineseCharacters(text) {
+      const matches = text.match(/[\u3400-\u9fff]/g);
+      return matches ? matches.length : text.length;
+    }
+
+    function pinyinSyllables(pinyin) {
+      return pinyin.trim().split(/\s+/).filter(Boolean);
+    }
+
+    function repeatedPattern(text) {
+      const chars = Array.from(text.match(/[\u3400-\u9fff]/g) || text);
+
+      if (chars.length === 4 && chars[0] === chars[1] && chars[2] === chars[3]) {
+        return "AABB";
+      }
+
+      if (chars.length === 4 && chars[0] === chars[2] && chars[1] === chars[3]) {
+        return "ABAB";
+      }
+
+      if (hasRepeatedAdjacent(chars)) {
+        return "REPEATED";
+      }
+
+      return "none";
+    }
+
+    function pinyinRepeatedPattern(pinyin) {
+      const syllables = pinyinSyllables(pinyin).map(normalizePinyinSyllable);
+
+      if (syllables.length === 4 && syllables[0] === syllables[1] && syllables[2] === syllables[3]) {
+        return "AABB";
+      }
+
+      if (syllables.length === 4 && syllables[0] === syllables[2] && syllables[1] === syllables[3]) {
+        return "ABAB";
+      }
+
+      if (hasRepeatedAdjacent(syllables)) {
+        return "REPEATED";
+      }
+
+      return "none";
+    }
+
+    function normalizePinyinSyllable(syllable) {
+      return syllable
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ü/g, "u")
+        .replace(/v/g, "u");
+    }
+
+    function hasRepeatedAdjacent(items) {
+      return items.some((item, index) => index > 0 && item === items[index - 1]);
+    }
+
+    const wordDistractors = {
+      "生肖": ["shēng qì", "shēng huó", "shēng jí", "shēng cí"],
+      "一切": ["yí gòng", "yì qǐ", "yì xiē"],
+      "种地": ["tǔ dì", "cài dì", "cǎo dì"],
+      "种子": ["yǐ zi", "zhuō zi", "běn zi"],
+      "看家": ["huí jiā", "zài jiā", "dào jiā"],
+      "大将": ["dà jiāng", "dà jiǎng", "dà jiā"],
+      "一匹马": ["yì pī mǎ", "yì zhī mǎ", "yì tóu mǎ"],
+      "半信半疑": ["bàn xīn bàn yì", "bàn zhēn bàn jiǎ", "bàn duì bàn cuò"],
+      "转败为胜": ["zhuǎn shēn huí jiā", "zhuǎn xué huí guó", "huàn gè shùn xù"],
+      "干干净净": ["qīng qīng chǔ chǔ", "piào piào liàng liàng", "kāi kāi xīn xīn"],
+      "整整齐齐": ["gān gān jìng jìng", "qīng qīng chǔ chǔ", "míng míng bái bái"],
+      "得意洋洋": ["xǐ qì yáng yáng", "nù qì chōng chōng", "shén cǎi yì yì"]
+    };
+
+    const plausiblePinyinPool = [
+      "shēng qì",
+      "shēng huó",
+      "shēng jí",
+      "shēng bìng",
+      "shēng cí",
+      "shēng rì",
+      "xué shēng",
+      "lǎo shī",
+      "xué xiào",
+      "zhōng wén",
+      "zuò yè",
+      "dì bǎn",
+      "shū jià",
+      "xié zi",
+      "yǐ zi",
+      "zhuō zi",
+      "běn zi",
+      "hái zi",
+      "chē zi",
+      "fáng zi",
+      "yī fu",
+      "kè rén",
+      "hē chá",
+      "lǐ mào",
+      "jiē dài",
+      "gǎn dào",
+      "xiāng fǎn",
+      "shàng bān",
+      "xià lóu",
+      "yǎn jīng",
+      "yǎn jìng",
+      "yǎn zhū",
+      "qí chē",
+      "qí bīng",
+      "qīng shé",
+      "bái shé",
+      "xiǎo tōu",
+      "yǒu qù",
+      "lā chē",
+      "bāng shǒu",
+      "ràng bù",
+      "fēi wǔ",
+      "tǔ dì",
+      "cài dì",
+      "cǎo dì",
+      "yí gòng",
+      "yì qǐ",
+      "yì xiē",
+      "yì céng",
+      "zhī yī",
+      "suǒ yǐ",
+      "yīn cǐ",
+      "yīn wèi",
+      "yì pǐ mǎ",
+      "hē kā fēi",
+      "tú shū guǎn",
+      "diàn yǐng yuàn",
+      "xiǎo péng yǒu",
+      "xiǎo jīn lóng",
+      "jīn sī hóu",
+      "yín huán shé",
+      "jiù yī fu",
+      "wǒ shǔ zhū",
+      "shài tài yáng",
+      "zì xíng chē",
+      "hòu yī fu",
+      "sì dà fā míng",
+      "zuò chū gòng xiàn",
+      "huàn gè shí jiān",
+      "huàn gè shùn xù",
+      "bàn xìn bàn yí",
+      "dé yì yáng yáng",
+      "gān gān jìng jìng",
+      "zhěng zhěng qí qí",
+      "gāo gāo xìng xìng",
+      "piào piào liàng liàng",
+      "míng míng bái bái",
+      "kāi kāi xīn xīn",
+      "qīng qīng chǔ chǔ"
+    ];
+
+    const characterDistractors = {
+      "盼": ["pān", "bàn", "pàn"],
+      "穿": ["chuàn", "cuān", "chuān"],
+      "鞋": ["hái", "xiě", "xié"],
+      "戴": ["dài", "dāi", "tài"],
+      "镜": ["jìn", "jīng", "jìng"],
+      "裙": ["qún", "jūn", "qǔn"],
+      "切": ["qiè", "qiē", "qǐ", "xiē"],
+      "反": ["fǎn", "fàn", "fān"],
+      "业": ["yè", "yě", "yē"],
+      "板": ["bǎn", "bàn", "pǎn"],
+      "架": ["jià", "jiā", "jiǎ"],
+      "惊": ["jīng", "jǐng", "qīng"],
+      "孙": ["sūn", "shūn", "sǔn"],
+      "礼": ["lǐ", "lì", "ní"],
+      "貌": ["mào", "máo", "miào"],
+      "但": ["dàn", "dān", "tán"],
+      "且": ["qiě", "qiè", "jǔ"],
+      "接": ["jiē", "jié", "qì"],
+      "待": ["dài", "tāi", "dāi"],
+      "尽": ["jǐn", "jìn", "qǐn"],
+      "仍": ["réng", "rēng", "rèn"],
+      "毫": ["háo", "gāo", "máo"],
+      "毫无用处": ["háo wú yòng chù", "máo wú yòng chù", "háo wú yòng chǔ"],
+      "净": ["jìng", "jìn", "qìng"],
+      "齐": ["qí", "qǐ", "jì"],
+      "肖": ["xiào", "xiāo", "qiào"],
+      "让": ["ràng", "rāng", "yàng"],
+      "种": ["zhòng", "zhǒng", "chóng"],
+      "珠": ["zhū", "zū", "zhǔ"],
+      "睛": ["jǐng", "jìng", "qíng"],
+      "蛇": ["shé", "sé", "shē"],
+      "骑": ["qí", "jì", "qǐ"],
+      "冲": ["chōng", "chòng", "zhōng"],
+      "绵": ["mián", "mán", "miǎn"],
+      "裳": ["shāng", "shàng"],
+      "偷": ["tōu", "tóu", "xiū"],
+      "趣": ["qù", "qǔ", "cù"],
+      "龙": ["lóng", "lǒng", "nóng"],
+      "猴": ["hóu", "hòu", "gōu"],
+      "翻": ["fān", "fǎn", "pān"],
+      "银": ["yín", "yíng", "gēn"],
+      "属": ["shǔ", "zhǔ", "shù"],
+      "渔": ["yú", "yǔ", "yù"],
+      "扯": ["chě", "chè", "zhǐ"],
+      "破": ["pò", "pō", "bò"],
+      "切": ["qiē", "qiè", "qǐ"],
+      "锅": ["guō", "gē", "wō"],
+      "煮": ["zhǔ", "zǔ", "shǔ"],
+      "糊": ["hú", "hū", "hù"],
+      "浆": ["jiāng", "qiāng", "jiǎng"],
+      "层": ["céng", "cén", "zēng"],
+      "贴": ["tiē", "tiě", "diē"],
+      "墙": ["qiáng", "qiǎng", "jiàng"],
+      "晒": ["shài", "sài", "shāi"],
+      "验": ["yàn", "yán", "xiàn"],
+      "功": ["gōng", "gòng", "kōng"],
+      "厚": ["hòu", "hóu", "kòu"],
+      "舒": ["shū", "sū", "shǔ"],
+      "贡": ["gòng", "gōng", "hòng"],
+      "献": ["xiàn", "xiān", "jiàn"],
+      "传": ["chuán", "zhuàn", "cuán"],
+      "亚": ["yà", "yǎ", "yā"],
+      "欧": ["ōu", "ǒu", "gōu"],
+      "洲": ["zhōu", "zōu", "zhòu"],
+      "忌": ["jì", "jí", "yì"],
+      "赛": ["sài", "sāi", "shài"],
+      "殊": ["shū", "zhū", "shù"],
+      "争": ["zhēng", "zēng", "zhèng"],
+      "灭": ["miè", "mèi", "miē"],
+      "剩": ["shèng", "chéng", "shēng"],
+      "齐": ["qí", "jì", "qǐ"],
+      "级": ["jí", "jǐ", "jí"],
+      "败": ["bài", "pài", "bǎi"],
+      "匹": ["pǐ", "pī", "pí"],
+      "断": ["duàn", "dàn", "tuán"],
+      "挖": ["wā", "wǎ", "guā"],
+      "胜": ["shèng", "shēng", "sèng"],
+      "疑": ["yí", "yì", "ní"],
+      "换": ["huàn", "hàn", "wàn"],
+      "奔": ["bēn", "bèn", "pēn"],
+      "箭": ["jiàn", "jiān", "qián"],
+      "咱": ["zán", "zá", "zǎ"],
+      "输": ["shū", "sū", "shù"],
+      "赢": ["yíng", "yín", "yǐng"],
+      "序": ["xù", "xǔ", "yù"],
+      "得": ["dé", "děi"]
+    };
+
+    const commonSyllableDistractors = {
+      "yi": ["yī", "yí", "yǐ", "yì"],
+      "qi": ["qī", "qí", "qǐ", "qì"],
+      "shi": ["shī", "shí", "shǐ", "shì"],
+      "zhong": ["zhōng", "zhǒng", "zhòng"],
+      "de": ["de", "dé", "děi"],
+      "di": ["dī", "dí", "dǐ", "dì"],
+      "jing": ["jīng", "jǐng", "jìng"],
+      "qing": ["qīng", "qíng", "qǐng", "qìng"],
+      "li": ["lī", "lí", "lǐ", "lì"],
+      "sheng": ["shēng", "shéng", "shěng", "shèng"],
+      "chuan": ["chuān", "chuán", "chuǎn", "chuàn"],
+      "zhuan": ["zhuān", "zhuǎn", "zhuàn"],
+      "jiang": ["jiāng", "jiǎng", "jiàng"],
+      "xing": ["xīng", "xíng", "xǐng", "xìng"],
+      "chang": ["chāng", "cháng", "chǎng", "chàng"],
+      "guo": ["guō", "guó", "guǒ", "guò"],
+      "jian": ["jiān", "jiǎn", "jiàn"]
+    };
+
+    const everydaySyllables = ["mā", "nǐ", "wǒ", "tā", "lái", "qù", "kàn", "shuō", "xiě", "dú", "xué", "hē", "chī", "zuò"];
+
+    function matchingPinyinOptions(target) {
+      return plausibleDistractors(target);
+    }
+
+    function answerChoicesFor(target) {
+      const targetPattern = repeatedPattern(target.character);
+      const priorityOptions = (wordDistractors[target.character] || [])
+        .filter((pinyin) => pinyin !== target.pinyin)
+        .filter((pinyin) => pinyinSyllables(pinyin).length === pinyinSyllables(target.pinyin).length)
+        .filter((pinyin) => differsBeyondTone(pinyin, target.pinyin))
+        .filter((pinyin) => targetPattern === "none" || pinyinRepeatedPattern(pinyin) === targetPattern);
+      const matchingOptions = fillMatchingOptions(target, [
+        ...priorityOptions,
+        ...matchingPinyinOptions(target).filter((pinyin) => !priorityOptions.includes(pinyin))
+      ]);
+      return shuffle([
+        target.pinyin,
+        ...matchingOptions.slice(0, 3)
+      ]);
+    }
+
+    function fillMatchingOptions(target, options) {
+      const filled = [...options];
+      let guard = 0;
+
+      while (filled.length < 3 && guard < 60) {
+        const generated = generatedPinyinOption(target);
+        if (generated !== target.pinyin && differsBeyondTone(generated, target.pinyin) && !filled.includes(generated)) {
+          filled.push(generated);
+        }
+        guard += 1;
+      }
+
+      return filled;
+    }
+
+    function plausibleDistractors(target) {
+      const options = [...(wordDistractors[target.character] || [])];
+      const chars = Array.from(target.character.match(/[\u3400-\u9fff]/g) || target.character);
+      const syllables = pinyinSyllables(target.pinyin);
+      const targetPattern = repeatedPattern(target.character);
+
+      plausiblePinyinPool
+        .filter((pinyin) => pinyin !== target.pinyin)
+        .filter((pinyin) => pinyinSyllables(pinyin).length === syllables.length)
+        .filter((pinyin) => differsBeyondTone(pinyin, target.pinyin))
+        .filter((pinyin) => targetPattern === "none" || pinyinRepeatedPattern(pinyin) === targetPattern)
+        .filter((pinyin) => sharesSyllable(pinyin, target.pinyin))
+        .forEach((pinyin) => options.push(pinyin));
+
+      const preferredIndexes = [...Array(syllables.length).keys()].sort((a, b) => {
+        const aHas = characterDistractors[chars[a]] ? 0 : 1;
+        const bHas = characterDistractors[chars[b]] ? 0 : 1;
+        return aHas - bHas || b - a;
+      });
+
+      preferredIndexes.forEach((index) => {
+        replacementSyllables(chars[index], syllables[index]).forEach((replacement) => {
+          const candidate = syllables.map((syllable, syllableIndex) => syllableIndex === index ? replacement : syllable).join(" ");
+          options.push(candidate);
+        });
+      });
+
+      return [...new Set(options)]
+        .filter((pinyin) => pinyin !== target.pinyin)
+        .filter((pinyin) => pinyinSyllables(pinyin).length === syllables.length)
+        .filter((pinyin) => differsBeyondTone(pinyin, target.pinyin))
+        .filter((pinyin) => targetPattern === "none" || pinyinRepeatedPattern(pinyin) === targetPattern);
+    }
+
+    function differsBeyondTone(candidate, correct) {
+      return pinyinSyllables(candidate).map(normalizePinyinSyllable).join(" ") !==
+        pinyinSyllables(correct).map(normalizePinyinSyllable).join(" ");
+    }
+
+    function sharesSyllable(left, right) {
+      const leftSyllables = new Set(pinyinSyllables(left).map(normalizePinyinSyllable));
+      return pinyinSyllables(right).map(normalizePinyinSyllable).some((syllable) => leftSyllables.has(syllable));
+    }
+
+    function replacementSyllables(character, correctSyllable) {
+      const normalized = normalizePinyinSyllable(correctSyllable);
+      const characterOptions = characterDistractors[character] || [];
+      return [
+        ...characterOptions,
+        ...(characterOptions.length ? [] : (commonSyllableDistractors[normalized] || toneVariants(correctSyllable)))
+      ].filter((syllable) => syllable !== correctSyllable);
+    }
+
+    function toneVariants(syllable) {
+      const normalized = normalizePinyinSyllable(syllable);
+      let vowelIndex = ["a", "e", "o"].map((vowel) => normalized.indexOf(vowel)).find((index) => index >= 0);
+      if (vowelIndex == null) {
+        const vowelMatches = [...normalized.matchAll(/[iuv]/g)];
+        vowelIndex = vowelMatches.length ? vowelMatches[vowelMatches.length - 1].index : -1;
+      }
+      if (vowelIndex < 0) return [];
+      const toneMarks = {
+        a: ["ā", "á", "ǎ", "à"],
+        e: ["ē", "é", "ě", "è"],
+        i: ["ī", "í", "ǐ", "ì"],
+        o: ["ō", "ó", "ǒ", "ò"],
+        u: ["ū", "ú", "ǔ", "ù"]
+      };
+      const vowel = normalized[vowelIndex];
+      return (toneMarks[vowel] || []).map((marked) => `${normalized.slice(0, vowelIndex)}${marked}${normalized.slice(vowelIndex + 1)}`);
+    }
+
+    function generatedPinyinOption(target) {
+      const syllables = pinyinSyllables(target.pinyin);
+      const pattern = repeatedPattern(target.character);
+      const pick = (items) => items[Math.floor(Math.random() * items.length)];
+      const plausible = plausiblePinyinPool
+        .filter((pinyin) => pinyin !== target.pinyin)
+        .filter((pinyin) => pinyinSyllables(pinyin).length === syllables.length)
+        .filter((pinyin) => differsBeyondTone(pinyin, target.pinyin))
+        .filter((pinyin) => pattern === "none" || pinyinRepeatedPattern(pinyin) === pattern);
+
+      if (plausible.length) {
+        return pick(plausible);
+      }
+
+      if (pattern === "AABB" && syllables.length === 4) {
+        const first = pick(everydaySyllables);
+        let second = pick(everydaySyllables);
+        while (second === first) second = pick(everydaySyllables);
+        return `${first} ${first} ${second} ${second}`;
+      }
+
+      if (pattern === "ABAB" && syllables.length === 4) {
+        const first = pick(everydaySyllables);
+        let second = pick(everydaySyllables);
+        while (second === first) second = pick(everydaySyllables);
+        return `${first} ${second} ${first} ${second}`;
+      }
+
+      if (pattern === "REPEATED" && syllables.length >= 2) {
+        const parts = Array.from({ length: syllables.length }, () => pick(everydaySyllables));
+        const repeatedSyllable = pick(everydaySyllables);
+        parts[syllables.length - 2] = repeatedSyllable;
+        parts[syllables.length - 1] = repeatedSyllable;
+        return parts.join(" ");
+      }
+
+      const index = Math.max(0, syllables.length - 1);
+      return syllables.map((syllable, syllableIndex) => syllableIndex === index ? pick(replacementSyllables("", syllable).concat(everydaySyllables)) : syllable).join(" ");
+    }
+
+    function startLevel(index = levelIndex) {
+      levels = gradeData[currentGrade].levels;
+      testMode = "level";
+      levelIndex = index;
+      vocabulary = levels[levelIndex].words;
+      questionQueue = shuffle(vocabulary);
+      current = null;
+      score = 0;
+      missed = 0;
+      answeredCount = 0;
+      answered = false;
+      testStopped = false;
+      phase = "study";
+      studyIndex = 0;
+      nextButton.textContent = "Next Question";
+      levelTitle.textContent = `${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`;
+      updateGradeDisplay();
+      renderVocabularyList();
+      updateScore();
+      updateDashboard();
+      updateStudyCard();
+      showStudyMode();
+      saveProgress();
+    }
+
+    function loadSavedProgress() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(currentProgressKey()) || "{}");
+        if (Number.isInteger(saved.levelIndex) && saved.levelIndex >= 0 && saved.levelIndex < levels.length) {
+          levelIndex = saved.levelIndex;
+        }
+        if (Array.isArray(saved.passedLevels)) {
+          saved.passedLevels.forEach((index) => {
+            if (Number.isInteger(index) && index >= 0 && index < levels.length) {
+              passedLevels.add(index);
+            }
+          });
+        }
+        storedMissedWords = Array.isArray(saved.missedWords) ? saved.missedWords : [];
+      } catch {
+        levelIndex = 0;
+        passedLevels.clear();
+        storedMissedWords = [];
+      }
+    }
+
+    function updateGradeDisplay() {
+      const grade4Unlocked = gradeIsComplete("grade3");
+      gradeBadge.textContent = gradeData[currentGrade].label;
+      grade3Button.classList.toggle("active", currentGrade === "grade3");
+      grade4Button.classList.toggle("active", currentGrade === "grade4");
+      grade4Button.disabled = !grade4Unlocked;
+      gradeLockNote.textContent = grade4Unlocked
+        ? "Grade 4 is unlocked."
+        : "Grade 4 unlocks after Grade 3 is complete.";
+    }
+
+    function switchGrade(gradeKey) {
+      if (gradeKey === currentGrade) return;
+      if (gradeKey === "grade4" && !gradeIsComplete("grade3")) {
+        updateGradeDisplay();
+        return;
+      }
+      switchGradeBypassLock(gradeKey);
+    }
+
+    function switchGradeBypassLock(gradeKey) {
+      if (gradeKey === currentGrade) return;
+      saveProgress();
+      currentGrade = gradeKey;
+      levels = gradeData[currentGrade].levels;
+      levelIndex = 0;
+      passedLevels.clear();
+      loadSavedProgress();
+      startLevel(levelIndex);
+    }
+
+    function saveProgress() {
+      try {
+        localStorage.setItem(currentProgressKey(), JSON.stringify({
+          levelIndex,
+          passedLevels: [...passedLevels],
+          missedWords: storedMissedWords
+        }));
+      } catch {
+        // Progress saving is helpful, but the quiz should still work if browser storage is unavailable.
+      }
+    }
+
+    function showStudyMode() {
+      levels = gradeData[currentGrade].levels;
+      testMode = "level";
+      vocabulary = levels[levelIndex].words;
+      phase = "study";
+      testStopped = false;
+      questionPanel.classList.add("is-study");
+      studyCard.classList.add("active");
+      studyControls.classList.add("active");
+      scoreboard.style.display = "none";
+      prompt.style.display = "none";
+      choices.innerHTML = "";
+      feedback.textContent = "";
+      feedback.className = "feedback";
+      nextAction = null;
+      nextButton.style.display = "none";
+      nextButton.textContent = "Next Question";
+      startTestButton.style.display = "";
+      restartButton.classList.remove("restart-test-button");
+      finalTestButton.style.display = "";
+      updateFinalTestState();
+      studyModeButton.classList.add("active");
+      testModeButton.classList.remove("active");
+      studyPanel.classList.add("active");
+      dashboardPanel.classList.remove("active");
+      promptLabel.textContent = `${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}: Study first`;
+      updateDashboard();
+    }
+
+    function startTest() {
+      if (testMode === "review-bank" && phase === "study" && storedMissedWords.length) {
+        startStoredMissedPractice();
+        return;
+      }
+      activeReviewSource = "";
+      testMode = "level";
+      vocabulary = levels[levelIndex].words;
+      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
+    }
+
+    function startFinalTest() {
+      if (!allLevelsPassed()) return;
+      startFinalTestPreview();
+    }
+
+    function startFinalTestPreview() {
+      testMode = "final";
+      activeReviewSource = "";
+      vocabulary = shuffle(allWords()).slice(0, Math.min(finalTestSize, allWords().length));
+      finalMissedWords = [];
+      beginTest("Final Test");
+    }
+
+    function startMissedWordPractice() {
+      if (!finalMissedWords.length) return;
+      testMode = "review";
+      activeReviewSource = "final";
+      vocabulary = [...finalMissedWords];
+      beginTest("Missed Words");
+    }
+
+    function startStoredMissedPractice() {
+      if (!storedMissedWords.length) return;
+      testMode = "review-bank";
+      activeReviewSource = "stored";
+      vocabulary = shuffle(storedMissedWords).slice(0, 30);
+      beginTest("Missed Word Review");
+    }
+
+    function studyStoredMissedWords() {
+      if (!storedMissedWords.length) return;
+      testMode = "review-bank";
+      activeReviewSource = "stored";
+      vocabulary = storedMissedWords;
+      phase = "study";
+      studyIndex = 0;
+      questionPanel.classList.add("is-study");
+      studyCard.classList.add("active");
+      studyControls.classList.add("active");
+      scoreboard.style.display = "none";
+      prompt.style.display = "none";
+      choices.innerHTML = "";
+      feedback.textContent = "";
+      feedback.className = "feedback";
+      nextAction = null;
+      nextButton.style.display = "none";
+      nextButton.textContent = "Next Question";
+      startTestButton.style.display = "none";
+      restartButton.classList.remove("restart-test-button");
+      finalTestButton.style.display = "";
+      studyModeButton.classList.add("active");
+      testModeButton.classList.remove("active");
+      studyPanel.classList.add("active");
+      dashboardPanel.classList.remove("active");
+      promptLabel.textContent = "Missed Word Review: Study first";
+      updateStudyCard();
+      renderVocabularyList();
+      updateDashboard();
+    }
+
+    function beginTest(title) {
+      phase = "test";
+      questionQueue = shuffle(vocabulary);
+      current = null;
+      score = 0;
+      missed = 0;
+      answeredCount = 0;
+      answered = false;
+      testStopped = false;
+      levelMissedWords = [];
+      reviewBankCorrectWords = [];
+      nextAction = null;
+      levelTitle.textContent = title;
+      nextButton.disabled = false;
+      nextButton.style.display = "none";
+      nextButton.textContent = "Next Question";
+      startTestButton.style.display = "none";
+      restartButton.classList.add("restart-test-button");
+      scoreboard.style.display = "none";
+      questionPanel.classList.remove("is-study");
+      studyCard.classList.remove("active");
+      studyControls.classList.remove("active");
+      prompt.style.display = "";
+      studyModeButton.classList.remove("active");
+      testModeButton.classList.add("active");
+      studyPanel.classList.remove("active");
+      dashboardPanel.classList.add("active");
+      updateScore();
+      updateDashboard();
+      chooseQuestion();
+    }
+
+    function updateStudyCard() {
+      const item = vocabulary[studyIndex];
+      studyWord.textContent = item.character;
+      studyPinyin.textContent = item.pinyin;
+      studyMeaning.textContent = item.meaning || "";
+    }
+
+    function chooseQuestion() {
+      if (phase !== "test" || testStopped) return;
+
+      if (answeredCount === vocabulary.length) {
+        finishTest();
+        return;
+      }
+
+      answered = false;
+      nextAction = null;
+      nextButton.disabled = true;
+      feedback.textContent = "";
+      feedback.className = "feedback";
+      current = questionQueue[answeredCount];
+
+      const correctAnswer = current.pinyin;
+      const answers = answerChoicesFor(current);
+
+      const testLabel = testMode === "final"
+        ? "Final Test"
+        : testMode === "review"
+        ? "Missed Words"
+        : testMode === "review-bank"
+        ? "Missed Word Review"
+        : `${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`;
+      promptLabel.textContent = `${testLabel}: Choose the correct pinyin`;
+      prompt.textContent = current.character;
+      choices.innerHTML = "";
+
+      answers.forEach((answer) => {
+        const button = document.createElement("button");
+        button.className = "choice";
+        button.type = "button";
+        button.textContent = answer;
+        button.addEventListener("click", () => checkAnswer(answer, correctAnswer));
+        choices.append(button);
+      });
+    }
+
+    function checkAnswer(answer, correctAnswer) {
+      if (answered || testStopped) return;
+      answered = true;
+      answeredCount += 1;
+
+      [...choices.querySelectorAll(".choice")].forEach((button) => {
+        button.disabled = true;
+        if (button.textContent === correctAnswer) button.classList.add("correct-answer");
+        if (button.textContent === answer && answer !== correctAnswer) button.classList.add("wrong-answer");
+      });
+
+      if (answer === correctAnswer) {
+        score += 1;
+        if (testMode === "review-bank") reviewBankCorrectWords.push(current);
+        feedback.textContent = `Correct: ${current.character} = ${current.pinyin}`;
+        feedback.classList.add("good");
+      } else {
+        missed += 1;
+        if (testMode === "final") finalMissedWords.push(current);
+        if (testMode === "level") levelMissedWords.push(current);
+        feedback.innerHTML = `<span class="answer-action-row"><span class="answer-reveal">Correct Answer <strong>${current.character} = ${correctAnswer}</strong></span></span>`;
+        feedback.classList.add("bad");
+      }
+
+      updateScore();
+
+      if (answer === correctAnswer && answeredCount === vocabulary.length) {
+        finishTest();
+      } else if (answer === correctAnswer) {
+        setTimeout(chooseQuestion, 900);
+      } else if (testMode === "level" && missed >= Math.ceil(vocabulary.length * 0.2)) {
+        showNextStep("Continue", stopForRestart);
+      } else if (answeredCount === vocabulary.length) {
+        showNextStep("Finish Test", finishTest);
+      } else {
+        showNextStep("Next Question", chooseQuestion);
+      }
+    }
+
+    function showNextStep(label, action) {
+      nextAction = action;
+      nextButton.textContent = label;
+      nextButton.disabled = false;
+      nextButton.style.display = "";
+      const answerRow = feedback.querySelector(".answer-action-row");
+      if (answerRow) answerRow.append(nextButton);
+    }
+
+    function handleNextQuestion() {
+      if (!nextAction) return;
+      const action = nextAction;
+      nextAction = null;
+      nextButton.disabled = true;
+      nextButton.style.display = "none";
+      nextButton.textContent = "Next Question";
+      action();
+    }
+
+    function updateScore() {
+      scoreDisplay.textContent = `${score}/${vocabulary.length}`;
+      missedDisplay.textContent = missed;
+      progressDisplay.textContent = `${answeredCount}/${vocabulary.length}`;
+      updateDashboard();
+    }
+
+    function showPromptMessage(pinyin, chinese) {
+      prompt.innerHTML = `
+        <div class="prompt-stack">
+          <span class="prompt-pinyin">${pinyin}</span>
+          <span class="prompt-chinese">${chinese}</span>
+        </div>
+      `;
+    }
+
+    function updateDashboard() {
+      const passScore = Math.ceil(vocabulary.length * 0.9);
+      updateGradeDisplay();
+      dashGrade.textContent = gradeData[currentGrade].shortLabel;
+      dashLevel.textContent = testMode === "final"
+        ? "Final"
+        : testMode === "review" || testMode === "review-bank"
+        ? "Review"
+        : levels[levelIndex].name;
+      dashWords.textContent = `${score}/${vocabulary.length}`;
+      dashAnswered.textContent = missed;
+      dashNeeded.textContent = testMode === "final"
+        ? `${passScore}/${vocabulary.length}`
+        : `${answeredCount}/${vocabulary.length}`;
+      dashNeededLabel.textContent = testMode === "final" ? "Needed" : "Progress";
+      progressFill.style.width = `${(answeredCount / vocabulary.length) * 100}%`;
+      studyMissedButton.disabled = storedMissedWords.length === 0;
+      reviewMissedButton.disabled = storedMissedWords.length === 0;
+      studyMissedButton.textContent = storedMissedWords.length
+        ? `Study Missed Words (${storedMissedWords.length})`
+        : "Study Missed Words";
+      reviewMissedButton.textContent = storedMissedWords.length
+        ? `Test Missed Words (${storedMissedWords.length})`
+        : "Test Missed Words";
+      studyCurrentGrade.textContent = gradeData[currentGrade].shortLabel;
+      studyCurrentLevel.textContent = levels[levelIndex].name;
+      studyLevelPosition.textContent = `${levelIndex + 1}/${levels.length}`;
+      studyTotalLevels.textContent = levels.length;
+      studyWordCount.textContent = vocabulary.length;
+      studyProgressFill.style.width = `${((levelIndex + 1) / levels.length) * 100}%`;
+      dashboardNote.textContent = testMode === "final"
+        ? "Final Test uses 30 random words from all levels."
+        : testMode === "review" || testMode === "review-bank"
+        ? "Practice mode uses missed words saved from recent tests."
+        : phase === "test"
+        ? "The study list is hidden during the test."
+        : "Use Study mode to review words before starting the test.";
+
+      levelTracker.innerHTML = "";
+      levels.forEach((level, index) => {
+        const dot = document.createElement("div");
+        dot.className = "level-dot";
+        dot.textContent = level.name;
+        if (passedLevels.has(index)) dot.classList.add("passed");
+        if (index === levelIndex) dot.classList.add("current");
+        dot.title = `${level.name}: ${level.words.length} words`;
+        levelTracker.append(dot);
+      });
+      updateFinalTestState();
+    }
+
+    function updateFinalTestState() {
+      const unlocked = allLevelsPassed();
+      finalTestButton.style.display = "";
+      finalTestButton.disabled = !unlocked;
+      finalTestNote.style.display = "";
+      finalTestNote.textContent = unlocked
+        ? "Unlocked: 30 random words from all levels."
+        : "Complete all levels to unlock.";
+    }
+
+    function stopForRestart() {
+      testStopped = true;
+      nextButton.disabled = true;
+      choices.innerHTML = "";
+      showPromptMessage("zài shì yí cì", "再试一次");
+      rememberMissedWords(levelMissedWords);
+      const passScore = Math.ceil(vocabulary.length * 0.9);
+      feedback.textContent = `This level stopped because ${missed} words were missed. To pass this level and unlock the next one, answer at least ${passScore}/${vocabulary.length} words correctly.`;
+      feedback.className = "feedback bad";
+      renderMissedReview(levelMissedWords, "Missed Words This Level", "Review these words before restarting this level.");
+    }
+
+    function finishTest() {
+      if (testMode === "final") {
+        finishFinalTest();
+      } else if (testMode === "review" || testMode === "review-bank") {
+        finishMissedWordPractice();
+      } else {
+        finishLevel();
+      }
+    }
+
+    function finishFinalTest() {
+      testStopped = true;
+      nextButton.disabled = true;
+      choices.innerHTML = "";
+
+      const passScore = Math.ceil(vocabulary.length * 0.9);
+
+      if (score >= passScore) {
+        showPromptMessage("wán chéng", "完成");
+        feedback.textContent = `Final Test passed: ${score}/${vocabulary.length} correct.`;
+        feedback.className = "feedback good";
+      } else {
+        showPromptMessage("fù xí", "复习");
+        feedback.textContent = `Final Test score: ${score}/${vocabulary.length}. Review the missed words below, then try again.`;
+        feedback.className = "feedback bad";
+      }
+
+      renderMissedReview(finalMissedWords, "Missed Words", "Review these words before trying the final test again.");
+      const retryButton = document.createElement("button");
+      retryButton.className = "primary advance-button";
+      retryButton.type = "button";
+      retryButton.textContent = "Try Final Test Again";
+      retryButton.addEventListener("click", startFinalTestPreview);
+      feedback.append(document.createElement("br"), retryButton);
+    }
+
+    function renderMissedReview(items = finalMissedWords, title = "Missed Words", noteText = "Review these words before trying again.") {
+      if (!items.length) return;
+
+      const review = document.createElement("div");
+      review.className = "missed-review";
+      const note = document.createElement("p");
+      note.className = "missed-review-note";
+      note.innerHTML = `${title}: ${items.length}<span>${noteText}</span>`;
+      review.append(note);
+      const practiceButton = document.createElement("button");
+      practiceButton.className = "primary";
+      practiceButton.type = "button";
+      practiceButton.textContent = "Practice These Missed Words";
+      practiceButton.addEventListener("click", () => {
+        testMode = "review";
+        activeReviewSource = items === finalMissedWords ? "final" : "level";
+        vocabulary = uniqueWords(items);
+        beginTest("Missed Words");
+      });
+      review.append(practiceButton);
+      items.forEach((item) => {
+        const row = document.createElement("div");
+        row.innerHTML = `<b>${item.character}</b><span>${item.pinyin}</span>`;
+        review.append(row);
+      });
+      feedback.append(review);
+    }
+
+    function finishMissedWordPractice() {
+      testStopped = true;
+      nextButton.disabled = true;
+      choices.innerHTML = "";
+      showPromptMessage("fù xí", "复习");
+      const removedCount = activeReviewSource === "stored" ? removeMasteredMissedWords(reviewBankCorrectWords) : 0;
+      feedback.textContent = activeReviewSource === "stored"
+        ? `Missed-word practice complete: ${score}/${vocabulary.length} correct. ${removedCount} word${removedCount === 1 ? "" : "s"} removed from your missed list. ${storedMissedWords.length} still left to review.`
+        : `Missed-word practice complete: ${score}/${vocabulary.length} correct.`;
+      feedback.className = score === vocabulary.length ? "feedback good" : "feedback bad";
+
+      const retryButton = document.createElement("button");
+      retryButton.className = "primary advance-button";
+      retryButton.type = "button";
+      if (activeReviewSource === "final") {
+        retryButton.textContent = "Try Final Test Again";
+        retryButton.addEventListener("click", startFinalTestPreview);
+      } else {
+        retryButton.textContent = "Restart Current Level";
+        retryButton.addEventListener("click", () => startLevel(levelIndex));
+      }
+      feedback.append(document.createElement("br"), retryButton);
+    }
+
+    function finishLevel() {
+      testStopped = true;
+      nextButton.disabled = true;
+      choices.innerHTML = "";
+
+      const percentCorrect = score / vocabulary.length;
+
+      if (percentCorrect >= 0.9 && levelIndex < levels.length - 1) {
+        passedLevels.add(levelIndex);
+        saveProgress();
+        updateDashboard();
+        showPromptMessage("shēng jí", "升级");
+        feedback.textContent = `Great work: ${score}/${vocabulary.length} correct. You passed ${levels[levelIndex].name}.`;
+        feedback.className = "feedback good";
+        const advanceButton = document.createElement("button");
+        advanceButton.className = "primary advance-button";
+        advanceButton.type = "button";
+        advanceButton.textContent = `Go to ${levels[levelIndex + 1].name}`;
+        advanceButton.addEventListener("click", () => startLevel(levelIndex + 1));
+        feedback.append(document.createElement("br"), advanceButton);
+      } else if (percentCorrect >= 0.9) {
+        passedLevels.add(levelIndex);
+        saveProgress();
+        updateDashboard();
+        showPromptMessage("wán chéng", "完成");
+        feedback.textContent = `Excellent: ${score}/${vocabulary.length} correct. All levels are complete.`;
+        feedback.className = "feedback good";
+        const finalButton = document.createElement("button");
+        finalButton.className = "primary advance-button";
+        finalButton.type = "button";
+        finalButton.textContent = "Start Final Test";
+        finalButton.addEventListener("click", startFinalTest);
+        feedback.append(document.createElement("br"), finalButton);
+      } else {
+        showPromptMessage("fù xí", "复习");
+        rememberMissedWords(levelMissedWords);
+        const passScore = Math.ceil(vocabulary.length * 0.9);
+        feedback.textContent = `You answered ${score}/${vocabulary.length} correctly. To pass this level and unlock the next one, answer at least ${passScore}/${vocabulary.length} words correctly. Restart this level after reviewing the missed words.`;
+        feedback.className = "feedback bad";
+        renderMissedReview(levelMissedWords, "Missed Words This Level", "Review these words before restarting this level.");
+      }
+    }
+
+    function renderVocabularyList() {
+      const list = document.querySelector("#vocabList");
+      list.innerHTML = "";
+
+      vocabulary.forEach((item) => {
+        const row = document.createElement("div");
+        row.className = "vocab-item";
+        row.innerHTML = `<b>${item.character}</b><span>${item.pinyin}${item.level ? ` · ${item.level}` : ""}</span>`;
+        list.append(row);
+      });
+    }
+
+    grade3Button.addEventListener("click", () => switchGrade("grade3"));
+    grade4Button.addEventListener("click", () => switchGrade("grade4"));
+    grade4PreviewButton.addEventListener("click", () => switchGradeBypassLock("grade4"));
+    studyMissedButton.addEventListener("click", studyStoredMissedWords);
+    reviewMissedButton.addEventListener("click", startStoredMissedPractice);
+    nextButton.addEventListener("click", handleNextQuestion);
+    restartButton.addEventListener("click", () => startLevel(levelIndex));
+    startTestButton.addEventListener("click", startTest);
+    finalTestButton.addEventListener("click", startFinalTest);
+    teacherPreviewButton.addEventListener("click", startFinalTestPreview);
+    studyModeButton.addEventListener("click", showStudyMode);
+    testModeButton.addEventListener("click", startTest);
+    previousStudyButton.addEventListener("click", () => {
+      studyIndex = (studyIndex - 1 + vocabulary.length) % vocabulary.length;
+      updateStudyCard();
+    });
+    nextStudyButton.addEventListener("click", () => {
+      studyIndex = (studyIndex + 1) % vocabulary.length;
+      updateStudyCard();
+    });
+    shuffleStudyButton.addEventListener("click", () => {
+      studyIndex = Math.floor(Math.random() * vocabulary.length);
+      updateStudyCard();
+    });
+
+    loadSavedProgress();
+    startLevel(levelIndex);
+  </script>
+</body>
+</html>
