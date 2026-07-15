@@ -359,6 +359,7 @@
       place-items: center;
       min-height: 210px;
       margin: 0 0 16px;
+      padding: 0 16px;
       border-radius: 8px;
       background: var(--paper);
       border: 1px solid var(--line);
@@ -366,12 +367,16 @@
       font-size: clamp(4rem, 16vw, 8rem);
       font-weight: 800;
       line-height: 1;
+      overflow: hidden;
+      white-space: nowrap;
     }
 
     .prompt-stack {
       display: grid;
       gap: 12px;
       place-items: center;
+      width: 100%;
+      min-width: 0;
     }
 
     .prompt-pinyin {
@@ -385,6 +390,9 @@
       font-size: clamp(3.4rem, 14vw, 7rem);
       font-weight: 900;
       line-height: 1;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
     }
 
     .study-card {
@@ -411,6 +419,27 @@
       line-height: 1.05;
       font-weight: 900;
       margin: 10px 0 0;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .character[data-word-size="medium"],
+    .prompt-chinese[data-word-size="medium"],
+    .study-word[data-word-size="medium"] {
+      font-size: clamp(3.1rem, 12vw, 6.4rem);
+    }
+
+    .character[data-word-size="long"],
+    .prompt-chinese[data-word-size="long"],
+    .study-word[data-word-size="long"] {
+      font-size: clamp(2.5rem, 9vw, 5.25rem);
+    }
+
+    .character[data-word-size="xlong"],
+    .prompt-chinese[data-word-size="xlong"],
+    .study-word[data-word-size="xlong"] {
+      font-size: clamp(2rem, 7vw, 4.15rem);
     }
 
     .study-pinyin {
@@ -2456,9 +2485,22 @@ let levels = gradeData[currentGrade].levels;
       chooseQuestion();
     }
 
+    function wordSizeLabel(text) {
+      const length = Array.from(text || "").length;
+      if (length <= 2) return "short";
+      if (length === 3) return "medium";
+      if (length === 4) return "long";
+      return "xlong";
+    }
+
+    function setSingleLineWord(element, text) {
+      element.textContent = text;
+      element.dataset.wordSize = wordSizeLabel(text);
+    }
+
     function updateStudyCard() {
       const item = vocabulary[studyIndex];
-      studyWord.textContent = item.character;
+      setSingleLineWord(studyWord, item.character);
       studyPinyin.textContent = item.pinyin;
       studyMeaning.textContent = item.meaning || "";
     }
@@ -2482,7 +2524,7 @@ let levels = gradeData[currentGrade].levels;
       const answers = answerChoicesFor(current);
 
       promptLabel.textContent = "";
-      prompt.textContent = current.character;
+      setSingleLineWord(prompt, current.character);
       choices.innerHTML = "";
 
       answers.forEach((answer) => {
@@ -2561,12 +2603,14 @@ let levels = gradeData[currentGrade].levels;
     }
 
     function showPromptMessage(pinyin, chinese) {
+      const wordSize = wordSizeLabel(chinese);
       prompt.innerHTML = `
         <div class="prompt-stack">
           <span class="prompt-pinyin">${pinyin}</span>
-          <span class="prompt-chinese">${chinese}</span>
+          <span class="prompt-chinese" data-word-size="${wordSize}">${chinese}</span>
         </div>
       `;
+      prompt.dataset.wordSize = wordSize;
     }
 
     function updateDashboard() {
