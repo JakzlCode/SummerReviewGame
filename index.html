@@ -384,6 +384,13 @@
       font-size: clamp(1.2rem, 4vw, 2rem);
       font-weight: 800;
       line-height: 1.1;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .prompt-pinyin-large {
+      font-size: clamp(2.2rem, 8vw, 4.8rem);
     }
 
     .prompt-chinese {
@@ -1098,342 +1105,1162 @@ const gradeData = {
       {
         name: "1.1",
         words: [
-          { character: "称象", pinyin: "chēng xiàng" },
-          { character: "从前", pinyin: "cóng qián" },
-          { character: "将军", pinyin: "jiāng jūn" },
-          { character: "名字", pinyin: "míng zi" },
-          { character: "运到", pinyin: "yùn dào" },
-          { character: "带着", pinyin: "dài zhe" },
-          { character: "喜欢", pinyin: "xǐ huan" },
-          { character: "办法", pinyin: "bàn fǎ" },
-          { character: "我先去", pinyin: "wǒ xiān qù" },
-          { character: "杀死", pinyin: "shā sǐ" },
-          { character: "切成", pinyin: "qiē chéng" },
-          { character: "一块", pinyin: "yí kuài" },
-          { character: "一直", pinyin: "yì zhí" },
-          { character: "摇头", pinyin: "yáo tóu" },
-          { character: "曹冲", pinyin: "cáo chōng" },
-          { character: "站出来", pinyin: "zhàn chū lái" },
-          { character: "站起来", pinyin: "zhàn qǐ lái" },
-          { character: "父亲", pinyin: "fù qīn" }
+          {
+            character: "称象",
+            pinyin: "chēng xiàng"
+          },
+          {
+            character: "从前",
+            pinyin: "cóng qián"
+          },
+          {
+            character: "将军",
+            pinyin: "jiāng jūn"
+          },
+          {
+            character: "名字",
+            pinyin: "míng zi"
+          },
+          {
+            character: "运到",
+            pinyin: "yùn dào"
+          },
+          {
+            character: "带着",
+            pinyin: "dài zhe"
+          },
+          {
+            character: "喜欢",
+            pinyin: "xǐ huan"
+          },
+          {
+            character: "办法",
+            pinyin: "bàn fǎ"
+          },
+          {
+            character: "我先去",
+            pinyin: "wǒ xiān qù"
+          },
+          {
+            character: "杀死",
+            pinyin: "shā sǐ"
+          },
+          {
+            character: "切成",
+            pinyin: "qiē chéng"
+          },
+          {
+            character: "一块",
+            pinyin: "yí kuài"
+          },
+          {
+            character: "一直",
+            pinyin: "yì zhí"
+          },
+          {
+            character: "摇头",
+            pinyin: "yáo tóu"
+          },
+          {
+            character: "曹冲",
+            pinyin: "cáo chōng"
+          },
+          {
+            character: "站出来",
+            pinyin: "zhàn chū lái"
+          },
+          {
+            character: "站起来",
+            pinyin: "zhàn qǐ lái"
+          },
+          {
+            character: "父亲",
+            pinyin: "fù qīn"
+          }
         ]
       },
       {
         name: "1.2",
         words: [
-          { character: "母亲", pinyin: "mǔ qīn" },
-          { character: "合身的衣服", pinyin: "hé shēn de yī fu" },
-          { character: "赶路", pinyin: "gǎn lù" },
-          { character: "大船", pinyin: "dà chuán" },
-          { character: "沉下去", pinyin: "chén xià qù" },
-          { character: "沿着", pinyin: "yán zhe" },
-          { character: "旁边", pinyin: "páng biān" },
-          { character: "划线", pinyin: "huà xiàn" },
-          { character: "一条线", pinyin: "yì tiáo xiàn" },
-          { character: "上岸", pinyin: "shàng àn" },
-          { character: "装石头", pinyin: "zhuāng shí tou" },
-          { character: "等等我", pinyin: "děng deng wǒ" },
-          { character: "地方", pinyin: "dì fang" },
-          { character: "那些", pinyin: "nà xiē" },
-          { character: "多少斤", pinyin: "duō shǎo jīn" },
-          { character: "重量", pinyin: "zhòng liàng" }
+          {
+            character: "母亲",
+            pinyin: "mǔ qīn"
+          },
+          {
+            character: "合身的衣服",
+            pinyin: "hé shēn de yī fu"
+          },
+          {
+            character: "赶路",
+            pinyin: "gǎn lù"
+          },
+          {
+            character: "大船",
+            pinyin: "dà chuán"
+          },
+          {
+            character: "沉下去",
+            pinyin: "chén xià qù"
+          },
+          {
+            character: "沿着",
+            pinyin: "yán zhe"
+          },
+          {
+            character: "旁边",
+            pinyin: "páng biān"
+          },
+          {
+            character: "划线",
+            pinyin: "huà xiàn"
+          },
+          {
+            character: "一条线",
+            pinyin: "yì tiáo xiàn"
+          },
+          {
+            character: "上岸",
+            pinyin: "shàng àn"
+          },
+          {
+            character: "装石头",
+            pinyin: "zhuāng shí tou"
+          },
+          {
+            character: "等等我",
+            pinyin: "děng deng wǒ"
+          },
+          {
+            character: "地方",
+            pinyin: "dì fang"
+          },
+          {
+            character: "那些",
+            pinyin: "nà xiē"
+          },
+          {
+            character: "多少斤",
+            pinyin: "duō shǎo jīn"
+          },
+          {
+            character: "重量",
+            pinyin: "zhòng liàng"
+          }
         ]
       },
       {
         name: "2.1",
         words: [
-          { character: "森林", pinyin: "sēn lín" },
-          { character: "老虎", pinyin: "lǎo hǔ" },
-          { character: "肚子", pinyin: "dù zi" },
-          { character: "饿肚子", pinyin: "è dù zi" },
-          { character: "找东西", pinyin: "zhǎo dōng xi" },
-          { character: "寻找", pinyin: "xún zhǎo" },
-          { character: "食物", pinyin: "shí wù" },
-          { character: "跳起来", pinyin: "tiào qǐ lái" },
-          { character: "扑过去", pinyin: "pū guò qù" },
-          { character: "抓住", pinyin: "zhuā zhù" },
-          { character: "狡猾", pinyin: "jiǎo huá" },
-          { character: "眼珠一转", pinyin: "yǎn zhū yí zhuàn" },
-          { character: "不要命", pinyin: "bú yào mìng" },
-          { character: "敢不敢", pinyin: "gǎn bu gǎn" },
-          { character: "反问", pinyin: "fǎn wèn" },
-          { character: "回答", pinyin: "huí dá" },
-          { character: "问题", pinyin: "wèn tí" },
-          { character: "吓死了", pinyin: "xià sǐ le" },
-          { character: "慢慢走", pinyin: "màn màn zǒu" }
+          {
+            character: "森林",
+            pinyin: "sēn lín"
+          },
+          {
+            character: "老虎",
+            pinyin: "lǎo hǔ"
+          },
+          {
+            character: "肚子",
+            pinyin: "dù zi"
+          },
+          {
+            character: "饿肚子",
+            pinyin: "è dù zi"
+          },
+          {
+            character: "找东西",
+            pinyin: "zhǎo dōng xi"
+          },
+          {
+            character: "寻找",
+            pinyin: "xún zhǎo"
+          },
+          {
+            character: "食物",
+            pinyin: "shí wù"
+          },
+          {
+            character: "跳起来",
+            pinyin: "tiào qǐ lái"
+          },
+          {
+            character: "扑过去",
+            pinyin: "pū guò qù"
+          },
+          {
+            character: "抓住",
+            pinyin: "zhuā zhù"
+          },
+          {
+            character: "狡猾",
+            pinyin: "jiǎo huá"
+          },
+          {
+            character: "眼珠一转",
+            pinyin: "yǎn zhū yí zhuàn"
+          },
+          {
+            character: "不要命",
+            pinyin: "bú yào mìng"
+          },
+          {
+            character: "敢不敢",
+            pinyin: "gǎn bu gǎn"
+          },
+          {
+            character: "反问",
+            pinyin: "fǎn wèn"
+          },
+          {
+            character: "回答",
+            pinyin: "huí dá"
+          },
+          {
+            character: "问题",
+            pinyin: "wèn tí"
+          },
+          {
+            character: "吓死了",
+            pinyin: "xià sǐ le"
+          },
+          {
+            character: "慢慢走",
+            pinyin: "màn màn zǒu"
+          }
         ]
       },
       {
         name: "2.2",
         words: [
-          { character: "松开手", pinyin: "sōng kāi shǒu" },
-          { character: "爪子", pinyin: "zhuǎ zi" },
-          { character: "走一趟", pinyin: "zǒu yí tàng" },
-          { character: "威风", pinyin: "wēi fēng" },
-          { character: "一前一后", pinyin: "yì qián yí hòu" },
-          { character: "野猪", pinyin: "yě zhū" },
-          { character: "大灰狼", pinyin: "dà huī láng" },
-          { character: "梅花鹿", pinyin: "méi huā lù" },
-          { character: "平常", pinyin: "píng cháng" },
-          { character: "平时", pinyin: "píng shí" },
-          { character: "非常", pinyin: "fēi cháng" },
-          { character: "奇怪", pinyin: "qí guài" },
-          { character: "野兽", pinyin: "yě shòu" },
-          { character: "转身", pinyin: "zhuǎn shēn" },
-          { character: "凶恶", pinyin: "xiōng è" },
-          { character: "受骗", pinyin: "shòu piàn" },
-          { character: "借书", pinyin: "jiè shū" }
+          {
+            character: "松开手",
+            pinyin: "sōng kāi shǒu"
+          },
+          {
+            character: "爪子",
+            pinyin: "zhuǎ zi"
+          },
+          {
+            character: "走一趟",
+            pinyin: "zǒu yí tàng"
+          },
+          {
+            character: "威风",
+            pinyin: "wēi fēng"
+          },
+          {
+            character: "一前一后",
+            pinyin: "yì qián yí hòu"
+          },
+          {
+            character: "野猪",
+            pinyin: "yě zhū"
+          },
+          {
+            character: "大灰狼",
+            pinyin: "dà huī láng"
+          },
+          {
+            character: "梅花鹿",
+            pinyin: "méi huā lù"
+          },
+          {
+            character: "平常",
+            pinyin: "píng cháng"
+          },
+          {
+            character: "平时",
+            pinyin: "píng shí"
+          },
+          {
+            character: "非常",
+            pinyin: "fēi cháng"
+          },
+          {
+            character: "奇怪",
+            pinyin: "qí guài"
+          },
+          {
+            character: "野兽",
+            pinyin: "yě shòu"
+          },
+          {
+            character: "转身",
+            pinyin: "zhuǎn shēn"
+          },
+          {
+            character: "凶恶",
+            pinyin: "xiōng è"
+          },
+          {
+            character: "受骗",
+            pinyin: "shòu piàn"
+          },
+          {
+            character: "借书",
+            pinyin: "jiè shū"
+          }
         ]
       },
       {
         name: "3.1",
         words: [
-          { character: "公鸡", pinyin: "gōng jī" },
-          { character: "鸡蛋", pinyin: "jī dàn" },
-          { character: "皇帝", pinyin: "huáng dì" },
-          { character: "做官", pinyin: "zuò guān" },
-          { character: "孙子", pinyin: "sūn zi" },
-          { character: "总是", pinyin: "zǒng shì" },
-          { character: "饭菜", pinyin: "fàn cài" },
-          { character: "好像", pinyin: "hǎo xiàng" },
-          { character: "很重", pinyin: "hěn zhòng" },
-          { character: "很沉", pinyin: "hěn chén" },
-          { character: "很轻", pinyin: "hěn qīng" },
-          { character: "心事", pinyin: "xīn shì" },
-          { character: "关心", pinyin: "guān xīn" },
-          { character: "事情", pinyin: "shì qing" },
-          { character: "让人开心", pinyin: "ràng rén kāi xīn" },
-          { character: "让人放心", pinyin: "ràng rén fàng xīn" },
-          { character: "让我走", pinyin: "ràng wǒ zǒu" },
-          { character: "为难", pinyin: "wéi nán" },
-          { character: "帮助", pinyin: "bāng zhù" }
+          {
+            character: "公鸡",
+            pinyin: "gōng jī"
+          },
+          {
+            character: "鸡蛋",
+            pinyin: "jī dàn"
+          },
+          {
+            character: "皇帝",
+            pinyin: "huáng dì"
+          },
+          {
+            character: "做官",
+            pinyin: "zuò guān"
+          },
+          {
+            character: "孙子",
+            pinyin: "sūn zi"
+          },
+          {
+            character: "总是",
+            pinyin: "zǒng shì"
+          },
+          {
+            character: "饭菜",
+            pinyin: "fàn cài"
+          },
+          {
+            character: "好像",
+            pinyin: "hǎo xiàng"
+          },
+          {
+            character: "很重",
+            pinyin: "hěn zhòng"
+          },
+          {
+            character: "很沉",
+            pinyin: "hěn chén"
+          },
+          {
+            character: "很轻",
+            pinyin: "hěn qīng"
+          },
+          {
+            character: "心事",
+            pinyin: "xīn shì"
+          },
+          {
+            character: "关心",
+            pinyin: "guān xīn"
+          },
+          {
+            character: "事情",
+            pinyin: "shì qing"
+          },
+          {
+            character: "让人开心",
+            pinyin: "ràng rén kāi xīn"
+          },
+          {
+            character: "让人放心",
+            pinyin: "ràng rén fàng xīn"
+          },
+          {
+            character: "让我走",
+            pinyin: "ràng wǒ zǒu"
+          },
+          {
+            character: "为难",
+            pinyin: "wéi nán"
+          },
+          {
+            character: "帮助",
+            pinyin: "bāng zhù"
+          }
         ]
       },
       {
         name: "3.2",
         words: [
-          { character: "摸着", pinyin: "mō zhe" },
-          { character: "肩膀", pinyin: "jiān bǎng" },
-          { character: "吸气", pinyin: "xī qì" },
-          { character: "苦笑", pinyin: "kǔ xiào" },
-          { character: "下令", pinyin: "xià lìng" },
-          { character: "命令", pinyin: "mìng lìng", meaning: "to order someone to do something; to instruct" },
-          { character: "两天之内", pinyin: "liǎng tiān zhī nèi" },
-          { character: "五天之内", pinyin: "wǔ tiān zhī nèi" },
-          { character: "实在", pinyin: "shí zài" },
-          { character: "办不到", pinyin: "bàn bú dào" },
-          { character: "虽然", pinyin: "suī rán" },
-          { character: "但是", pinyin: "dàn shì" },
-          { character: "改变", pinyin: "gǎi biàn" },
-          { character: "主意", pinyin: "zhǔ yi" },
-          { character: "好主意", pinyin: "hǎo zhǔ yi" },
-          { character: "坏主意", pinyin: "huài zhǔ yi" },
-          { character: "一定", pinyin: "yí dìng" },
-          { character: "放心", pinyin: "fàng xīn" },
-          { character: "说服", pinyin: "shuō fú" },
-          { character: "更好", pinyin: "gèng hǎo" }
+          {
+            character: "摸着",
+            pinyin: "mō zhe"
+          },
+          {
+            character: "肩膀",
+            pinyin: "jiān bǎng"
+          },
+          {
+            character: "吸气",
+            pinyin: "xī qì"
+          },
+          {
+            character: "苦笑",
+            pinyin: "kǔ xiào"
+          },
+          {
+            character: "下令",
+            pinyin: "xià lìng"
+          },
+          {
+            character: "命令",
+            pinyin: "mìng lìng",
+            meaning: "order"
+          },
+          {
+            character: "两天之内",
+            pinyin: "liǎng tiān zhī nèi"
+          },
+          {
+            character: "五天之内",
+            pinyin: "wǔ tiān zhī nèi"
+          },
+          {
+            character: "实在",
+            pinyin: "shí zài"
+          },
+          {
+            character: "办不到",
+            pinyin: "bàn bú dào"
+          },
+          {
+            character: "虽然",
+            pinyin: "suī rán"
+          },
+          {
+            character: "但是",
+            pinyin: "dàn shì"
+          },
+          {
+            character: "改变",
+            pinyin: "gǎi biàn"
+          },
+          {
+            character: "主意",
+            pinyin: "zhǔ yi"
+          },
+          {
+            character: "好主意",
+            pinyin: "hǎo zhǔ yi"
+          },
+          {
+            character: "坏主意",
+            pinyin: "huài zhǔ yi"
+          },
+          {
+            character: "一定",
+            pinyin: "yí dìng"
+          },
+          {
+            character: "放心",
+            pinyin: "fàng xīn"
+          },
+          {
+            character: "说服",
+            pinyin: "shuō fú"
+          },
+          {
+            character: "更好",
+            pinyin: "gèng hǎo"
+          }
         ]
       },
       {
         name: "3.3",
         words: [
-          { character: "答应", pinyin: "dā yìng" },
-          { character: "留在", pinyin: "liú zài" },
-          { character: "外面", pinyin: "wài miàn" },
-          { character: "散步", pinyin: "sàn bù" },
-          { character: "跪下", pinyin: "guì xià" },
-          { character: "低头", pinyin: "dī tóu" },
-          { character: "请假", pinyin: "qǐng jià" },
-          { character: "病了", pinyin: "bìng le" },
-          { character: "昨天", pinyin: "zuó tiān" },
-          { character: "胡说", pinyin: "hú shuō" },
-          { character: "清楚", pinyin: "qīng chu" },
-          { character: "响亮", pinyin: "xiǎng liàng" },
-          { character: "既然", pinyin: "jì rán" },
-          { character: "求求你", pinyin: "qiú qiu nǐ" },
-          { character: "被打了", pinyin: "bèi dǎ le" },
-          { character: "被吃了", pinyin: "bèi chī le" },
-          { character: "被我吃了", pinyin: "bèi wǒ chī le" },
-          { character: "聪明", pinyin: "cōng míng" },
-          { character: "勇敢", pinyin: "yǒng gǎn" },
-          { character: "感动", pinyin: "gǎn dòng" },
-          { character: "立刻", pinyin: "lì kè" },
-          { character: "救人", pinyin: "jiù rén" }
+          {
+            character: "答应",
+            pinyin: "dā yìng"
+          },
+          {
+            character: "留在",
+            pinyin: "liú zài"
+          },
+          {
+            character: "外面",
+            pinyin: "wài miàn"
+          },
+          {
+            character: "散步",
+            pinyin: "sàn bù"
+          },
+          {
+            character: "跪下",
+            pinyin: "guì xià"
+          },
+          {
+            character: "低头",
+            pinyin: "dī tóu"
+          },
+          {
+            character: "请假",
+            pinyin: "qǐng jià"
+          },
+          {
+            character: "病了",
+            pinyin: "bìng le"
+          },
+          {
+            character: "昨天",
+            pinyin: "zuó tiān"
+          },
+          {
+            character: "胡说",
+            pinyin: "hú shuō"
+          },
+          {
+            character: "清楚",
+            pinyin: "qīng chu"
+          },
+          {
+            character: "响亮",
+            pinyin: "xiǎng liàng"
+          },
+          {
+            character: "既然",
+            pinyin: "jì rán"
+          },
+          {
+            character: "求求你",
+            pinyin: "qiú qiu nǐ"
+          },
+          {
+            character: "被打了",
+            pinyin: "bèi dǎ le"
+          },
+          {
+            character: "被吃了",
+            pinyin: "bèi chī le"
+          },
+          {
+            character: "被我吃了",
+            pinyin: "bèi wǒ chī le"
+          },
+          {
+            character: "聪明",
+            pinyin: "cōng míng"
+          },
+          {
+            character: "勇敢",
+            pinyin: "yǒng gǎn"
+          },
+          {
+            character: "感动",
+            pinyin: "gǎn dòng"
+          },
+          {
+            character: "立刻",
+            pinyin: "lì kè"
+          },
+          {
+            character: "救人",
+            pinyin: "jiù rén"
+          }
         ]
       },
       {
         name: "4.1",
         words: [
-          { character: "穷和尚", pinyin: "qióng hé shang" },
-          { character: "和尚", pinyin: "hé shang" },
-          { character: "富和尚", pinyin: "fù hé shang" },
-          { character: "穷人", pinyin: "qióng rén" },
-          { character: "富人", pinyin: "fù rén" },
-          { character: "西部", pinyin: "xī bù" },
-          { character: "四川", pinyin: "sì chuān" },
-          { character: "又胖又高", pinyin: "yòu pàng yòu gāo" },
-          { character: "另一个", pinyin: "lìng yí gè" },
-          { character: "另外", pinyin: "lìng wài" },
-          { character: "又瘦又穷", pinyin: "yòu shòu yòu qióng" },
-          { character: "南海", pinyin: "nán hǎi" },
-          { character: "拜佛", pinyin: "bài fó" },
-          { character: "愿意", pinyin: "yuàn yì" },
-          { character: "越过", pinyin: "yuè guò" },
-          { character: "打算", pinyin: "dǎ suàn" },
-          { character: "一碗米饭", pinyin: "yì wǎn mǐ fàn" },
-          { character: "木棒", pinyin: "mù bàng" },
-          { character: "足够", pinyin: "zú gòu" },
-          { character: "吃够了", pinyin: "chī gòu le" },
-          { character: "很久", pinyin: "hěn jiǔ" },
-          { character: "买好", pinyin: "mǎi hǎo" }
+          {
+            character: "穷和尚",
+            pinyin: "qióng hé shang"
+          },
+          {
+            character: "和尚",
+            pinyin: "hé shang"
+          },
+          {
+            character: "富和尚",
+            pinyin: "fù hé shang"
+          },
+          {
+            character: "穷人",
+            pinyin: "qióng rén"
+          },
+          {
+            character: "富人",
+            pinyin: "fù rén"
+          },
+          {
+            character: "西部",
+            pinyin: "xī bù"
+          },
+          {
+            character: "四川",
+            pinyin: "sì chuān"
+          },
+          {
+            character: "又胖又高",
+            pinyin: "yòu pàng yòu gāo"
+          },
+          {
+            character: "另一个",
+            pinyin: "lìng yí gè"
+          },
+          {
+            character: "另外",
+            pinyin: "lìng wài"
+          },
+          {
+            character: "又瘦又穷",
+            pinyin: "yòu shòu yòu qióng"
+          },
+          {
+            character: "南海",
+            pinyin: "nán hǎi"
+          },
+          {
+            character: "拜佛",
+            pinyin: "bài fó"
+          },
+          {
+            character: "愿意",
+            pinyin: "yuàn yì"
+          },
+          {
+            character: "越过",
+            pinyin: "yuè guò"
+          },
+          {
+            character: "打算",
+            pinyin: "dǎ suàn"
+          },
+          {
+            character: "一碗米饭",
+            pinyin: "yì wǎn mǐ fàn"
+          },
+          {
+            character: "木棒",
+            pinyin: "mù bàng"
+          },
+          {
+            character: "足够",
+            pinyin: "zú gòu"
+          },
+          {
+            character: "吃够了",
+            pinyin: "chī gòu le"
+          },
+          {
+            character: "很久",
+            pinyin: "hěn jiǔ"
+          },
+          {
+            character: "买好",
+            pinyin: "mǎi hǎo"
+          }
         ]
       },
       {
         name: "4.2",
         words: [
-          { character: "需要", pinyin: "xū yào" },
-          { character: "很多钱", pinyin: "hěn duō qián" },
-          { character: "有钱", pinyin: "yǒu qián" },
-          { character: "因为", pinyin: "yīn wèi" },
-          { character: "很多", pinyin: "hěn duō" },
-          { character: "准备", pinyin: "zhǔn bèi" },
-          { character: "所以", pinyin: "suǒ yǐ" },
-          { character: "告别", pinyin: "gào bié" },
-          { character: "带着", pinyin: "dài zhe" },
-          { character: "日夜不停", pinyin: "rì yè bù tíng" },
-          { character: "饿了", pinyin: "è le" },
-          { character: "累了", pinyin: "lèi le" },
-          { character: "破庙", pinyin: "pò miào" },
-          { character: "休息", pinyin: "xiū xi" },
-          { character: "相信", pinyin: "xiāng xìn" },
-          { character: "一定", pinyin: "yí dìng" },
-          { character: "终于", pinyin: "zhōng yú" },
-          { character: "到达", pinyin: "dào dá" },
-          { character: "拜访", pinyin: "bài fǎng" },
-          { character: "送走", pinyin: "sòng zǒu" },
-          { character: "一本书", pinyin: "yì běn shū" },
-          { character: "课本", pinyin: "kè běn" },
-          { character: "课文", pinyin: "kè wén" }
+          {
+            character: "需要",
+            pinyin: "xū yào"
+          },
+          {
+            character: "很多钱",
+            pinyin: "hěn duō qián"
+          },
+          {
+            character: "有钱",
+            pinyin: "yǒu qián"
+          },
+          {
+            character: "因为",
+            pinyin: "yīn wèi"
+          },
+          {
+            character: "很多",
+            pinyin: "hěn duō"
+          },
+          {
+            character: "准备",
+            pinyin: "zhǔn bèi"
+          },
+          {
+            character: "所以",
+            pinyin: "suǒ yǐ"
+          },
+          {
+            character: "告别",
+            pinyin: "gào bié"
+          },
+          {
+            character: "带着",
+            pinyin: "dài zhe"
+          },
+          {
+            character: "日夜不停",
+            pinyin: "rì yè bù tíng"
+          },
+          {
+            character: "饿了",
+            pinyin: "è le"
+          },
+          {
+            character: "累了",
+            pinyin: "lèi le"
+          },
+          {
+            character: "破庙",
+            pinyin: "pò miào"
+          },
+          {
+            character: "休息",
+            pinyin: "xiū xi"
+          },
+          {
+            character: "相信",
+            pinyin: "xiāng xìn"
+          },
+          {
+            character: "一定",
+            pinyin: "yí dìng"
+          },
+          {
+            character: "终于",
+            pinyin: "zhōng yú"
+          },
+          {
+            character: "到达",
+            pinyin: "dào dá"
+          },
+          {
+            character: "拜访",
+            pinyin: "bài fǎng"
+          },
+          {
+            character: "可惜",
+            pinyin: "kě xī"
+          },
+          {
+            character: "送走",
+            pinyin: "sòng zǒu"
+          },
+          {
+            character: "一本书",
+            pinyin: "yì běn shū"
+          },
+          {
+            character: "课本",
+            pinyin: "kè běn"
+          },
+          {
+            character: "课文",
+            pinyin: "kè wén"
+          }
         ]
       },
       {
         name: "5.1",
         words: [
-          { character: "骆驼", pinyin: "luò tuó" },
-          { character: "商人", pinyin: "shāng rén" },
-          { character: "走丢了", pinyin: "zǒu diū le" },
-          { character: "一位老师", pinyin: "yí wèi lǎo shī" },
-          { character: "一位母亲", pinyin: "yí wèi mǔ qīn" },
-          { character: "赶紧", pinyin: "gǎn jǐn" },
-          { character: "迎上去", pinyin: "yíng shàng qù" },
-          { character: "受伤", pinyin: "shòu shāng" },
-          { character: "跟着", pinyin: "gēn zhe" },
-          { character: "驮着", pinyin: "tuó zhe" },
-          { character: "不错", pinyin: "bú cuò" },
-          { character: "缺少", pinyin: "quē shǎo" },
-          { character: "好极了", pinyin: "hǎo jí le" },
-          { character: "对极了", pinyin: "duì jí le" },
-          { character: "藏起来", pinyin: "cáng qǐ lái" }
+          {
+            character: "骆驼",
+            pinyin: "luò tuó"
+          },
+          {
+            character: "商人",
+            pinyin: "shāng rén"
+          },
+          {
+            character: "走丢了",
+            pinyin: "zǒu diū le"
+          },
+          {
+            character: "一位老师",
+            pinyin: "yí wèi lǎo shī"
+          },
+          {
+            character: "一位母亲",
+            pinyin: "yí wèi mǔ qīn"
+          },
+          {
+            character: "赶紧",
+            pinyin: "gǎn jǐn"
+          },
+          {
+            character: "迎上去",
+            pinyin: "yíng shàng qù"
+          },
+          {
+            character: "受伤",
+            pinyin: "shòu shāng"
+          },
+          {
+            character: "跟着",
+            pinyin: "gēn zhe"
+          },
+          {
+            character: "驮着",
+            pinyin: "tuó zhe"
+          },
+          {
+            character: "不错",
+            pinyin: "bú cuò"
+          },
+          {
+            character: "缺少",
+            pinyin: "quē shǎo"
+          },
+          {
+            character: "好极了",
+            pinyin: "hǎo jí le"
+          },
+          {
+            character: "对极了",
+            pinyin: "duì jí le"
+          },
+          {
+            character: "藏起来",
+            pinyin: "cáng qǐ lái"
+          }
         ]
       },
       {
         name: "5.2",
         words: [
-          { character: "详细", pinyin: "xiáng xì" },
-          { character: "不紧不慢", pinyin: "bù jǐn bù màn" },
-          { character: "比较", pinyin: "bǐ jiào" },
-          { character: "深浅", pinyin: "shēn qiǎn" },
-          { character: "血迹", pinyin: "xuè jì" },
-          { character: "咬过", pinyin: "yǎo guò" },
-          { character: "牙齿", pinyin: "yá chǐ" },
-          { character: "牙齿印", pinyin: "yá chǐ yìn" },
-          { character: "究竟", pinyin: "jiū jìng" },
-          { character: "必须", pinyin: "bì xū" },
-          { character: "顺着", pinyin: "shùn zhe" },
-          { character: "脚印", pinyin: "jiǎo yìn" },
-          { character: "指点", pinyin: "zhǐ diǎn" },
-          { character: "继续", pinyin: "jì xù" },
-          { character: "果然", pinyin: "guǒ rán" }
+          {
+            character: "详细",
+            pinyin: "xiáng xì"
+          },
+          {
+            character: "不紧不慢",
+            pinyin: "bù jǐn bù màn"
+          },
+          {
+            character: "比较",
+            pinyin: "bǐ jiào"
+          },
+          {
+            character: "深浅",
+            pinyin: "shēn qiǎn"
+          },
+          {
+            character: "血迹",
+            pinyin: "xuè jì"
+          },
+          {
+            character: "咬过",
+            pinyin: "yǎo guò"
+          },
+          {
+            character: "牙齿",
+            pinyin: "yá chǐ"
+          },
+          {
+            character: "牙齿印",
+            pinyin: "yá chǐ yìn"
+          },
+          {
+            character: "究竟",
+            pinyin: "jiū jìng"
+          },
+          {
+            character: "必须",
+            pinyin: "bì xū"
+          },
+          {
+            character: "顺着",
+            pinyin: "shùn zhe"
+          },
+          {
+            character: "脚印",
+            pinyin: "jiǎo yìn"
+          },
+          {
+            character: "指点",
+            pinyin: "zhǐ diǎn"
+          },
+          {
+            character: "继续",
+            pinyin: "jì xù"
+          },
+          {
+            character: "果然",
+            pinyin: "guǒ rán"
+          }
         ]
       },
       {
         name: "6.1",
         words: [
-          { character: "光阴", pinyin: "guāng yīn" },
-          { character: "返回", pinyin: "fǎn huí" },
-          { character: "谢谢", pinyin: "xiè xie" },
-          { character: "落地", pinyin: "luò dì" },
-          { character: "也许", pinyin: "yě xǔ" },
-          { character: "注意", pinyin: "zhù yì" },
-          { character: "不声不响", pinyin: "bù shēng bù xiǎng" },
-          { character: "匆忙", pinyin: "cōng máng" },
-          { character: "躺着", pinyin: "tǎng zhe" },
-          { character: "休息", pinyin: "xiū xi" },
-          { character: "方便", pinyin: "fāng biàn" },
-          { character: "床边", pinyin: "chuáng biān" },
-          { character: "床头", pinyin: "chuáng tóu" },
-          { character: "悄悄", pinyin: "qiāo qiāo" },
-          { character: "溜过去", pinyin: "liū guò qù" },
-          { character: "不知不觉", pinyin: "bù zhī bù jué" },
-          { character: "操场", pinyin: "cāo chǎng" },
-          { character: "打球", pinyin: "dǎ qiú" },
-          { character: "游戏", pinyin: "yóu xì" },
-          { character: "欢笑", pinyin: "huān xiào" },
-          { character: "墙上", pinyin: "qiáng shàng" }
+          {
+            character: "光阴",
+            pinyin: "guāng yīn"
+          },
+          {
+            character: "返回",
+            pinyin: "fǎn huí"
+          },
+          {
+            character: "谢谢",
+            pinyin: "xiè xie"
+          },
+          {
+            character: "落地",
+            pinyin: "luò dì"
+          },
+          {
+            character: "也许",
+            pinyin: "yě xǔ"
+          },
+          {
+            character: "注意",
+            pinyin: "zhù yì"
+          },
+          {
+            character: "不声不响",
+            pinyin: "bù shēng bù xiǎng"
+          },
+          {
+            character: "匆忙",
+            pinyin: "cōng máng"
+          },
+          {
+            character: "躺着",
+            pinyin: "tǎng zhe"
+          },
+          {
+            character: "休息",
+            pinyin: "xiū xi"
+          },
+          {
+            character: "方便",
+            pinyin: "fāng biàn"
+          },
+          {
+            character: "床边",
+            pinyin: "chuáng biān"
+          },
+          {
+            character: "床头",
+            pinyin: "chuáng tóu"
+          },
+          {
+            character: "悄悄",
+            pinyin: "qiāo qiāo"
+          },
+          {
+            character: "溜过去",
+            pinyin: "liū guò qù"
+          },
+          {
+            character: "不知不觉",
+            pinyin: "bù zhī bù jué"
+          },
+          {
+            character: "操场",
+            pinyin: "cāo chǎng"
+          },
+          {
+            character: "打球",
+            pinyin: "dǎ qiú"
+          },
+          {
+            character: "游戏",
+            pinyin: "yóu xì"
+          },
+          {
+            character: "欢笑",
+            pinyin: "huān xiào"
+          },
+          {
+            character: "墙上",
+            pinyin: "qiáng shàng"
+          }
         ]
       },
       {
         name: "6.2",
         words: [
-          { character: "时钟", pinyin: "shí zhōng" },
-          { character: "或许", pinyin: "huò xǔ" },
-          { character: "响声", pinyin: "xiǎng shēng" },
-          { character: "一定", pinyin: "yí dìng" },
-          { character: "一秒钟", pinyin: "yì miǎo zhōng" },
-          { character: "一分钟", pinyin: "yì fēn zhōng" },
-          { character: "时间", pinyin: "shí jiān" },
-          { character: "很短", pinyin: "hěn duǎn" },
-          { character: "愿意", pinyin: "yuàn yì" },
-          { character: "实验", pinyin: "shí yàn" },
-          { character: "第一个", pinyin: "dì yī gè" },
-          { character: "拿东西", pinyin: "ná dōng xi" },
-          { character: "拿起笔", pinyin: "ná qǐ bǐ" },
-          { character: "开始", pinyin: "kāi shǐ" },
-          { character: "似乎", pinyin: "sì hū" },
-          { character: "使人放心", pinyin: "shǐ rén fàng xīn" },
-          { character: "使人开心", pinyin: "shǐ rén kāi xīn" },
-          { character: "许多", pinyin: "xǔ duō" },
-          { character: "伟大", pinyin: "wěi dà" },
-          { character: "人物", pinyin: "rén wù" },
-          { character: "动物", pinyin: "dòng wù" },
-          { character: "植物", pinyin: "zhí wù" },
-          { character: "成功", pinyin: "chéng gōng" },
-          { character: "一寸光阴", pinyin: "yí cùn guāng yīn" },
-          { character: "光阴", pinyin: "guāng yīn" },
-          { character: "努力", pinyin: "nǔ lì" },
-          { character: "懂了", pinyin: "dǒng le" }
+          {
+            character: "时钟",
+            pinyin: "shí zhōng"
+          },
+          {
+            character: "或许",
+            pinyin: "huò xǔ"
+          },
+          {
+            character: "响声",
+            pinyin: "xiǎng shēng"
+          },
+          {
+            character: "一定",
+            pinyin: "yí dìng"
+          },
+          {
+            character: "一秒钟",
+            pinyin: "yì miǎo zhōng"
+          },
+          {
+            character: "一分钟",
+            pinyin: "yì fēn zhōng"
+          },
+          {
+            character: "时间",
+            pinyin: "shí jiān"
+          },
+          {
+            character: "很短",
+            pinyin: "hěn duǎn"
+          },
+          {
+            character: "愿意",
+            pinyin: "yuàn yì"
+          },
+          {
+            character: "实验",
+            pinyin: "shí yàn"
+          },
+          {
+            character: "第一个",
+            pinyin: "dì yī gè"
+          },
+          {
+            character: "拿东西",
+            pinyin: "ná dōng xi"
+          },
+          {
+            character: "拿起笔",
+            pinyin: "ná qǐ bǐ"
+          },
+          {
+            character: "开始",
+            pinyin: "kāi shǐ"
+          },
+          {
+            character: "似乎",
+            pinyin: "sì hū"
+          },
+          {
+            character: "使人放心",
+            pinyin: "shǐ rén fàng xīn"
+          },
+          {
+            character: "使人开心",
+            pinyin: "shǐ rén kāi xīn"
+          },
+          {
+            character: "许多",
+            pinyin: "xǔ duō"
+          },
+          {
+            character: "伟大",
+            pinyin: "wěi dà"
+          },
+          {
+            character: "人物",
+            pinyin: "rén wù"
+          },
+          {
+            character: "动物",
+            pinyin: "dòng wù"
+          },
+          {
+            character: "植物",
+            pinyin: "zhí wù"
+          },
+          {
+            character: "成功",
+            pinyin: "chéng gōng"
+          },
+          {
+            character: "一寸光阴",
+            pinyin: "yí cùn guāng yīn"
+          },
+          {
+            character: "光阴",
+            pinyin: "guāng yīn"
+          },
+          {
+            character: "努力",
+            pinyin: "nǔ lì"
+          },
+          {
+            character: "懂了",
+            pinyin: "dǒng le"
+          }
         ]
       },
       {
         name: "7",
         words: [
-          { character: "等一下", pinyin: "děng yí xià" },
-          { character: "再说", pinyin: "zài shuō" },
-          { character: "清晨", pinyin: "qīng chén" },
-          { character: "乡下", pinyin: "xiāng xià" },
-          { character: "年轻", pinyin: "nián qīng" },
-          { character: "小镇", pinyin: "xiǎo zhèn", meaning: "small town" },
-          { character: "市场", pinyin: "shì chǎng" },
-          { character: "两大筐", pinyin: "liǎng dà kuāng" },
-          { character: "驴子", pinyin: "lǘ zi", meaning: "donkey" },
-          { character: "饭店", pinyin: "fàn diàn" },
-          { character: "歪了", pinyin: "wāi le" },
-          { character: "收拾", pinyin: "shōu shi" },
-          { character: "没关系", pinyin: "méi guān xi" },
-          { character: "行人", pinyin: "xíng rén" },
-          { character: "简直", pinyin: "jiǎn zhí" },
-          { character: "山坡", pinyin: "shān pō" },
-          { character: "摔了", pinyin: "shuāi le" }
+          {
+            character: "等一下",
+            pinyin: "děng yí xià"
+          },
+          {
+            character: "再说",
+            pinyin: "zài shuō"
+          },
+          {
+            character: "清晨",
+            pinyin: "qīng chén"
+          },
+          {
+            character: "乡下",
+            pinyin: "xiāng xià"
+          },
+          {
+            character: "年轻",
+            pinyin: "nián qīng"
+          },
+          {
+            character: "小镇",
+            pinyin: "xiǎo zhèn",
+            meaning: "small town"
+          },
+          {
+            character: "市场",
+            pinyin: "shì chǎng"
+          },
+          {
+            character: "两大筐",
+            pinyin: "liǎng dà kuāng"
+          },
+          {
+            character: "驴子",
+            pinyin: "lǘ zi",
+            meaning: "donkey"
+          },
+          {
+            character: "饭店",
+            pinyin: "fàn diàn"
+          },
+          {
+            character: "歪了",
+            pinyin: "wāi le"
+          },
+          {
+            character: "收拾",
+            pinyin: "shōu shi"
+          },
+          {
+            character: "没关系",
+            pinyin: "méi guān xi"
+          },
+          {
+            character: "行人",
+            pinyin: "xíng rén"
+          },
+          {
+            character: "简直",
+            pinyin: "jiǎn zhí"
+          },
+          {
+            character: "山坡",
+            pinyin: "shān pō"
+          },
+          {
+            character: "摔了",
+            pinyin: "shuāi le"
+          }
         ]
       }
     ]
@@ -2098,7 +2925,13 @@ let levels = gradeData[currentGrade].levels;
       return plausibleDistractors(target);
     }
 
+    function isPinyinToCharacter(target) {
+      return target.mode === "p2c";
+    }
+
     function answerChoicesFor(target) {
+      if (isPinyinToCharacter(target)) return characterAnswerChoicesFor(target);
+
       const targetPattern = repeatedPattern(target.character);
       const priorityOptions = (wordDistractors[target.character] || [])
         .filter((pinyin) => pinyin !== target.pinyin)
@@ -2113,6 +2946,31 @@ let levels = gradeData[currentGrade].levels;
         target.pinyin,
         ...matchingOptions.slice(0, 3)
       ]);
+    }
+
+    function characterAnswerChoicesFor(target) {
+      const sameLength = (item) => Array.from(item.character).length === Array.from(target.character).length;
+      const predefined = (target.distractors || [])
+        .filter((option) => option && option !== target.character)
+        .filter((option) => Array.from(option).length === Array.from(target.character).length);
+      const levelPool = vocabulary
+        .filter((item) => item.character !== target.character)
+        .filter(sameLength)
+        .map((item) => item.character);
+      const gradePool = allWords()
+        .filter((item) => item.character !== target.character)
+        .filter(sameLength)
+        .map((item) => item.character);
+      const options = uniqueStrings([
+        ...predefined,
+        ...shuffle(levelPool),
+        ...shuffle(gradePool)
+      ]).slice(0, 3);
+      return shuffle([target.character, ...options]);
+    }
+
+    function uniqueStrings(items) {
+      return [...new Set(items.filter(Boolean))];
     }
 
     function fillMatchingOptions(target, options) {
@@ -2520,11 +3378,15 @@ let levels = gradeData[currentGrade].levels;
       feedback.className = "feedback";
       current = questionQueue[answeredCount];
 
-      const correctAnswer = current.pinyin;
+      const correctAnswer = isPinyinToCharacter(current) ? current.character : current.pinyin;
       const answers = answerChoicesFor(current);
 
       promptLabel.textContent = "";
-      setSingleLineWord(prompt, current.character);
+      if (isPinyinToCharacter(current)) {
+        showPinyinPrompt(current.pinyin);
+      } else {
+        setSingleLineWord(prompt, current.character);
+      }
       choices.innerHTML = "";
 
       answers.forEach((answer) => {
@@ -2611,6 +3473,15 @@ let levels = gradeData[currentGrade].levels;
         </div>
       `;
       prompt.dataset.wordSize = wordSize;
+    }
+
+    function showPinyinPrompt(pinyin) {
+      prompt.innerHTML = `
+        <div class="prompt-stack">
+          <span class="prompt-pinyin prompt-pinyin-large">${pinyin}</span>
+        </div>
+      `;
+      prompt.dataset.wordSize = wordSizeLabel(pinyin);
     }
 
     function updateDashboard() {
