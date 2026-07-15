@@ -185,6 +185,17 @@
       flex-wrap: wrap;
     }
 
+    .mode-group {
+      display: grid;
+      gap: 5px;
+    }
+
+    .mode-status {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
     .phase-tabs button {
       cursor: default;
     }
@@ -999,9 +1010,12 @@
 
     <section class="toolbar" aria-label="Practice settings">
       <strong id="levelTitle"></strong>
-      <div class="phase-tabs">
-        <button id="studyModeButton" class="active" type="button">Study</button>
-        <button id="testModeButton" type="button">Test</button>
+      <div class="mode-group">
+        <span class="mode-status" id="modeStatus">You are currently in the Study mode.</span>
+        <div class="phase-tabs">
+          <button id="studyModeButton" class="active" type="button">Study</button>
+          <button id="testModeButton" type="button">Test</button>
+        </div>
       </div>
       <button id="startTestButton" class="blue-button" type="button">Go Test</button>
       <div class="final-test-area">
@@ -2517,6 +2531,7 @@ let levels = gradeData[currentGrade].levels;
     const grade4PreviewButton = document.querySelector("#grade4PreviewButton");
     const studyModeButton = document.querySelector("#studyModeButton");
     const testModeButton = document.querySelector("#testModeButton");
+    const modeStatus = document.querySelector("#modeStatus");
     const studyCard = document.querySelector("#studyCard");
     const studyControls = document.querySelector("#studyControls");
     const studyWord = document.querySelector("#studyWord");
@@ -2616,6 +2631,7 @@ let levels = gradeData[currentGrade].levels;
 
     function updateModeAction() {
       const inTest = phase === "test";
+      modeStatus.textContent = `You are currently in the ${inTest ? "Test" : "Study"} mode.`;
       startTestButton.textContent = inTest ? "Go Study" : "Go Test";
       startTestButton.classList.toggle("study-action-button", inTest);
       startTestButton.classList.toggle("blue-button", !inTest);
