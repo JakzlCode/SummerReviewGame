@@ -179,13 +179,6 @@
       color: var(--blue-dark);
     }
 
-    .phase-tabs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
     .mode-group {
       display: grid;
       gap: 5px;
@@ -197,17 +190,26 @@
       font-weight: 800;
     }
 
-    .phase-tabs button {
-      min-height: 30px;
-      border-color: transparent;
-      background: transparent;
-      color: var(--muted);
-      padding: 0 2px;
-      cursor: default;
-      pointer-events: none;
-      font-size: 0.9rem;
+    .mode-pill {
+      display: inline-block;
+      margin: 0 3px;
+      color: var(--blue-dark);
+      font-size: 0.86rem;
+      font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0.04em;
+    }
+
+    .mode-pill.study {
+      color: #08746f;
+    }
+
+    .mode-pill.test {
+      color: var(--blue-dark);
+    }
+
+    .phase-tabs {
+      display: none;
     }
 
     .grade-tabs {
@@ -523,6 +525,12 @@
       font-size: clamp(1.35rem, 3vw, 1.8rem);
       line-height: 1;
       white-space: nowrap;
+    }
+
+    .choice.pinyin-choice {
+      min-height: 64px;
+      font-size: clamp(1.08rem, 2.5vw, 1.35rem);
+      line-height: 1.15;
     }
 
     .choice:nth-child(2) {
@@ -1028,7 +1036,7 @@
     <section class="toolbar" aria-label="Practice settings">
       <strong id="levelTitle"></strong>
       <div class="mode-group">
-        <span class="mode-status" id="modeStatus">You are currently in the Study mode.</span>
+        <span class="mode-status" id="modeStatus">You are currently in the <span class="mode-pill study">Study</span> mode.</span>
         <div class="phase-tabs">
           <button id="studyModeButton" class="active" type="button">Study</button>
           <button id="testModeButton" type="button">Test</button>
@@ -2751,7 +2759,8 @@ let levels = gradeData[currentGrade].levels;
 
     function updateModeAction() {
       const inTest = phase === "test";
-      modeStatus.textContent = `You are currently in the ${inTest ? "Test" : "Study"} mode.`;
+      const modeLabel = inTest ? "Test" : "Study";
+      modeStatus.innerHTML = `You are currently in the <span class="mode-pill ${inTest ? "test" : "study"}">${modeLabel}</span> mode.`;
       startTestButton.textContent = inTest ? "Go Study" : "Go Test";
       startTestButton.classList.toggle("study-action-button", inTest);
       startTestButton.classList.toggle("blue-button", !inTest);
@@ -3558,7 +3567,7 @@ let levels = gradeData[currentGrade].levels;
 
       answers.forEach((answer) => {
         const button = document.createElement("button");
-        button.className = isPinyinToCharacter(current) ? "choice character-choice" : "choice";
+        button.className = isPinyinToCharacter(current) ? "choice character-choice" : "choice pinyin-choice";
         button.type = "button";
         button.textContent = answer;
         button.addEventListener("click", () => checkAnswer(answer, correctAnswer));
