@@ -2715,6 +2715,7 @@ let levels = gradeData[currentGrade].levels;
       nextButton.disabled = true;
       choices.innerHTML = "";
       showPromptMessage("fù xí", "复习");
+      const reviewSource = activeReviewSource;
       const removedCount = activeReviewSource === "stored" ? removeMasteredMissedWords(reviewBankCorrectWords) : 0;
       if (activeReviewSource === "stored") {
         missedWordsReviewedForFinal = true;
@@ -2726,17 +2727,42 @@ let levels = gradeData[currentGrade].levels;
         : `Missed-word practice complete: ${score}/${vocabulary.length} correct.`;
       feedback.className = score === vocabulary.length ? "feedback good" : "feedback bad";
 
-      const retryButton = document.createElement("button");
-      retryButton.className = "primary advance-button";
-      retryButton.type = "button";
+      const actionRow = document.createElement("div");
+      actionRow.className = "answer-action-row advance-button";
+
       if (activeReviewSource === "final") {
+        const retryButton = document.createElement("button");
+        retryButton.className = "primary";
+        retryButton.type = "button";
         retryButton.textContent = "Try Final Test Again";
         retryButton.addEventListener("click", startFinalTestPreview);
+        actionRow.append(retryButton);
       } else {
-        retryButton.textContent = "Restart Current Level";
-        retryButton.addEventListener("click", () => startLevel(levelIndex));
+        if (missed > 0 && (reviewSource !== "stored" || storedMissedWords.length > 0)) {
+          const reviewAgainButton = document.createElement("button");
+          reviewAgainButton.className = "primary";
+          reviewAgainButton.type = "button";
+          reviewAgainButton.textContent = "Review Missed Words Again";
+          reviewAgainButton.addEventListener("click", () => {
+            if (reviewSource === "stored") {
+              startStoredMissedPractice();
+              return;
+            }
+            activeReviewSource = reviewSource;
+            vocabulary = uniqueWords(vocabulary);
+            beginTest("Missed Words");
+          });
+          actionRow.append(reviewAgainButton);
+        }
+
+        const levelTestButton = document.createElement("button");
+        levelTestButton.className = "primary";
+        levelTestButton.type = "button";
+        levelTestButton.textContent = "Restart Level Test";
+        levelTestButton.addEventListener("click", () => startLevel(levelIndex));
+        actionRow.append(levelTestButton);
       }
-      feedback.append(document.createElement("br"), retryButton);
+      feedback.append(document.createElement("br"), actionRow);
     }
 
     function finishLevel() {
