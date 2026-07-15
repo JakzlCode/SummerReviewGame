@@ -183,6 +183,7 @@
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .mode-group {
@@ -197,7 +198,16 @@
     }
 
     .phase-tabs button {
+      min-height: 30px;
+      border-color: transparent;
+      background: transparent;
+      color: var(--muted);
+      padding: 0 2px;
       cursor: default;
+      pointer-events: none;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .grade-tabs {
@@ -295,15 +305,15 @@
     }
 
     #studyModeButton.active {
-      background: var(--teal);
-      border-color: var(--teal);
-      color: white;
+      background: transparent;
+      border-color: transparent;
+      color: #08746f;
     }
 
     #testModeButton.active {
-      background: var(--blue);
-      border-color: var(--blue);
-      color: white;
+      background: transparent;
+      border-color: transparent;
+      color: var(--blue-dark);
     }
 
     .blue-button {
@@ -506,6 +516,13 @@
       box-shadow: 0 10px 24px rgba(47, 111, 237, 0.1);
       color: var(--blue-dark);
       transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+
+    .choice.character-choice {
+      min-height: 64px;
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+      line-height: 1;
+      white-space: nowrap;
     }
 
     .choice:nth-child(2) {
@@ -2761,6 +2778,37 @@ let levels = gradeData[currentGrade].levels;
       return [...items].sort(() => Math.random() - 0.5);
     }
 
+    function mixedQuestionQueue(items) {
+      const p2cItems = shuffle(items.filter(isPinyinToCharacter));
+      const c2pItems = shuffle(items.filter((item) => !isPinyinToCharacter(item)));
+      if (!p2cItems.length || !c2pItems.length) return shuffle(items);
+
+      const queue = [];
+      let p2cIndex = 0;
+      let c2pIndex = 0;
+      let nextMode = Math.random() < 0.5 ? "p2c" : "c2p";
+
+      while (p2cIndex < p2cItems.length || c2pIndex < c2pItems.length) {
+        if (nextMode === "p2c" && p2cIndex < p2cItems.length) {
+          queue.push(p2cItems[p2cIndex]);
+          p2cIndex += 1;
+          nextMode = "c2p";
+        } else if (nextMode === "c2p" && c2pIndex < c2pItems.length) {
+          queue.push(c2pItems[c2pIndex]);
+          c2pIndex += 1;
+          nextMode = "p2c";
+        } else if (p2cIndex < p2cItems.length) {
+          queue.push(p2cItems[p2cIndex]);
+          p2cIndex += 1;
+        } else {
+          queue.push(c2pItems[c2pIndex]);
+          c2pIndex += 1;
+        }
+      }
+
+      return queue;
+    }
+
     function allWords() {
       const seen = new Set();
       return levels.flatMap((level) => level.words).filter((item) => {
@@ -3224,7 +3272,7 @@ let levels = gradeData[currentGrade].levels;
       testMode = "level";
       levelIndex = index;
       vocabulary = levels[levelIndex].words;
-      questionQueue = shuffle(vocabulary);
+      questionQueue = mixedQuestionQueue(vocabulary);
       current = null;
       score = 0;
       missed = 0;
@@ -3431,7 +3479,7 @@ let levels = gradeData[currentGrade].levels;
 
     function beginTest(title) {
       phase = "test";
-      questionQueue = shuffle(vocabulary);
+      questionQueue = mixedQuestionQueue(vocabulary);
       current = null;
       score = 0;
       missed = 0;
@@ -3510,7 +3558,7 @@ let levels = gradeData[currentGrade].levels;
 
       answers.forEach((answer) => {
         const button = document.createElement("button");
-        button.className = "choice";
+        button.className = isPinyinToCharacter(current) ? "choice character-choice" : "choice";
         button.type = "button";
         button.textContent = answer;
         button.addEventListener("click", () => checkAnswer(answer, correctAnswer));
