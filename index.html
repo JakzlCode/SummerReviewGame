@@ -1135,7 +1135,7 @@
           <div class="review-bank-actions">
             <button id="studyMissedButton" class="review-bank-button" type="button">Study Missed Words</button>
             <button id="reviewMissedButton" class="review-bank-button" type="button">Test Missed Words</button>
-            <button id="copyProgressButton" class="review-bank-button progress-report-button" type="button">Copy Progress Report</button>
+            <button id="copyProgressButton" class="review-bank-button progress-report-button" type="button">Copy Report and Open Class Doc</button>
           </div>
           <h2>Level Progress</h2>
           <div class="level-tracker" id="levelTracker"></div>
@@ -3307,7 +3307,8 @@ let levels = gradeData[currentGrade].levels;
     let activeReviewSource = "";
     let missedWordsReviewedForFinal = false;
     let nextAction = null;
-    const finalTestSize = 30;
+    const finalTestSize = 50;
+    const progressReportDocUrl = "https://docs.google.com/document/d/1UbFTY7rE-HATEcAe8MSsQHoaJm9d10UbzGGNseqWUSA/edit?usp=sharing";
     const progressKeyBase = "mlp-2026-summer-review-progress";
     const passedLevels = new Set();
 
@@ -3419,46 +3420,27 @@ let levels = gradeData[currentGrade].levels;
 
     function progressReportText() {
       saveProgress();
+      const saved = savedProgressForGrade(currentGrade);
+      const passed = new Set(saved.passedLevels);
+      const gradeLabel = gradeData[currentGrade].shortLabel;
+      const currentLevel = levels[levelIndex].name;
       const lines = [
         "2026 Summer Review Progress Report",
-        `Date: ${new Date().toLocaleDateString()}`,
-        `Current place: ${gradeData[currentGrade].shortLabel} Level ${levels[levelIndex].name}`,
+        `DATE: ${new Date().toLocaleDateString()}`,
+        `GRADE LEVEL: ${gradeLabel}`,
+        `CURRENT LEVEL: ${currentLevel}`,
+        `LEVELS COMPLETED: ${passed.size}/${levels.length}`,
+        `SAVED MISSED WORDS: ${storedMissedWords.length}`,
         ""
       ];
 
-      Object.entries(gradeData).forEach(([gradeKey, data]) => {
-        const saved = savedProgressForGrade(gradeKey);
-        const passed = new Set(saved.passedLevels);
-        const currentLevel = data.levels[Math.min(saved.levelIndex || 0, data.levels.length - 1)]?.name || data.levels[0].name;
-        const passedNames = data.levels
-          .filter((level, index) => passed.has(index))
-          .map((level) => level.name);
-        lines.push(`${data.shortLabel}:`);
-        lines.push(`- Current level: ${currentLevel}`);
-        lines.push(`- Levels completed: ${passed.size}/${data.levels.length}${passedNames.length ? ` (${passedNames.join(", ")})` : ""}`);
-        lines.push(`- Total words in this grade: ${wordCountForGrade(gradeKey)}`);
-        lines.push(`- Saved missed words: ${saved.missedWords.length}`);
-        if (gradeKey === "grade4" && !gradeIsComplete("grade3")) {
-          lines.push("- Status: Locked until Grade 3 is complete");
-        } else if (data.levels.every((level, index) => passed.has(index))) {
-          lines.push("- Status: All levels complete");
-        } else {
-          lines.push("- Status: In progress");
-        }
-        lines.push("");
-      });
-
-      lines.push(`Final Test: ${allLevelsPassed() ? "Unlocked after saved missed words are reviewed" : "Locked until all levels are complete"}`);
-      lines.push(`Saved missed words reviewed for Final Test: ${missedWordsReviewedForFinal ? "Yes" : "No"}`);
+      lines.push("CURRENT SAVED MISSED WORDS:");
       if (storedMissedWords.length) {
-        lines.push("");
-        lines.push("Current saved missed words:");
-        storedMissedWords.slice(0, 15).forEach((item) => {
+        storedMissedWords.forEach((item) => {
           lines.push(`- ${item.character} (${item.pinyin})${item.level ? `, Level ${item.level}` : ""}`);
         });
-        if (storedMissedWords.length > 15) {
-          lines.push(`- ...and ${storedMissedWords.length - 15} more`);
-        }
+      } else {
+        lines.push("- None");
       }
 
       return lines.join("\n");
@@ -3484,10 +3466,11 @@ let levels = gradeData[currentGrade].levels;
       const originalText = copyProgressButton.textContent;
       try {
         await copyText(progressReportText());
-        copyProgressButton.textContent = "Progress Report Copied";
-        showModal("Progress copied", "Paste the progress report into a message or email to send it to your teacher.", "OK");
+        copyProgressButton.textContent = "Report Copied";
+        window.location.href = progressReportDocUrl;
       } catch {
-        showModal("Copy did not work", "Please take a screenshot of the dashboard and send it to your teacher.", "OK");
+        copyProgressButton.textContent = "Open Class Doc";
+        window.location.href = progressReportDocUrl;
       } finally {
         window.setTimeout(() => {
           copyProgressButton.textContent = originalText;
@@ -4479,7 +4462,7 @@ let levels = gradeData[currentGrade].levels;
       studyWordCount.textContent = vocabulary.length;
       studyProgressFill.style.width = `${((levelIndex + 1) / levels.length) * 100}%`;
       dashboardNote.textContent = testMode === "final"
-        ? "Final Test uses 30 random words from all levels."
+        ? "Final Test uses 50 random words from all levels."
         : testMode === "review" || testMode === "review-bank"
         ? "Practice mode uses missed words saved from recent tests."
         : phase === "test"
@@ -4509,7 +4492,7 @@ let levels = gradeData[currentGrade].levels;
         ? "Complete all levels to unlock."
         : blockedByMisses
         ? "Test saved missed words once to unlock."
-        : "Unlocked: 30 random words from all levels.";
+        : "Unlocked: 50 random words from all levels.";
     }
 
     function stopForRestart() {
