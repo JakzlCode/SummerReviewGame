@@ -581,21 +581,15 @@
       box-shadow: 0 0 0 4px rgba(20, 125, 75, 0.18), 0 18px 34px rgba(20, 125, 75, 0.22);
     }
 
-    .choice.correct-answer::after {
-      content: "✓ Correct answer";
-      position: absolute;
-      top: 7px;
-      right: 9px;
-      border-radius: 999px;
-      background: rgba(20, 125, 75, 0.13);
+    .choice.correct-answer::before {
+      content: "✓";
       color: var(--good);
-      font-size: 0.68rem;
+      font-size: 1.45em;
       font-weight: 900;
       line-height: 1;
-      letter-spacing: 0.04em;
-      padding: 5px 7px;
+      margin-right: 10px;
       pointer-events: none;
-      text-transform: uppercase;
+      vertical-align: -0.04em;
     }
 
     .choice.wrong-answer {
