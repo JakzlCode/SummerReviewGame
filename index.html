@@ -607,22 +607,6 @@
       box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.16), 0 18px 34px rgba(180, 35, 24, 0.2);
     }
 
-    .choice-pinyin-label {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--blue-dark);
-      font-size: 0.9rem;
-      font-weight: 900;
-      line-height: 1.1;
-      white-space: normal;
-    }
-
-    .choice-character-label {
-      display: block;
-      font-size: inherit;
-      line-height: 1;
-    }
-
     .feedback {
       min-height: 32px;
       margin: 14px 0 0;
@@ -4936,33 +4920,6 @@ let levels = gradeData[currentGrade].levels;
       element.dataset.wordSize = wordSizeLabel(text);
     }
 
-    function pinyinForCharacterChoice(character) {
-      if (current && character === current.character) return current.pinyin;
-      if (current && Array.isArray(current.distractors) && Array.isArray(current.distractorPinyin)) {
-        const distractorIndex = current.distractors.indexOf(character);
-        if (distractorIndex >= 0 && current.distractorPinyin[distractorIndex]) {
-          return current.distractorPinyin[distractorIndex];
-        }
-      }
-      const match = allWords().find((item) => item.character === character)
-        || vocabulary.find((item) => item.character === character)
-        || storedMissedWords.find((item) => item.character === character);
-      return match ? match.pinyin : "";
-    }
-
-    function showCharacterChoicePinyin(button, character) {
-      const pinyin = pinyinForCharacterChoice(character);
-      if (!pinyin) return;
-      button.innerHTML = `<span class="choice-pinyin-label">${pinyin}</span><span class="choice-character-label">${character}</span>`;
-    }
-
-    function revealAnswerReview() {
-      if (!isPinyinToCharacter(current)) return;
-      [...choices.querySelectorAll(".choice")].forEach((button) => {
-        showCharacterChoicePinyin(button, button.dataset.answer || button.textContent);
-      });
-    }
-
     function updateStudyCard() {
       const item = vocabulary[studyIndex];
       setSingleLineWord(studyWord, item.character);
@@ -5018,7 +4975,6 @@ let levels = gradeData[currentGrade].levels;
         if (buttonAnswer === correctAnswer) button.classList.add("correct-answer");
         if (buttonAnswer === answer && answer !== correctAnswer) button.classList.add("wrong-answer");
       });
-      revealAnswerReview();
 
       if (answer === correctAnswer) {
         score += 1;
@@ -5029,6 +4985,7 @@ let levels = gradeData[currentGrade].levels;
         missed += 1;
         if (testMode === "final") finalMissedWords.push(current);
         if (testMode === "level") levelMissedWords.push(current);
+        showPromptMessage(current.pinyin, current.character);
         feedback.innerHTML = `<span class="answer-action-row"></span>`;
         feedback.classList.add("bad");
       }
