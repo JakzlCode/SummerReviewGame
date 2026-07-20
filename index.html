@@ -1134,7 +1134,7 @@
           <div class="review-bank-actions">
             <button id="studyMissedButton" class="review-bank-button" type="button">Study Missed Words</button>
             <button id="reviewMissedButton" class="review-bank-button" type="button">Test Missed Words</button>
-            <button id="copyProgressButton" class="review-bank-button progress-report-button" type="button">Copy Report and Open Class Doc</button>
+            <button id="copyProgressButton" class="review-bank-button progress-report-button" type="button">Copy Progress Report and Submit</button>
           </div>
           <h2>Level Progress</h2>
           <div class="level-tracker" id="levelTracker"></div>
@@ -3921,7 +3921,7 @@ let levels = gradeData[currentGrade].levels;
     const finalTestSize = 50;
     const levelPassRate = 0.8;
     const finalTestPassRate = 0.9;
-    const progressReportDocUrl = "https://docs.google.com/document/d/1UbFTY7rE-HATEcAe8MSsQHoaJm9d10UbzGGNseqWUSA/edit?usp=sharing";
+    const progressReportDocUrl = "https://docs.google.com/spreadsheets/d/1F-4bTNZH4WUotDt9DeOK_S8lO7MaeOSpz8FZiC9vqbw/edit?gid=2140688087#gid=2140688087";
     const progressKeyBase = "mlp-2026-summer-review-progress";
     const passedLevels = new Set();
 
@@ -4079,15 +4079,21 @@ let levels = gradeData[currentGrade].levels;
       const originalText = copyProgressButton.textContent;
       try {
         await copyText(progressReportText());
-        copyProgressButton.textContent = "Report Copied";
-        window.location.href = progressReportDocUrl;
+        copyProgressButton.textContent = "Report copied";
+        showModal("Report copied", "Your progress report is copied. The class Google Sheet will open in 3 seconds.", "OK");
+        window.setTimeout(() => {
+          window.location.href = progressReportDocUrl;
+        }, 3000);
       } catch {
-        copyProgressButton.textContent = "Open Class Doc";
-        window.location.href = progressReportDocUrl;
+        copyProgressButton.textContent = "Open class sheet";
+        showModal("Copy did not work", "The class Google Sheet will open in 3 seconds. Please paste or type your progress report there.", "OK");
+        window.setTimeout(() => {
+          window.location.href = progressReportDocUrl;
+        }, 3000);
       } finally {
         window.setTimeout(() => {
           copyProgressButton.textContent = originalText;
-        }, 1800);
+        }, 3000);
       }
     }
 
