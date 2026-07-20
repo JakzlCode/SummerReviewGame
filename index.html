@@ -567,24 +567,42 @@
 
     .choice:disabled {
       cursor: default;
+      opacity: 1;
       transform: none;
     }
 
     .choice.correct-answer {
-      border-color: rgba(20, 125, 75, 0.72);
+      border-color: rgba(20, 125, 75, 0.95);
       background:
         radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.96) 0 18%, transparent 19%),
-        linear-gradient(135deg, rgba(222, 247, 232, 0.98), rgba(198, 239, 217, 0.96));
+        linear-gradient(135deg, rgba(215, 250, 229, 1), rgba(177, 235, 204, 0.98));
       color: var(--good);
-      box-shadow: 0 14px 30px rgba(20, 125, 75, 0.16);
+      box-shadow: 0 0 0 4px rgba(20, 125, 75, 0.18), 0 18px 34px rgba(20, 125, 75, 0.22);
     }
 
     .choice.wrong-answer {
-      border-color: rgba(230, 83, 54, 0.72);
+      border-color: rgba(180, 35, 24, 0.95);
       background:
         radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.92) 0 18%, transparent 19%),
-        linear-gradient(135deg, rgba(255, 232, 226, 0.98), rgba(250, 208, 198, 0.92));
+        linear-gradient(135deg, rgba(255, 225, 217, 1), rgba(250, 186, 171, 0.96));
       color: var(--bad);
+      box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.16), 0 18px 34px rgba(180, 35, 24, 0.2);
+    }
+
+    .choice-pinyin-label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--blue-dark);
+      font-size: 0.9rem;
+      font-weight: 900;
+      line-height: 1.1;
+      white-space: normal;
+    }
+
+    .choice-character-label {
+      display: block;
+      font-size: inherit;
+      line-height: 1;
     }
 
     .feedback {
@@ -606,21 +624,6 @@
       flex-wrap: wrap;
       gap: 10px;
       align-items: stretch;
-    }
-
-    .answer-reveal {
-      display: inline-grid;
-      gap: 5px;
-      border-radius: 8px;
-      border: 1px solid rgba(20, 125, 75, 0.24);
-      background: rgba(20, 125, 75, 0.08);
-      color: var(--ink);
-      padding: 10px 12px;
-    }
-
-    .answer-reveal strong {
-      color: var(--good);
-      font-size: 1.18rem;
     }
 
     .list-panel h2 {
@@ -3532,7 +3535,7 @@ let levels = gradeData[currentGrade].levels;
       const inTest = phase === "test";
       const modeLabel = inTest ? "Test" : "Study";
       modeStatus.innerHTML = `You are currently in the <span class="mode-pill ${inTest ? "test" : "study"}">${modeLabel}</span> mode.`;
-      startTestButton.textContent = inTest ? "Go Study" : "Go Test";
+      startTestButton.textContent = inTest ? "Go study for the next level" : "I'm ready. Start the test.";
       startTestButton.classList.toggle("study-action-button", inTest);
       startTestButton.classList.toggle("blue-button", !inTest);
     }
@@ -4303,6 +4306,30 @@ let levels = gradeData[currentGrade].levels;
       element.dataset.wordSize = wordSizeLabel(text);
     }
 
+    function pinyinForCharacterChoice(character) {
+      if (current && character === current.character) return current.pinyin;
+      const match = allWords().find((item) => item.character === character)
+        || vocabulary.find((item) => item.character === character)
+        || storedMissedWords.find((item) => item.character === character);
+      return match ? match.pinyin : "";
+    }
+
+    function showCharacterChoicePinyin(button, character) {
+      const pinyin = pinyinForCharacterChoice(character);
+      if (!pinyin) return;
+      button.innerHTML = `<span class="choice-pinyin-label">${pinyin}</span><span class="choice-character-label">${character}</span>`;
+    }
+
+    function revealAnswerReview() {
+      if (!isPinyinToCharacter(current)) {
+        showPromptMessage(current.pinyin, current.character);
+        return;
+      }
+      [...choices.querySelectorAll(".choice")].forEach((button) => {
+        showCharacterChoicePinyin(button, button.dataset.answer || button.textContent);
+      });
+    }
+
     function updateStudyCard() {
       const item = vocabulary[studyIndex];
       setSingleLineWord(studyWord, item.character);
@@ -4340,6 +4367,7 @@ let levels = gradeData[currentGrade].levels;
         const button = document.createElement("button");
         button.className = isPinyinToCharacter(current) ? "choice character-choice" : "choice pinyin-choice";
         button.type = "button";
+        button.dataset.answer = answer;
         button.textContent = answer;
         button.addEventListener("click", () => checkAnswer(answer, correctAnswer));
         choices.append(button);
@@ -4353,9 +4381,11 @@ let levels = gradeData[currentGrade].levels;
 
       [...choices.querySelectorAll(".choice")].forEach((button) => {
         button.disabled = true;
-        if (button.textContent === correctAnswer) button.classList.add("correct-answer");
-        if (button.textContent === answer && answer !== correctAnswer) button.classList.add("wrong-answer");
+        const buttonAnswer = button.dataset.answer || button.textContent;
+        if (buttonAnswer === correctAnswer) button.classList.add("correct-answer");
+        if (buttonAnswer === answer && answer !== correctAnswer) button.classList.add("wrong-answer");
       });
+      revealAnswerReview();
 
       if (answer === correctAnswer) {
         score += 1;
@@ -4366,7 +4396,7 @@ let levels = gradeData[currentGrade].levels;
         missed += 1;
         if (testMode === "final") finalMissedWords.push(current);
         if (testMode === "level") levelMissedWords.push(current);
-        feedback.innerHTML = `<span class="answer-action-row"><span class="answer-reveal">Correct Answer <strong>${current.character} = ${correctAnswer}</strong></span></span>`;
+        feedback.innerHTML = `<span class="answer-action-row"><span>Review the highlighted answers.</span></span>`;
         feedback.classList.add("bad");
       }
 
@@ -4452,7 +4482,9 @@ let levels = gradeData[currentGrade].levels;
       studyMissedButton.textContent = storedMissedWords.length
         ? `Study Missed Words (${storedMissedWords.length})`
         : "Study Missed Words";
-      reviewMissedButton.textContent = storedMissedWords.length
+      reviewMissedButton.textContent = testMode === "review-bank"
+        ? "Test Missed Words"
+        : storedMissedWords.length
         ? `Test Missed Words (${storedMissedWords.length})`
         : "Test Missed Words";
       studyCurrentGrade.textContent = gradeData[currentGrade].shortLabel;
