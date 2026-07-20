@@ -4144,8 +4144,13 @@ let levels = gradeData[currentGrade].levels;
     function updateModeAction() {
       const inTest = phase === "test";
       const modeLabel = inTest ? "Test" : "Study";
+      const completedStoredMissedTest = inTest && testStopped && testMode === "review-bank" && activeReviewSource === "stored";
       modeStatus.innerHTML = `You are currently in the <span class="mode-pill ${inTest ? "test" : "study"}">${modeLabel}</span> mode.`;
-      startTestButton.textContent = inTest ? "Go study for the next level" : "I'm ready. Start the test.";
+      startTestButton.textContent = inTest
+        ? completedStoredMissedTest
+          ? "Go study for the next level"
+          : "Go study for this level"
+        : "I'm ready. Start the test.";
       startTestButton.classList.toggle("study-action-button", inTest);
       startTestButton.classList.toggle("blue-button", !inTest);
     }
@@ -5210,6 +5215,7 @@ let levels = gradeData[currentGrade].levels;
         saveProgress();
         updateDashboard();
       }
+      updateModeAction();
       feedback.textContent = activeReviewSource === "stored"
         ? `Missed-word practice complete: ${score}/${vocabulary.length} correct. ${removedCount} word${removedCount === 1 ? "" : "s"} removed from your missed list. ${storedMissedWords.length} still left to review.`
         : `Missed-word practice complete: ${score}/${vocabulary.length} correct.`;
