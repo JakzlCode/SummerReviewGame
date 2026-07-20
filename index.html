@@ -4089,17 +4089,8 @@ let levels = gradeData[currentGrade].levels;
 
     async function copyProgressReport() {
       const originalText = copyProgressButton.textContent;
-      const progressSheetTab = window.open("about:blank", "_blank");
-      if (progressSheetTab) {
-        progressSheetTab.opener = null;
-        window.focus();
-      }
       const openProgressSheet = () => {
-        if (progressSheetTab) {
-          progressSheetTab.location.href = progressReportDocUrl;
-        } else {
-          window.open(progressReportDocUrl, "_blank", "noopener");
-        }
+        window.open(progressReportDocUrl, "_blank", "noopener");
       };
       try {
         await copyText(progressReportText());
