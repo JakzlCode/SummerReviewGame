@@ -4683,6 +4683,14 @@ let levels = gradeData[currentGrade].levels;
       saveProgress();
     }
 
+    function restartLevelTest() {
+      levels = gradeData[currentGrade].levels;
+      activeReviewSource = "";
+      testMode = "level";
+      vocabulary = levels[levelIndex].words;
+      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
+    }
+
     function loadSavedProgress() {
       try {
         const saved = JSON.parse(localStorage.getItem(currentProgressKey()) || "{}");
@@ -4973,8 +4981,8 @@ let levels = gradeData[currentGrade].levels;
       if (answer === correctAnswer) {
         score += 1;
         if (testMode === "review-bank") reviewBankCorrectWords.push(current);
-        feedback.textContent = `Correct: ${current.character} = ${current.pinyin}`;
-        feedback.classList.add("good");
+        feedback.textContent = "";
+        feedback.className = "feedback";
       } else {
         missed += 1;
         if (testMode === "final") finalMissedWords.push(current);
@@ -5237,7 +5245,7 @@ let levels = gradeData[currentGrade].levels;
         levelTestButton.className = "primary";
         levelTestButton.type = "button";
         levelTestButton.textContent = "Restart Level Test";
-        levelTestButton.addEventListener("click", () => startLevel(levelIndex));
+        levelTestButton.addEventListener("click", restartLevelTest);
         actionRow.append(levelTestButton);
       }
       feedback.append(document.createElement("br"), actionRow);
@@ -5309,7 +5317,7 @@ let levels = gradeData[currentGrade].levels;
     reviewMissedButton.addEventListener("click", startStoredMissedPractice);
     copyProgressButton.addEventListener("click", copyProgressReport);
     nextButton.addEventListener("click", handleNextQuestion);
-    restartButton.addEventListener("click", () => startLevel(levelIndex));
+    restartButton.addEventListener("click", restartLevelTest);
     startTestButton.addEventListener("click", startTest);
     finalTestButton.addEventListener("click", startFinalTest);
     teacherPreviewButton.addEventListener("click", startFinalTestPreview);
