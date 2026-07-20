@@ -3929,6 +3929,7 @@ let levels = gradeData[currentGrade].levels;
     let activeReviewSource = "";
     let missedWordsReviewedForFinal = false;
     let nextAction = null;
+    let modalAction = null;
     const finalTestSize = 50;
     const levelPassRate = 0.8;
     const finalTestPassRate = 0.9;
@@ -4152,15 +4153,19 @@ let levels = gradeData[currentGrade].levels;
       return before - storedMissedWords.length;
     }
 
-    function showModal(title, message, buttonText = "Keep Going") {
+    function showModal(title, message, buttonText = "Keep Going", action = null) {
       modalTitle.textContent = title;
       modalMessage.textContent = message;
       modalCloseButton.textContent = buttonText;
+      modalAction = action;
       celebrationModal.classList.add("active");
     }
 
     function hideModal() {
       celebrationModal.classList.remove("active");
+      const action = modalAction;
+      modalAction = null;
+      if (action) action();
     }
 
     function updateModeAction() {
@@ -4182,7 +4187,8 @@ let levels = gradeData[currentGrade].levels;
       showModal(
         "Nice progress!",
         `You have ${storedMissedWords.length} saved missed words. This is a good moment to pause, review them, and make the next level easier.`,
-        "Review Soon"
+        "Study Missed Words",
+        studyStoredMissedWords
       );
     }
 
