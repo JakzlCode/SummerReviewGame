@@ -5267,6 +5267,18 @@ let levels = gradeData[currentGrade].levels;
         retryButton.textContent = "Try Final Test Again";
         retryButton.addEventListener("click", startFinalTestPreview);
         actionRow.append(retryButton);
+      } else if (reviewSource === "stored") {
+        const nextStudyButton = document.createElement("button");
+        nextStudyButton.className = "primary";
+        nextStudyButton.type = "button";
+        if (levelIndex < levels.length - 1) {
+          nextStudyButton.textContent = "Go study for the next level";
+          nextStudyButton.addEventListener("click", () => startLevel(levelIndex + 1));
+        } else {
+          nextStudyButton.textContent = "Go study for this level";
+          nextStudyButton.addEventListener("click", () => startLevel(levelIndex));
+        }
+        actionRow.append(nextStudyButton);
       } else {
         if (missed > 0 && (reviewSource !== "stored" || storedMissedWords.length > 0)) {
           const reviewAgainButton = document.createElement("button");
