@@ -3919,6 +3919,8 @@ let levels = gradeData[currentGrade].levels;
     let missedWordsReviewedForFinal = false;
     let nextAction = null;
     const finalTestSize = 50;
+    const levelPassRate = 0.8;
+    const finalTestPassRate = 0.9;
     const progressReportDocUrl = "https://docs.google.com/document/d/1UbFTY7rE-HATEcAe8MSsQHoaJm9d10UbzGGNseqWUSA/edit?usp=sharing";
     const progressKeyBase = "mlp-2026-summer-review-progress";
     const passedLevels = new Set();
@@ -5054,7 +5056,7 @@ let levels = gradeData[currentGrade].levels;
     }
 
     function updateDashboard() {
-      const passScore = Math.ceil(vocabulary.length * 0.9);
+      const passScore = Math.ceil(vocabulary.length * finalTestPassRate);
       updateGradeDisplay();
       dashGrade.textContent = gradeData[currentGrade].shortLabel;
       dashLevel.textContent = testMode === "final"
@@ -5125,7 +5127,7 @@ let levels = gradeData[currentGrade].levels;
       choices.innerHTML = "";
       showPromptMessage("zài shì yí cì", "再试一次");
       rememberMissedWords(levelMissedWords);
-      const passScore = Math.ceil(vocabulary.length * 0.9);
+      const passScore = Math.ceil(vocabulary.length * levelPassRate);
       feedback.textContent = `This level stopped because ${missed} words were missed. To pass this level and unlock the next one, answer at least ${passScore}/${vocabulary.length} words correctly.`;
       feedback.className = "feedback bad";
       renderMissedReview(levelMissedWords, "Missed Words This Level", "Review these words before restarting this level.");
@@ -5146,7 +5148,7 @@ let levels = gradeData[currentGrade].levels;
       nextButton.disabled = true;
       choices.innerHTML = "";
 
-      const passScore = Math.ceil(vocabulary.length * 0.9);
+      const passScore = Math.ceil(vocabulary.length * finalTestPassRate);
 
       if (score >= passScore) {
         showPromptMessage("wán chéng", "完成");
@@ -5258,7 +5260,7 @@ let levels = gradeData[currentGrade].levels;
 
       const percentCorrect = score / vocabulary.length;
 
-      if (percentCorrect >= 0.9 && levelIndex < levels.length - 1) {
+      if (percentCorrect >= levelPassRate && levelIndex < levels.length - 1) {
         rememberMissedWords(levelMissedWords);
         passedLevels.add(levelIndex);
         saveProgress();
@@ -5273,7 +5275,7 @@ let levels = gradeData[currentGrade].levels;
         advanceButton.textContent = `Go to ${levels[levelIndex + 1].name}`;
         advanceButton.addEventListener("click", () => startLevel(levelIndex + 1));
         feedback.append(document.createElement("br"), advanceButton);
-      } else if (percentCorrect >= 0.9) {
+      } else if (percentCorrect >= levelPassRate) {
         rememberMissedWords(levelMissedWords);
         passedLevels.add(levelIndex);
         saveProgress();
@@ -5291,7 +5293,7 @@ let levels = gradeData[currentGrade].levels;
       } else {
         showPromptMessage("fù xí", "复习");
         rememberMissedWords(levelMissedWords);
-        const passScore = Math.ceil(vocabulary.length * 0.9);
+        const passScore = Math.ceil(vocabulary.length * levelPassRate);
         feedback.textContent = `You answered ${score}/${vocabulary.length} correctly. To pass this level and unlock the next one, answer at least ${passScore}/${vocabulary.length} words correctly. Restart this level after reviewing the missed words.`;
         feedback.className = "feedback bad";
         renderMissedReview(levelMissedWords, "Missed Words This Level", "Review these words before restarting this level.");
