@@ -3932,6 +3932,7 @@ let levels = gradeData[currentGrade].levels;
     const finalTestSize = 50;
     const levelPassRate = 0.8;
     const finalTestPassRate = 0.9;
+    const teacherPreviewPassword = "2026";
     const progressReportDocUrl = "https://docs.google.com/spreadsheets/d/1F-4bTNZH4WUotDt9DeOK_S8lO7MaeOSpz8FZiC9vqbw/edit?gid=2140688087#gid=2140688087";
     const progressKeyBase = "mlp-2026-summer-review-progress";
     const passedLevels = new Set();
@@ -4753,6 +4754,13 @@ let levels = gradeData[currentGrade].levels;
         : "Grade 4 unlocks after Grade 3 is complete.";
     }
 
+    function confirmTeacherPreview() {
+      const entered = window.prompt("Teacher preview password:");
+      if (entered === teacherPreviewPassword) return true;
+      if (entered !== null) showModal("Incorrect password", "Teacher preview mode is locked.", "OK");
+      return false;
+    }
+
     function switchGrade(gradeKey) {
       if (gradeKey === currentGrade) return;
       if (gradeKey === "grade4" && !gradeIsComplete("grade3")) {
@@ -4771,6 +4779,11 @@ let levels = gradeData[currentGrade].levels;
       passedLevels.clear();
       loadSavedProgress();
       startLevel(levelIndex);
+    }
+
+    function teacherPreviewGrade4() {
+      if (!confirmTeacherPreview()) return;
+      switchGradeBypassLock("grade4");
     }
 
     function saveProgress() {
@@ -4854,6 +4867,11 @@ let levels = gradeData[currentGrade].levels;
       vocabulary = shuffle(allWords()).slice(0, Math.min(finalTestSize, allWords().length));
       finalMissedWords = [];
       beginTest("Final Test");
+    }
+
+    function teacherPreviewFinalTest() {
+      if (!confirmTeacherPreview()) return;
+      startFinalTestPreview();
     }
 
     function startMissedWordPractice() {
@@ -5359,7 +5377,7 @@ let levels = gradeData[currentGrade].levels;
 
     grade3Button.addEventListener("click", () => switchGrade("grade3"));
     grade4Button.addEventListener("click", () => switchGrade("grade4"));
-    grade4PreviewButton.addEventListener("click", () => switchGradeBypassLock("grade4"));
+    grade4PreviewButton.addEventListener("click", teacherPreviewGrade4);
     studyMissedButton.addEventListener("click", studyStoredMissedWords);
     reviewMissedButton.addEventListener("click", startStoredMissedPractice);
     studyPanelReviewMissedButton.addEventListener("click", startStoredMissedPractice);
@@ -5368,7 +5386,7 @@ let levels = gradeData[currentGrade].levels;
     restartButton.addEventListener("click", restartLevelTest);
     startTestButton.addEventListener("click", startTest);
     finalTestButton.addEventListener("click", startFinalTest);
-    teacherPreviewButton.addEventListener("click", startFinalTestPreview);
+    teacherPreviewButton.addEventListener("click", teacherPreviewFinalTest);
     modalCloseButton.addEventListener("click", hideModal);
     previousStudyButton.addEventListener("click", () => {
       studyIndex = (studyIndex - 1 + vocabulary.length) % vocabulary.length;
