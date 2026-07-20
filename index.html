@@ -850,6 +850,12 @@
       margin: 0;
     }
 
+    .progress-report-button {
+      border-color: rgba(47, 111, 237, 0.28);
+      background: rgba(239, 245, 255, 0.96);
+      color: var(--blue-dark);
+    }
+
     .missed-review {
       display: grid;
       gap: 8px;
@@ -1129,6 +1135,7 @@
           <div class="review-bank-actions">
             <button id="studyMissedButton" class="review-bank-button" type="button">Study Missed Words</button>
             <button id="reviewMissedButton" class="review-bank-button" type="button">Test Missed Words</button>
+            <button id="copyProgressButton" class="review-bank-button progress-report-button" type="button">Copy Progress Report</button>
           </div>
           <h2>Level Progress</h2>
           <div class="level-tracker" id="levelTracker"></div>
@@ -3351,6 +3358,7 @@ let levels = gradeData[currentGrade].levels;
     const progressFill = document.querySelector("#progressFill");
     const studyMissedButton = document.querySelector("#studyMissedButton");
     const reviewMissedButton = document.querySelector("#reviewMissedButton");
+    const copyProgressButton = document.querySelector("#copyProgressButton");
     const levelTracker = document.querySelector("#levelTracker");
     const dashboardNote = document.querySelector("#dashboardNote");
     const studyCurrentGrade = document.querySelector("#studyCurrentGrade");
@@ -3375,6 +3383,115 @@ let levels = gradeData[currentGrade].levels;
         return Array.isArray(saved.passedLevels) ? saved.passedLevels : [];
       } catch {
         return [];
+      }
+    }
+
+    function savedProgressForGrade(gradeKey) {
+      if (gradeKey === currentGrade) {
+        return {
+          levelIndex,
+          passedLevels: [...passedLevels],
+          missedWords: storedMissedWords,
+          missedWordsReviewedForFinal
+        };
+      }
+      try {
+        const saved = JSON.parse(localStorage.getItem(progressKeyForGrade(gradeKey)) || "{}");
+        return {
+          levelIndex: Number.isInteger(saved.levelIndex) ? saved.levelIndex : 0,
+          passedLevels: Array.isArray(saved.passedLevels) ? saved.passedLevels : [],
+          missedWords: Array.isArray(saved.missedWords) ? saved.missedWords : [],
+          missedWordsReviewedForFinal: saved.missedWordsReviewedForFinal === true
+        };
+      } catch {
+        return {
+          levelIndex: 0,
+          passedLevels: [],
+          missedWords: [],
+          missedWordsReviewedForFinal: false
+        };
+      }
+    }
+
+    function wordCountForGrade(gradeKey) {
+      return gradeData[gradeKey].levels.reduce((sum, level) => sum + level.words.length, 0);
+    }
+
+    function progressReportText() {
+      saveProgress();
+      const lines = [
+        "2026 Summer Review Progress Report",
+        `Date: ${new Date().toLocaleDateString()}`,
+        `Current place: ${gradeData[currentGrade].shortLabel} Level ${levels[levelIndex].name}`,
+        ""
+      ];
+
+      Object.entries(gradeData).forEach(([gradeKey, data]) => {
+        const saved = savedProgressForGrade(gradeKey);
+        const passed = new Set(saved.passedLevels);
+        const currentLevel = data.levels[Math.min(saved.levelIndex || 0, data.levels.length - 1)]?.name || data.levels[0].name;
+        const passedNames = data.levels
+          .filter((level, index) => passed.has(index))
+          .map((level) => level.name);
+        lines.push(`${data.shortLabel}:`);
+        lines.push(`- Current level: ${currentLevel}`);
+        lines.push(`- Levels completed: ${passed.size}/${data.levels.length}${passedNames.length ? ` (${passedNames.join(", ")})` : ""}`);
+        lines.push(`- Total words in this grade: ${wordCountForGrade(gradeKey)}`);
+        lines.push(`- Saved missed words: ${saved.missedWords.length}`);
+        if (gradeKey === "grade4" && !gradeIsComplete("grade3")) {
+          lines.push("- Status: Locked until Grade 3 is complete");
+        } else if (data.levels.every((level, index) => passed.has(index))) {
+          lines.push("- Status: All levels complete");
+        } else {
+          lines.push("- Status: In progress");
+        }
+        lines.push("");
+      });
+
+      lines.push(`Final Test: ${allLevelsPassed() ? "Unlocked after saved missed words are reviewed" : "Locked until all levels are complete"}`);
+      lines.push(`Saved missed words reviewed for Final Test: ${missedWordsReviewedForFinal ? "Yes" : "No"}`);
+      if (storedMissedWords.length) {
+        lines.push("");
+        lines.push("Current saved missed words:");
+        storedMissedWords.slice(0, 15).forEach((item) => {
+          lines.push(`- ${item.character} (${item.pinyin})${item.level ? `, Level ${item.level}` : ""}`);
+        });
+        if (storedMissedWords.length > 15) {
+          lines.push(`- ...and ${storedMissedWords.length - 15} more`);
+        }
+      }
+
+      return lines.join("\n");
+    }
+
+    async function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.append(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
+    async function copyProgressReport() {
+      const originalText = copyProgressButton.textContent;
+      try {
+        await copyText(progressReportText());
+        copyProgressButton.textContent = "Progress Report Copied";
+        showModal("Progress copied", "Paste the progress report into a message or email to send it to your teacher.", "OK");
+      } catch {
+        showModal("Copy did not work", "Please take a screenshot of the dashboard and send it to your teacher.", "OK");
+      } finally {
+        window.setTimeout(() => {
+          copyProgressButton.textContent = originalText;
+        }, 1800);
       }
     }
 
@@ -4591,6 +4708,7 @@ let levels = gradeData[currentGrade].levels;
     grade4PreviewButton.addEventListener("click", () => switchGradeBypassLock("grade4"));
     studyMissedButton.addEventListener("click", studyStoredMissedWords);
     reviewMissedButton.addEventListener("click", startStoredMissedPractice);
+    copyProgressButton.addEventListener("click", copyProgressReport);
     nextButton.addEventListener("click", handleNextQuestion);
     restartButton.addEventListener("click", () => startLevel(levelIndex));
     startTestButton.addEventListener("click", startTest);
