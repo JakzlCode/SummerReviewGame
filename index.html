@@ -918,6 +918,16 @@
       line-height: 1.45;
     }
 
+    .study-panel-review-button {
+      display: none;
+      width: 100%;
+      margin: 0 0 12px;
+    }
+
+    .study-panel-review-button.active {
+      display: block;
+    }
+
     .vocab-list {
       display: grid;
       gap: 8px;
@@ -1109,6 +1119,7 @@
             <p class="progress-caption">Level Progress</p>
           </div>
           <h2>Full Word List of This Level</h2>
+          <button id="studyPanelReviewMissedButton" class="review-bank-button study-panel-review-button" type="button">Test Missed Words</button>
           <div class="vocab-list" id="vocabList"></div>
         </div>
         <div class="panel-view" id="dashboardPanel">
@@ -3972,6 +3983,7 @@ let levels = gradeData[currentGrade].levels;
     const progressFill = document.querySelector("#progressFill");
     const studyMissedButton = document.querySelector("#studyMissedButton");
     const reviewMissedButton = document.querySelector("#reviewMissedButton");
+    const studyPanelReviewMissedButton = document.querySelector("#studyPanelReviewMissedButton");
     const copyProgressButton = document.querySelector("#copyProgressButton");
     const levelTracker = document.querySelector("#levelTracker");
     const dashboardNote = document.querySelector("#dashboardNote");
@@ -5092,6 +5104,12 @@ let levels = gradeData[currentGrade].levels;
         : storedMissedWords.length
         ? `Test Missed Words (${storedMissedWords.length})`
         : "Test Missed Words";
+      const studyingStoredMissedWords = phase === "study" && testMode === "review-bank" && activeReviewSource === "stored";
+      studyPanelReviewMissedButton.classList.toggle("active", studyingStoredMissedWords);
+      studyPanelReviewMissedButton.disabled = storedMissedWords.length === 0;
+      studyPanelReviewMissedButton.textContent = storedMissedWords.length
+        ? `Test Missed Words (${storedMissedWords.length})`
+        : "Test Missed Words";
       studyCurrentGrade.textContent = gradeData[currentGrade].shortLabel;
       studyCurrentLevel.textContent = levels[levelIndex].name;
       studyLevelPosition.textContent = `${levelIndex + 1}/${levels.length}`;
@@ -5329,6 +5347,7 @@ let levels = gradeData[currentGrade].levels;
     grade4PreviewButton.addEventListener("click", () => switchGradeBypassLock("grade4"));
     studyMissedButton.addEventListener("click", studyStoredMissedWords);
     reviewMissedButton.addEventListener("click", startStoredMissedPractice);
+    studyPanelReviewMissedButton.addEventListener("click", startStoredMissedPractice);
     copyProgressButton.addEventListener("click", copyProgressReport);
     nextButton.addEventListener("click", handleNextQuestion);
     restartButton.addEventListener("click", restartLevelTest);
