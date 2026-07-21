@@ -4129,13 +4129,29 @@ let levels = gradeData[currentGrade].levels;
       });
     }
 
+    function sourceWordFor(item) {
+      return allWords().find((source) => source.character === item.character && source.pinyin === item.pinyin);
+    }
+
+    function hydrateMissedWord(item) {
+      const source = sourceWordFor(item);
+      if (!source) return { ...item };
+      return {
+        ...source,
+        level: item.level || source.level || "",
+        meaning: item.meaning || source.meaning || ""
+      };
+    }
+
+    function hydratedMissedWords(items) {
+      return uniqueWords(items.map(hydrateMissedWord));
+    }
+
     function rememberMissedWords(items) {
       if (!items.length) return;
       const stamped = items.map((item) => ({
-        character: item.character,
-        pinyin: item.pinyin,
-        meaning: item.meaning || "",
-        level: levels[levelIndex].name
+        ...hydrateMissedWord(item),
+        level: item.level || levels[levelIndex].name
       }));
       storedMissedWords = uniqueWords([...stamped, ...storedMissedWords]).slice(0, 60);
       missedWordsReviewedForFinal = false;
@@ -4739,7 +4755,7 @@ let levels = gradeData[currentGrade].levels;
             }
           });
         }
-        storedMissedWords = Array.isArray(saved.missedWords) ? saved.missedWords : [];
+        storedMissedWords = Array.isArray(saved.missedWords) ? hydratedMissedWords(saved.missedWords) : [];
         missedWordsReviewedForFinal = saved.missedWordsReviewedForFinal === true;
       } catch {
         levelIndex = 0;
@@ -4892,6 +4908,7 @@ let levels = gradeData[currentGrade].levels;
       if (!storedMissedWords.length) return;
       testMode = "review-bank";
       activeReviewSource = "stored";
+      storedMissedWords = hydratedMissedWords(storedMissedWords);
       vocabulary = shuffle(storedMissedWords).slice(0, 30);
       beginTest("Missed Word Review");
     }
@@ -4900,6 +4917,7 @@ let levels = gradeData[currentGrade].levels;
       if (!storedMissedWords.length) return;
       testMode = "review-bank";
       activeReviewSource = "stored";
+      storedMissedWords = hydratedMissedWords(storedMissedWords);
       vocabulary = storedMissedWords;
       phase = "study";
       studyIndex = 0;
