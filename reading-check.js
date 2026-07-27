@@ -55,15 +55,15 @@
   const state = { level: 3, index: 0, correct: 0, answered: false, pendingAdvance: false };
 
   function readingLevelForCurrentLevel() {
-    try {
-      if (currentGrade !== "grade3") return null;
-      const name = levels[levelIndex] && levels[levelIndex].name;
-      const number = Number(String(name || "").split(".")[0]);
-      return readingPassages[number] ? number : null;
-    } catch {
-      return null;
-    }
+  try {
+    const name = levels[levelIndex] && levels[levelIndex].name;
+    const number = Number(String(name || "").split(".")[0]);
+    const gradePassages = readingPassages[currentGrade] || {};
+    return gradePassages[number] ? number : null;
+  } catch {
+    return null;
   }
+}
 
   function readingKey(levelNumber) {
     return `mlp-reading-check-${currentGrade}-level-${levelNumber}`;
