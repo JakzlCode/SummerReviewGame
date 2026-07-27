@@ -114,7 +114,7 @@
   }
 
   function render() {
-    const items = readingPassages[currentGrade][state.level];
+    const items = (readingPassages[currentGrade] || {})[state.level] || [];
     const item = items[state.index];
     state.answered = false;
     title.textContent = `Level ${state.level}: ${item.title} (${state.index + 1}/${items.length})`;
