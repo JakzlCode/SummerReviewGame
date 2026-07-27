@@ -137,7 +137,7 @@
   function answer(index) {
     if (state.answered) return;
     state.answered = true;
-    const correct = readingPassages[state.level][state.index].answer;
+    (readingPassages[currentGrade] || {})[state.level][state.index].answer;
     if (index === correct) state.correct += 1;
     [...choices.children].forEach((button, buttonIndex) => {
       button.disabled = true;
@@ -146,7 +146,7 @@
     });
     result.textContent = index === correct ? "Correct! Great reading." : `Not quite. The correct answer is ${String.fromCharCode(65 + correct)}. You will need to retry this reading check to unlock the next level.`;
     result.classList.add(index === correct ? "good" : "bad");
-    next.textContent = state.index === readingPassages[state.level].length - 1 ? "Finish Reading Check" : "Next Passage";
+    next.textContent = state.index === (readingPassages[currentGrade] || {})[state.level].length - 1 ? "Finish Reading Check" : "Next Passage";
     next.classList.add("active");
   }
 
@@ -245,12 +245,12 @@
   }
 
   next.addEventListener("click", () => {
-    if (state.index < readingPassages[state.level].length - 1) {
+    if (state.index < (readingPassages[currentGrade] || {})[state.level].length - 1) {
       state.index += 1;
       render();
       return;
     }
-    const total = readingPassages[state.level].length;
+    const total = (readingPassages[currentGrade] || {})[state.level].length;
     closePage();
     if (state.correct === total) {
       markReadingPassed(state.level);
