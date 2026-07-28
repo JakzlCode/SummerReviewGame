@@ -856,6 +856,13 @@
       white-space: nowrap;
     }
 
+    .progress-file-button {
+      border-color: rgba(20, 167, 160, 0.28);
+      background: rgba(235, 248, 247, 0.96);
+      color: #08746f;
+      white-space: nowrap;
+    }
+
     .missed-review {
       display: grid;
       gap: 8px;
@@ -3992,6 +3999,11 @@ let levels = gradeData[currentGrade].levels;
     const reviewMissedButton = document.querySelector("#reviewMissedButton");
     const studyPanelReviewMissedButton = document.querySelector("#studyPanelReviewMissedButton");
     const copyProgressButton = document.querySelector("#copyProgressButton");
+    const exportProgressButton = document.querySelector("#exportProgressButton");
+    const importProgressButton = document.querySelector("#importProgressButton");
+    const importProgressInput = document.querySelector("#importProgressInput");
+    const studyExportProgressButton = document.querySelector("#studyExportProgressButton");
+    const studyImportProgressButton = document.querySelector("#studyImportProgressButton");
     const levelTracker = document.querySelector("#levelTracker");
     const dashboardNote = document.querySelector("#dashboardNote");
     const studyCurrentGrade = document.querySelector("#studyCurrentGrade");
@@ -4117,6 +4129,141 @@ let levels = gradeData[currentGrade].levels;
           copyProgressButton.textContent = originalText;
         }, 3000);
       }
+    }
+
+    function readingProgressSnapshot() {
+      const readingChecks = {};
+      try {
+        for (let index = 0; index < localStorage.length; index += 1) {
+          const key = localStorage.key(index);
+          if (key && key.startsWith("mlp-reading-check-")) {
+            readingChecks[key] = localStorage.getItem(key);
+          }
+        }
+      } catch {
+        // Reading checks are optional progress data; export the word progress even if this scan fails.
+      }
+      return readingChecks;
+    }
+
+    function portableProgressSnapshot() {
+      saveProgress();
+      return {
+        app: "mlp-2026-summer-review",
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        currentGrade,
+        grades: Object.keys(gradeData).reduce((snapshot, gradeKey) => {
+          snapshot[gradeKey] = savedProgressForGrade(gradeKey);
+          return snapshot;
+        }, {}),
+        readingChecks: readingProgressSnapshot()
+      };
+    }
+
+    function downloadProgressFile(progressText) {
+      const date = new Date().toISOString().slice(0, 10);
+      const blob = new Blob([progressText], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `mlp-progress-${date}.json`;
+      document.body.append(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 0);
+    }
+
+    async function exportProgressFile() {
+      const progressText = JSON.stringify(portableProgressSnapshot(), null, 2);
+      let copied = false;
+      try {
+        await copyText(progressText);
+        copied = true;
+      } catch {
+        copied = false;
+      }
+
+      try {
+        downloadProgressFile(progressText);
+      } catch {
+        // The copied text still gives students a portable backup if downloads are blocked.
+      }
+
+      showModal(
+        "Progress file ready",
+        copied
+          ? "Progress info has been copied, and a JSON file download was started if your browser allows it. Send the downloaded file or pasted text to yourself, then use Import Progress File on the other device."
+          : "A JSON file download was started if your browser allows it. Send that file to yourself, then use Import Progress File on the other device.",
+        "OK"
+      );
+    }
+
+    function safeImportedProgress(progress, gradeKey) {
+      const grade = gradeData[gradeKey];
+      if (!progress || !grade) return null;
+      const maxLevelIndex = grade.levels.length - 1;
+      return {
+        levelIndex: Number.isInteger(progress.levelIndex)
+          ? Math.min(Math.max(progress.levelIndex, 0), maxLevelIndex)
+          : 0,
+        passedLevels: Array.isArray(progress.passedLevels)
+          ? progress.passedLevels.filter((index) => Number.isInteger(index) && index >= 0 && index <= maxLevelIndex)
+          : [],
+        missedWords: Array.isArray(progress.missedWords)
+          ? hydratedMissedWords(progress.missedWords).slice(0, 60)
+          : [],
+        missedWordsReviewedForFinal: progress.missedWordsReviewedForFinal === true
+      };
+    }
+
+    function applyImportedProgress(snapshot) {
+      if (!snapshot || snapshot.app !== "mlp-2026-summer-review" || !snapshot.grades) {
+        throw new Error("This is not a Summer Review progress file.");
+      }
+
+      Object.keys(gradeData).forEach((gradeKey) => {
+        const imported = safeImportedProgress(snapshot.grades[gradeKey], gradeKey);
+        if (imported) {
+          localStorage.setItem(progressKeyForGrade(gradeKey), JSON.stringify(imported));
+        }
+      });
+
+      if (snapshot.readingChecks && typeof snapshot.readingChecks === "object") {
+        Object.entries(snapshot.readingChecks).forEach(([key, value]) => {
+          if (key.startsWith("mlp-reading-check-") && value === "passed") {
+            localStorage.setItem(key, value);
+          }
+        });
+      }
+
+      const importedGrade = gradeData[snapshot.currentGrade] ? snapshot.currentGrade : currentGrade;
+      currentGrade = importedGrade;
+      levels = gradeData[currentGrade].levels;
+      levelIndex = 0;
+      passedLevels.clear();
+      loadSavedProgress();
+      startLevel(levelIndex);
+    }
+
+    function importProgressFile(event) {
+      const file = event.target.files && event.target.files[0];
+      event.target.value = "";
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        try {
+          applyImportedProgress(JSON.parse(String(reader.result || "{}")));
+          showModal("Progress imported", "Progress info has been loaded on this browser.", "OK");
+        } catch {
+          showModal("Import did not work", "Choose the JSON progress file exported from this Summer Review game.", "OK");
+        }
+      });
+      reader.addEventListener("error", () => {
+        showModal("Import did not work", "The selected file could not be read.", "OK");
+      });
+      reader.readAsText(file);
     }
 
     function gradeIsComplete(gradeKey) {
@@ -5411,6 +5558,11 @@ let levels = gradeData[currentGrade].levels;
     reviewMissedButton.addEventListener("click", startStoredMissedPractice);
     studyPanelReviewMissedButton.addEventListener("click", startStoredMissedPractice);
     copyProgressButton.addEventListener("click", copyProgressReport);
+    exportProgressButton.addEventListener("click", exportProgressFile);
+    studyExportProgressButton.addEventListener("click", exportProgressFile);
+    importProgressButton.addEventListener("click", () => importProgressInput.click());
+    studyImportProgressButton.addEventListener("click", () => importProgressInput.click());
+    importProgressInput.addEventListener("change", importProgressFile);
     nextButton.addEventListener("click", handleNextQuestion);
     restartButton.addEventListener("click", restartLevelTest);
     startTestButton.addEventListener("click", startTest);
