@@ -80,7 +80,7 @@
   const result = page.querySelector(".reading-result");
   const next = page.querySelector(".reading-next");
   const close = page.querySelector(".reading-check-close");
-  const state = { level: 3, index: 0, correct: 0, answered: false, pendingAdvance: false };
+  const state = { level: 3, index: 0, questionIndex: 0, correct: 0, answered: false, pendingAdvance: false };
 
   function readingLevelForCurrentLevel() {
   try {
@@ -105,6 +105,18 @@
     localStorage.setItem(readingKey(levelNumber), "passed");
   }
 
+  function questionsForPassage(item) {
+    if (Array.isArray(item.questions) && item.questions.length) return item.questions;
+    if (item.question && Array.isArray(item.choices)) {
+      return [{ question: item.question, choices: item.choices, answer: item.answer || 0 }];
+    }
+    return [];
+  }
+
+  function totalQuestions(items) {
+    return items.reduce((sum, item) => sum + questionsForPassage(item).length, 0);
+  }
+
   function showNotice(titleText, messageText, buttonText = "OK", action = null) {
     if (typeof showModal === "function") showModal(titleText, messageText, buttonText, action);
     else {
@@ -116,15 +128,25 @@
   function render() {
     const items = (readingPassages[currentGrade] || {})[state.level] || [];
     const item = items[state.index];
+    const itemQuestions = questionsForPassage(item);
+    const activeQuestion = itemQuestions[state.questionIndex];
     state.answered = false;
     title.textContent = `Level ${state.level}: ${item.title} (${state.index + 1}/${items.length})`;
     passage.textContent = item.passage;
-    question.textContent = item.question;
     result.textContent = "";
     result.className = "reading-result";
     next.classList.remove("active");
     choices.innerHTML = "";
-    item.choices.forEach((choice, index) => {
+
+    if (!activeQuestion) {
+      question.textContent = "Question missing. Please check this reading passage data.";
+      next.textContent = "Next Passage";
+      next.classList.add("active");
+      return;
+    }
+
+    question.textContent = `Q${state.questionIndex + 1}. ${activeQuestion.question}`;
+    activeQuestion.choices.forEach((choice, index) => {
       const button = document.createElement("button");
       button.className = "reading-choice";
       button.type = "button";
@@ -137,7 +159,10 @@
   function answer(index) {
     if (state.answered) return;
     state.answered = true;
-    (readingPassages[currentGrade] || {})[state.level][state.index].answer;
+    const items = (readingPassages[currentGrade] || {})[state.level] || [];
+    const item = items[state.index];
+    const activeQuestion = questionsForPassage(item)[state.questionIndex];
+    const correct = activeQuestion ? activeQuestion.answer : 0;
     if (index === correct) state.correct += 1;
     [...choices.children].forEach((button, buttonIndex) => {
       button.disabled = true;
@@ -146,13 +171,16 @@
     });
     result.textContent = index === correct ? "Correct! Great reading." : `Not quite. The correct answer is ${String.fromCharCode(65 + correct)}. You will need to retry this reading check to unlock the next level.`;
     result.classList.add(index === correct ? "good" : "bad");
-    next.textContent = state.index === (readingPassages[currentGrade] || {})[state.level].length - 1 ? "Finish Reading Check" : "Next Passage";
+    const isLastQuestion = state.questionIndex >= questionsForPassage(item).length - 1;
+    const isLastPassage = state.index >= items.length - 1;
+    next.textContent = isLastQuestion && isLastPassage ? "Finish Reading Check" : isLastQuestion ? "Next Passage" : "Next Question";
     next.classList.add("active");
   }
 
   function openReadingCheck(levelNumber, pendingAdvance = false) {
     state.level = levelNumber;
     state.index = 0;
+    state.questionIndex = 0;
     state.correct = 0;
     state.pendingAdvance = pendingAdvance;
     page.classList.add("active");
@@ -179,7 +207,7 @@
     button.addEventListener("click", () => {
       const level = readingLevelForCurrentLevel();
       if (level) openReadingCheck(level, false);
-      else showNotice("Reading Check", "Reading checks begin in Grade 3 Level 3.1.", "OK");
+      else showNotice("Reading Check", "Reading checks are available in Grade 3 from Level 3 and in all Grade 4 levels.", "OK");
     });
     return button;
   }
@@ -191,7 +219,7 @@
     const level = readingLevelForCurrentLevel();
     [studyButton, testButton].filter(Boolean).forEach((button) => {
       button.textContent = level ? `Reading Check · Level ${level}` : "Reading Check";
-      button.title = level ? `Open reading check for Level ${level}` : "Reading checks begin in Grade 3 Level 3.1.";
+      button.title = level ? `Open reading check for Level ${level}` : "Reading checks are available in Grade 3 from Level 3 and in all Grade 4 levels.";
     });
   }
 
@@ -245,12 +273,20 @@
   }
 
   next.addEventListener("click", () => {
-    if (state.index < (readingPassages[currentGrade] || {})[state.level].length - 1) {
-      state.index += 1;
+    const items = (readingPassages[currentGrade] || {})[state.level] || [];
+    const item = items[state.index];
+    if (state.questionIndex < questionsForPassage(item).length - 1) {
+      state.questionIndex += 1;
       render();
       return;
     }
-    const total = (readingPassages[currentGrade] || {})[state.level].length;
+    if (state.index < items.length - 1) {
+      state.index += 1;
+      state.questionIndex = 0;
+      render();
+      return;
+    }
+    const total = totalQuestions(items);
     closePage();
     if (state.correct === total) {
       markReadingPassed(state.level);
