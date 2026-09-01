@@ -825,6 +825,14 @@
       color: var(--muted);
       font-weight: 900;
       font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    .level-dot:hover,
+    .level-dot:focus-visible {
+      border-color: var(--brand);
+      color: var(--brand-dark);
+      outline: none;
     }
 
     .advance-button {
@@ -1054,8 +1062,7 @@
           <button id="grade3Button" class="active" type="button">Grade 3</button>
           <button id="grade4Button" type="button">Grade 4</button>
         </div>
-        <span class="grade-lock-note" id="gradeLockNote">Grade 4 unlocks after Grade 3 is complete.</span>
-        <button id="grade4PreviewButton" class="grade-preview-button" type="button">Teacher Preview Grade 4</button>
+        <span class="grade-lock-note" id="gradeLockNote">Choose any grade and level to review.</span>
       </div>
       <div class="visual-card" aria-hidden="true">
         <strong id="gradeBadge">马立平中文</strong>
@@ -1125,6 +1132,7 @@
               <div class="progress-fill" id="studyProgressFill"></div>
             </div>
             <p class="progress-caption">Level Progress</p>
+            <div class="level-tracker" id="levelTracker" aria-label="Choose a level to review"></div>
           </div>
           <h2>Full Word List of This Level</h2>
           <button id="studyPanelReviewMissedButton" class="review-bank-button study-panel-review-button" type="button">Test Missed Words</button>
@@ -1160,7 +1168,6 @@
           <div class="progress-bar" aria-label="Level progress">
             <div class="progress-fill test-progress-fill" id="progressFill"></div>
           </div>
-          <div class="level-tracker" id="levelTracker"></div>
           <p class="dashboard-note" id="dashboardNote">The word list is hidden during the test.</p>
         </div>
       </aside>
@@ -3973,7 +3980,6 @@ let levels = gradeData[currentGrade].levels;
     const gradeLockNote = document.querySelector("#gradeLockNote");
     const grade3Button = document.querySelector("#grade3Button");
     const grade4Button = document.querySelector("#grade4Button");
-    const grade4PreviewButton = document.querySelector("#grade4PreviewButton");
     const studyModeButton = document.querySelector("#studyModeButton");
     const testModeButton = document.querySelector("#testModeButton");
     const modeStatus = document.querySelector("#modeStatus");
@@ -4918,14 +4924,11 @@ let levels = gradeData[currentGrade].levels;
     }
 
     function updateGradeDisplay() {
-      const grade4Unlocked = gradeIsComplete("grade3");
       gradeBadge.textContent = "马立平中文";
       grade3Button.classList.toggle("active", currentGrade === "grade3");
       grade4Button.classList.toggle("active", currentGrade === "grade4");
-      grade4Button.disabled = !grade4Unlocked;
-      gradeLockNote.textContent = grade4Unlocked
-        ? "Grade 4 is unlocked."
-        : "Grade 4 unlocks after Grade 3 is complete.";
+      grade4Button.disabled = false;
+      gradeLockNote.textContent = "Choose any grade and level to review.";
     }
 
     function confirmTeacherPreview() {
@@ -4937,10 +4940,6 @@ let levels = gradeData[currentGrade].levels;
 
     function switchGrade(gradeKey) {
       if (gradeKey === currentGrade) return;
-      if (gradeKey === "grade4" && !gradeIsComplete("grade3")) {
-        updateGradeDisplay();
-        return;
-      }
       switchGradeBypassLock(gradeKey);
     }
 
@@ -4953,11 +4952,6 @@ let levels = gradeData[currentGrade].levels;
       passedLevels.clear();
       loadSavedProgress();
       startLevel(levelIndex);
-    }
-
-    function teacherPreviewGrade4() {
-      if (!confirmTeacherPreview()) return;
-      switchGradeBypassLock("grade4");
     }
 
     function saveProgress() {
@@ -5323,12 +5317,15 @@ let levels = gradeData[currentGrade].levels;
 
       levelTracker.innerHTML = "";
       levels.forEach((level, index) => {
-        const dot = document.createElement("div");
+        const dot = document.createElement("button");
+        dot.type = "button";
         dot.className = "level-dot";
         dot.textContent = level.name;
         if (passedLevels.has(index)) dot.classList.add("passed");
         if (index === levelIndex) dot.classList.add("current");
-        dot.title = `${level.name}: ${level.words.length} words`;
+        dot.title = `Review ${level.name}: ${level.words.length} words`;
+        dot.setAttribute("aria-label", `Review level ${level.name}`);
+        dot.addEventListener("click", () => startLevel(index));
         levelTracker.append(dot);
       });
       updateFinalTestState();
@@ -5553,7 +5550,6 @@ let levels = gradeData[currentGrade].levels;
 
     grade3Button.addEventListener("click", () => switchGrade("grade3"));
     grade4Button.addEventListener("click", () => switchGrade("grade4"));
-    grade4PreviewButton.addEventListener("click", teacherPreviewGrade4);
     studyMissedButton.addEventListener("click", studyStoredMissedWords);
     reviewMissedButton.addEventListener("click", startStoredMissedPractice);
     studyPanelReviewMissedButton.addEventListener("click", startStoredMissedPractice);
