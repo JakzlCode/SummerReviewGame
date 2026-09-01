@@ -1086,8 +1086,7 @@
       <button id="startTestButton" class="blue-button" type="button">Go Test</button>
       <div class="final-test-area">
         <button id="finalTestButton" class="blue-button" type="button">Final Test</button>
-        <button id="teacherPreviewButton" class="teacher-preview-button" type="button">Teacher Preview</button>
-        <span class="final-test-note" id="finalTestNote">Complete all levels to unlock.</span>
+        <span class="final-test-note" id="finalTestNote">Available anytime: 50 random words from all levels.</span>
       </div>
       <button id="nextButton" class="primary" type="button" style="display: none;">Next Question</button>
       <button id="restartButton" type="button">Restart Level</button>
@@ -3952,7 +3951,6 @@ let levels = gradeData[currentGrade].levels;
     const finalTestSize = 50;
     const levelPassRate = 0.9;
     const finalTestPassRate = 0.9;
-    const teacherPreviewPassword = "2026";
     const progressReportDocUrl = "https://docs.google.com/spreadsheets/d/1F-4bTNZH4WUotDt9DeOK_S8lO7MaeOSpz8FZiC9vqbw/edit?gid=2140688087#gid=2140688087";
     const progressKeyBase = "mlp-2026-summer-review-progress";
     const passedLevels = new Set();
@@ -3975,7 +3973,6 @@ let levels = gradeData[currentGrade].levels;
     const restartButton = document.querySelector("#restartButton");
     const startTestButton = document.querySelector("#startTestButton");
     const finalTestButton = document.querySelector("#finalTestButton");
-    const teacherPreviewButton = document.querySelector("#teacherPreviewButton");
     const finalTestNote = document.querySelector("#finalTestNote");
     const gradeLockNote = document.querySelector("#gradeLockNote");
     const grade3Button = document.querySelector("#grade3Button");
@@ -4931,13 +4928,6 @@ let levels = gradeData[currentGrade].levels;
       gradeLockNote.textContent = "Choose any grade and level to review.";
     }
 
-    function confirmTeacherPreview() {
-      const entered = window.prompt("Teacher preview password:");
-      if (entered === teacherPreviewPassword) return true;
-      if (entered !== null) showModal("Incorrect password", "Teacher preview mode is locked.", "OK");
-      return false;
-    }
-
     function switchGrade(gradeKey) {
       if (gradeKey === currentGrade) return;
       switchGradeBypassLock(gradeKey);
@@ -5017,15 +5007,6 @@ let levels = gradeData[currentGrade].levels;
     }
 
     function startFinalTest() {
-      if (!allLevelsPassed()) return;
-      if (storedMissedWords.length && !missedWordsReviewedForFinal) {
-        showModal(
-          "Review first",
-          `You still have ${storedMissedWords.length} saved missed words. Complete Test Missed Words once, then the Final Test will be ready.`,
-          "OK"
-        );
-        return;
-      }
       startFinalTestPreview();
     }
 
@@ -5035,11 +5016,6 @@ let levels = gradeData[currentGrade].levels;
       vocabulary = shuffle(allWords()).slice(0, Math.min(finalTestSize, allWords().length));
       finalMissedWords = [];
       beginTest("Final Test");
-    }
-
-    function teacherPreviewFinalTest() {
-      if (!confirmTeacherPreview()) return;
-      startFinalTestPreview();
     }
 
     function startMissedWordPractice() {
@@ -5332,16 +5308,10 @@ let levels = gradeData[currentGrade].levels;
     }
 
     function updateFinalTestState() {
-      const unlocked = allLevelsPassed();
-      const blockedByMisses = unlocked && storedMissedWords.length > 0 && !missedWordsReviewedForFinal;
       finalTestButton.style.display = "";
-      finalTestButton.disabled = !unlocked || blockedByMisses;
+      finalTestButton.disabled = false;
       finalTestNote.style.display = "";
-      finalTestNote.textContent = !unlocked
-        ? "Complete all levels to unlock."
-        : blockedByMisses
-        ? "Test saved missed words once to unlock."
-        : "Unlocked: 50 random words from all levels.";
+      finalTestNote.textContent = "Available anytime: 50 random words from all levels.";
     }
 
     function stopForRestart() {
@@ -5563,7 +5533,6 @@ let levels = gradeData[currentGrade].levels;
     restartButton.addEventListener("click", restartLevelTest);
     startTestButton.addEventListener("click", startTest);
     finalTestButton.addEventListener("click", startFinalTest);
-    teacherPreviewButton.addEventListener("click", teacherPreviewFinalTest);
     modalCloseButton.addEventListener("click", hideModal);
     previousStudyButton.addEventListener("click", () => {
       studyIndex = (studyIndex - 1 + vocabulary.length) % vocabulary.length;
