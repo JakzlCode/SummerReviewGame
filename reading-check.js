@@ -80,7 +80,16 @@
   const result = page.querySelector(".reading-result");
   const next = page.querySelector(".reading-next");
   const close = page.querySelector(".reading-check-close");
-  const state = { level: 3, index: 0, questionIndex: 0, correct: 0, answered: false, pendingAdvance: false };
+  const state = {
+    level: 3,
+    index: 0,
+    questionIndex: 0,
+    correct: 0,
+    answered: false,
+    pendingAdvance: false,
+    displayedChoices: [],
+    correctChoiceIndex: 0
+  };
 
   function readingLevelForCurrentLevel() {
   try {
@@ -117,6 +126,20 @@
     return items.reduce((sum, item) => sum + questionsForPassage(item).length, 0);
   }
 
+  function shuffledChoices(questionItem) {
+    const choicesWithAnswers = questionItem.choices.map((choice, originalIndex) => ({
+      choice,
+      isCorrect: originalIndex === questionItem.answer
+    }));
+
+    for (let index = choicesWithAnswers.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [choicesWithAnswers[index], choicesWithAnswers[randomIndex]] = [choicesWithAnswers[randomIndex], choicesWithAnswers[index]];
+    }
+
+    return choicesWithAnswers;
+  }
+
   function showNotice(titleText, messageText, buttonText = "OK", action = null) {
     if (typeof showModal === "function") showModal(titleText, messageText, buttonText, action);
     else {
@@ -146,7 +169,9 @@
     }
 
     question.textContent = `Q${state.questionIndex + 1}. ${activeQuestion.question}`;
-    activeQuestion.choices.forEach((choice, index) => {
+    state.displayedChoices = shuffledChoices(activeQuestion);
+    state.correctChoiceIndex = state.displayedChoices.findIndex((choice) => choice.isCorrect);
+    state.displayedChoices.forEach(({ choice }, index) => {
       const button = document.createElement("button");
       button.className = "reading-choice";
       button.type = "button";
@@ -162,7 +187,7 @@
     const items = (readingPassages[currentGrade] || {})[state.level] || [];
     const item = items[state.index];
     const activeQuestion = questionsForPassage(item)[state.questionIndex];
-    const correct = activeQuestion ? activeQuestion.answer : 0;
+    const correct = activeQuestion ? state.correctChoiceIndex : 0;
     if (index === correct) state.correct += 1;
     [...choices.children].forEach((button, buttonIndex) => {
       button.disabled = true;
