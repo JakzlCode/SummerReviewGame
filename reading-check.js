@@ -1,5 +1,5 @@
 (function () {
-  const readingPassages = {
+  const readingPassagesByGrade = {
     grade3: {
       "1.1": [
         { title: "称象的办法", passage: "从前，一位将军想知道大象有多重，大家都摇头。曹冲站出来，说他有一个称象的好办法。", questions: [{ question: "What did Cao Chong say?", choices: ["他喜欢那位将军", "他有一个称象的好办法", "他想把大象杀死", "他不知道大象的名字"], answer: 1 }] }
@@ -65,7 +65,7 @@
     },
     grade4: {
       1: [
-        { title: "相反的一天", passage: "星期六早上，小雨盼望妈妈不上班，可是妈妈说今天一切都相反：小雨要戴上爸爸的眼镜，穿上妈妈的围裙，试试做“小大人”。她把地板扫得干干净净，又把书架整理得整整齐齐，才发现做家务比写作业还累。", questions: [{ question: "小雨为什么觉得做“小大人”很累？", choices: ["因为她做了很多家务", "因为她没有鞋子", "因为她一直在喝茶", "因为她下楼玩了一天"], answer: 0 }, { question: "小雨把什么地方整理得整整齐齐？", choices: ["书架", "厨房", "院子", "教室"], answer: 0 }] },
+        { title: "相反的一天", passage: "星期六早上，小雨盼望妈妈不上班，可是妈妈说今天一切都相反：小雨要戴过爸爸的眼镜，穿过妈妈的围裙，试试做“小大人”。她扫得地板干干净净，又把书架整理得整整齐齐，才发现做家务比写作业还累。", questions: [{ question: "小雨为什么觉得做“小大人”很累？", choices: ["因为她做了很多家务", "因为她没有鞋子", "因为她一直在喝茶", "因为她下楼玩了一天"], answer: 0 }, { question: "小雨把什么地方整理得整整齐齐？", choices: ["书架", "厨房", "院子", "教室"], answer: 0 }] },
         { title: "有礼貌的孙女", passage: "奶奶的客人来喝茶，孙女小兰不但倒茶，而且把客人的衣服挂好。尽管她只是短短说了几句话，客人仍然感到很温暖。奶奶惊奇地发现，小兰接待客人越来越有礼貌了。", questions: [{ question: "客人为什么感到温暖？", choices: ["因为小兰有礼貌地接待客人", "因为天气很热", "因为奶奶送了礼物", "因为茶杯很大"], answer: 0 }] },
         { title: "毫无用处的盒子", passage: "小杰在地板上发现一个旧盒子，爸爸说它毫无用处，可以扔掉。小杰却把它擦得干干净净，放在书架旁边装小纸条。第二天，妈妈找作业纸时，发现这个盒子正好派上了用场。", questions: [{ question: "为什么旧盒子后来有用了？", choices: ["因为可以装小纸条和作业纸", "因为它会自己下楼", "因为它变成了眼镜", "因为客人要喝茶"], answer: 0 }, { question: "一开始爸爸觉得盒子怎么样？", choices: ["毫无用处", "非常漂亮", "太重了", "很有礼貌"], answer: 0 }] },
         { title: "鞋子的秘密", passage: "明明下楼时穿错了鞋子，一只大一只小，走路一高一低。妹妹看见后没有挖苦他，只是笑着提醒：“你的鞋子好像在比赛。”明明低头一看，惊奇地跑回家换鞋。", questions: [{ question: "明明为什么走路一高一低？", choices: ["因为他穿错了鞋子", "因为地板很脏", "因为他戴过眼镜", "因为他背着书架"], answer: 0 }] }
@@ -97,23 +97,25 @@
     .reading-check-page.active{display:block}.reading-check-shell{width:min(980px,100%);margin:0 auto}.reading-check-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}
     .reading-check-top h1{margin:0;color:#1c2533;font-size:clamp(1.65rem,4vw,2.5rem)}.reading-check-subtext{margin:6px 0 0;color:#667085;font-weight:750;line-height:1.45}
     .reading-check-close{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:10px 16px;font-weight:750;cursor:pointer}.reading-card{background:#fff;border:1px solid #d6dde8;border-radius:22px;padding:clamp(22px,5vw,42px);box-shadow:0 18px 45px rgba(31,41,51,.11)}
-    .reading-title{margin:0 0 16px;color:#1f2933;font-size:clamp(1.4rem,3vw,2rem)}.reading-passage{margin:0 0 26px;color:#27364a;font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;font-size:clamp(1.2rem,2.5vw,1.55rem);line-height:1.95}.reading-question{margin:0 0 14px;color:#1f2933;font-size:clamp(1.08rem,2vw,1.3rem);font-weight:800}
+    .reading-meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}.reading-meta span{border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;border-radius:999px;padding:5px 10px;font-size:.82rem;font-weight:850}.reading-title{margin:0 0 16px;color:#1f2933;font-size:clamp(1.4rem,3vw,2rem)}.reading-passage{margin:0 0 26px;color:#27364a;font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;font-size:clamp(1.2rem,2.5vw,1.55rem);line-height:1.95}.reading-question{margin:0 0 14px;color:#1f2933;font-size:clamp(1.08rem,2vw,1.3rem);font-weight:800}
     .reading-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reading-choice{min-height:54px;border:2px solid #d6dde8;border-radius:14px;background:#fff;padding:12px 16px;text-align:left;color:#1f2933;font-size:1rem;font-weight:700;cursor:pointer}.reading-choice.correct{border-color:#177245;background:#eaf8f0;color:#116039}.reading-choice.wrong{border-color:#b42318;background:#fff0ee;color:#9b1c13}
     .reading-result{min-height:30px;margin:16px 0 0;font-weight:800}.reading-result.good{color:#177245}.reading-result.bad{color:#b42318}.reading-next{display:none;margin-top:14px;border:0;border-radius:14px;background:#2f6fed;color:#fff;padding:12px 20px;font-weight:800;cursor:pointer}.reading-next.active{display:inline-flex}
-    .reading-check-launch-button{display:block!important;width:100%;margin:0 0 12px!important;background:#fff7ed!important;border-color:#fed7aa!important;color:#9a3412!important}.reading-check-note{margin:-4px 0 12px;color:#667085;font-size:.82rem;font-weight:750;line-height:1.35}.reading-check-hub{position:fixed;inset:0;z-index:79;display:none;overflow:auto;background:linear-gradient(145deg,#eef5ff,#fff8ee);padding:clamp(18px,4vw,46px)}.reading-check-hub.active{display:block}.reading-check-hub-shell{width:min(980px,100%);margin:0 auto}.reading-check-hub-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}.reading-check-hub-top h1{margin:0;color:#1c2533;font-size:clamp(1.65rem,4vw,2.5rem)}.reading-check-hub-subtext{margin:6px 0 0;color:#667085;font-weight:750;line-height:1.45}.reading-check-hub-close{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:10px 16px;font-weight:750;cursor:pointer}.reading-check-list{display:grid;gap:12px}.reading-check-list-button{width:100%;border:1px solid #d6dde8;background:#fff;color:#1f2933;border-radius:14px;padding:16px;text-align:left;font-weight:850;cursor:pointer}.reading-check-list-button span{display:block;margin-top:4px;color:#667085;font-size:.84rem;font-weight:750}.reading-check-list-button:hover{border-color:#2f6fed;color:#2457bd}@media(max-width:640px){.reading-choices{grid-template-columns:1fr}.reading-check-top,.reading-check-hub-top{display:grid}}
+    .reading-completion{display:none;background:#fff;border:1px solid #d6dde8;border-radius:22px;padding:clamp(22px,5vw,42px);box-shadow:0 18px 45px rgba(31,41,51,.11)}.reading-completion.active{display:block}.reading-completion h2{margin:0 0 10px;color:#1f2933;font-size:clamp(1.35rem,3vw,2rem)}.reading-completion p{margin:0 0 18px;color:#667085;font-weight:750;line-height:1.45}.reading-completion-actions{display:flex;flex-wrap:wrap;gap:10px}.reading-completion-actions button{border:0;border-radius:14px;padding:12px 18px;font-weight:850;cursor:pointer}.reading-completion-actions .primary{background:#2f6fed;color:#fff}.reading-completion-actions .secondary{background:#eef4ff;color:#2457bd}
+    .reading-check-launch-button{display:block!important;width:100%;margin:0 0 12px!important;background:#fff7ed!important;border-color:#fed7aa!important;color:#9a3412!important}.reading-check-note{margin:-4px 0 12px;color:#667085;font-size:.82rem;font-weight:750;line-height:1.35}.reading-check-hub{position:fixed;inset:0;z-index:79;display:none;overflow:auto;background:linear-gradient(145deg,#eef5ff,#fff8ee);padding:clamp(18px,4vw,46px)}.reading-check-hub.active{display:block}.reading-check-hub-shell{width:min(980px,100%);margin:0 auto}.reading-check-hub-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}.reading-check-hub-top h1{margin:0;color:#1c2533;font-size:clamp(1.65rem,4vw,2.5rem)}.reading-check-hub-subtext{margin:6px 0 0;color:#667085;font-weight:750;line-height:1.45}.reading-check-hub-close{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:10px 16px;font-weight:750;cursor:pointer}.reading-check-list{display:grid;gap:12px}.reading-check-home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.reading-check-list-button{width:100%;border:1px solid #d6dde8;background:#fff;color:#1f2933;border-radius:14px;padding:16px;text-align:left;font-weight:850;cursor:pointer}.reading-check-list-button span{display:block;margin-top:4px;color:#667085;font-size:.84rem;font-weight:750}.reading-check-list-button:hover{border-color:#2f6fed;color:#2457bd}.reading-check-list-button.disabled{background:#f3f4f6;color:#98a2b3;cursor:not-allowed}.reading-check-list-button.disabled:hover{border-color:#d6dde8;color:#98a2b3}.reading-check-back{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:9px 14px;font-weight:800;cursor:pointer;margin-bottom:12px}.reading-check-section-title{margin:0 0 12px;color:#1f2933;font-size:1.15rem}.reading-check-home-grid .reading-check-list-button{min-height:128px}@media(max-width:640px){.reading-choices,.reading-check-home-grid{grid-template-columns:1fr}.reading-check-top,.reading-check-hub-top{display:grid}}
   `;
   document.head.append(style);
 
   const page = document.createElement("section");
   page.className = "reading-check-page";
-  page.innerHTML = `<div class="reading-check-shell"><div class="reading-check-top"><div><h1>Reading Check · 阅读理解</h1><p class="reading-check-subtext">Answer all reading questions correctly to unlock the next level. If you miss one, review and try this reading check again.</p></div><button class="reading-check-close" type="button">Go Back to Study</button></div><article class="reading-card"><h2 class="reading-title"></h2><p class="reading-passage"></p><p class="reading-question"></p><div class="reading-choices"></div><p class="reading-result" aria-live="polite"></p><button class="reading-next" type="button">Next Passage</button></article></div>`;
+  page.innerHTML = `<div class="reading-check-shell"><div class="reading-check-top"><div><h1>Reading Check · 阅读理解</h1><p class="reading-check-subtext">Answer all reading questions correctly to unlock the next level. If you miss one, review and try this reading check again.</p></div><button class="reading-check-close" type="button">Go Back to Reading Checks</button></div><article class="reading-card"><p class="reading-meta"></p><h2 class="reading-title"></h2><p class="reading-passage"></p><p class="reading-question"></p><div class="reading-choices"></div><p class="reading-result" aria-live="polite"></p><button class="reading-next" type="button">Next</button></article><section class="reading-completion" aria-live="polite"></section></div>`;
   document.body.append(page);
 
   const hub = document.createElement("section");
   hub.className = "reading-check-hub";
-  hub.innerHTML = `<div class="reading-check-hub-shell"><div class="reading-check-hub-top"><div><h1>Reading Checks</h1><p class="reading-check-hub-subtext">Choose a reading check for the current grade. Answer choices are shuffled each time.</p></div><button class="reading-check-hub-close" type="button">Go Back</button></div><div class="reading-check-list"></div></div>`;
+  hub.innerHTML = `<div class="reading-check-hub-shell"><div class="reading-check-hub-top"><div><h1>Reading Checks</h1><p class="reading-check-hub-subtext">Choose leveled readings or mixed final readings for Grade 3 or Grade 4.</p></div><button class="reading-check-hub-close" type="button">Go Back</button></div><div class="reading-check-list"></div></div>`;
   document.body.append(hub);
 
+  const meta = page.querySelector(".reading-meta");
   const title = page.querySelector(".reading-title");
   const passage = page.querySelector(".reading-passage");
   const question = page.querySelector(".reading-question");
@@ -121,44 +123,28 @@
   const result = page.querySelector(".reading-result");
   const next = page.querySelector(".reading-next");
   const close = page.querySelector(".reading-check-close");
+  const card = page.querySelector(".reading-card");
+  const completion = page.querySelector(".reading-completion");
   const hubClose = hub.querySelector(".reading-check-hub-close");
   const hubList = hub.querySelector(".reading-check-list");
-  const state = {
-    level: 3,
-    index: 0,
-    questionIndex: 0,
-    correct: 0,
-    answered: false,
-    pendingAdvance: false,
-    displayedChoices: [],
-    correctChoiceIndex: 0
-  };
+  const state = { grade: "grade3", level: 3, passageIndex: 0, questionIndex: 0, correct: 0, answered: false, pendingAdvance: false, displayedChoices: [], correctChoiceIndex: 0, selectedPassageIndex: null };
 
-  function readingLevelForCurrentLevel() {
-    try {
-      const name = String((levels[levelIndex] && levels[levelIndex].name) || "");
-      const gradePassages = readingPassages[currentGrade] || {};
-      if (gradePassages[name]) return name;
-      const number = Number(name.split(".")[0]);
-      return gradePassages[number] ? number : null;
-    } catch {
-      return null;
-    }
+  function passagesForGrade(grade = currentGrade) {
+    return readingPassagesByGrade[grade] || {};
   }
 
-  function readingKey(levelNumber) {
-    return `mlp-reading-check-${currentGrade}-level-${levelNumber}`;
+  function currentReadingItems() {
+    const items = passagesForGrade(state.grade)[state.level] || [];
+    if (state.selectedPassageIndex === null) return items;
+    return items[state.selectedPassageIndex] ? [items[state.selectedPassageIndex]] : [];
   }
 
-  function readingPassed(levelNumber) {
-    return localStorage.getItem(readingKey(levelNumber)) === "passed";
-  }
-
-  function markReadingPassed(levelNumber) {
-    localStorage.setItem(readingKey(levelNumber), "passed");
+  function currentPassage() {
+    return currentReadingItems()[state.passageIndex];
   }
 
   function questionsForPassage(item) {
+    if (!item) return [];
     if (Array.isArray(item.questions) && item.questions.length) return item.questions;
     if (item.question && Array.isArray(item.choices)) {
       return [{ question: item.question, choices: item.choices, answer: item.answer || 0 }];
@@ -166,7 +152,11 @@
     return [];
   }
 
-  function totalQuestions(items) {
+  function currentQuestion() {
+    return questionsForPassage(currentPassage())[state.questionIndex] || null;
+  }
+
+  function totalQuestions(items = currentReadingItems()) {
     return items.reduce((sum, item) => sum + questionsForPassage(item).length, 0);
   }
 
@@ -184,6 +174,59 @@
     return choicesWithAnswers;
   }
 
+  function readingLevelForCurrentLevel(grade = currentGrade) {
+    try {
+      const name = String((levels[levelIndex] && levels[levelIndex].name) || "");
+      const gradePassages = passagesForGrade(grade);
+      if (gradePassages[name]) return name;
+      const number = Number(name.split(".")[0]);
+      return gradePassages[number] ? number : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function readingSortValue(level) {
+    if (level === "final") return 1000;
+    const parsed = Number.parseFloat(level);
+    return Number.isFinite(parsed) ? parsed : 999;
+  }
+
+  function readingEntriesForGrade(grade = currentGrade) {
+    const gradePassages = passagesForGrade(grade);
+    return Object.keys(gradePassages)
+      .sort((a, b) => readingSortValue(a) - readingSortValue(b) || String(a).localeCompare(String(b)))
+      .map((level) => ({
+        level,
+        items: gradePassages[level] || [],
+        label: level === "final" ? "Final Reading Check" : `Reading Check · Level ${level}`
+      }));
+  }
+
+  function readingLaunchLevel(grade = currentGrade) {
+    const mappedLevel = readingLevelForCurrentLevel(grade);
+    if (mappedLevel) return mappedLevel;
+    const firstEntry = readingEntriesForGrade(grade)[0];
+    return firstEntry ? firstEntry.level : null;
+  }
+
+  function activeReadingGrade() {
+    return typeof currentGrade === "undefined" ? state.grade : currentGrade;
+  }
+
+  function readingKey(levelNumber, grade = state.grade, passageIndex = null) {
+    const passagePart = passageIndex === null ? "" : `-passage-${passageIndex + 1}`;
+    return `mlp-reading-check-${grade}-level-${levelNumber}${passagePart}`;
+  }
+
+  function readingPassed(levelNumber, grade = activeReadingGrade()) {
+    return localStorage.getItem(readingKey(levelNumber, grade)) === "passed";
+  }
+
+  function markReadingPassed(levelNumber, grade = state.grade) {
+    localStorage.setItem(readingKey(levelNumber, grade, state.selectedPassageIndex), "passed");
+  }
+
   function showNotice(titleText, messageText, buttonText = "OK", action = null) {
     if (typeof showModal === "function") showModal(titleText, messageText, buttonText, action);
     else {
@@ -193,18 +236,35 @@
   }
 
   function render() {
-    const items = (readingPassages[currentGrade] || {})[state.level] || [];
-    const item = items[state.index];
-    const itemQuestions = questionsForPassage(item);
-    const activeQuestion = itemQuestions[state.questionIndex];
+    const items = currentReadingItems();
+    const item = currentPassage();
+    const activeQuestion = currentQuestion();
     state.answered = false;
-    const levelLabel = state.level === "final" ? "Final Reading Check" : `Level ${state.level}`;
-    title.textContent = `${levelLabel}: ${item.title} (${state.index + 1}/${items.length})`;
-    passage.textContent = item.passage;
+    state.displayedChoices = [];
+    state.correctChoiceIndex = 0;
     result.textContent = "";
     result.className = "reading-result";
     next.classList.remove("active");
     choices.innerHTML = "";
+    completion.classList.remove("active");
+    completion.innerHTML = "";
+    card.style.display = "";
+
+    if (!items.length || !item) {
+      meta.innerHTML = "";
+      title.textContent = "Reading Check";
+      passage.textContent = "No reading check is available for this level yet.";
+      question.textContent = "";
+      return;
+    }
+
+    const levelLabel = state.level === "final" ? "Final Reading Check" : `Level ${state.level}`;
+    const passageLabel = state.level === "final" && state.selectedPassageIndex !== null
+      ? `${state.grade === "grade4" ? "G4" : "G3"}-Passage ${state.selectedPassageIndex + 1}`
+      : `Passage ${state.passageIndex + 1}/${items.length}`;
+    meta.innerHTML = `<span>${state.grade === "grade4" ? "Grade 4" : "Grade 3"}</span><span>${levelLabel}</span><span>${passageLabel}</span>`;
+    title.textContent = item.title;
+    passage.textContent = item.passage;
 
     if (!activeQuestion) {
       question.textContent = "Question missing. Please check this reading passage data.";
@@ -229,30 +289,45 @@
   function answer(index) {
     if (state.answered) return;
     state.answered = true;
-    const items = (readingPassages[currentGrade] || {})[state.level] || [];
-    const item = items[state.index];
-    const activeQuestion = questionsForPassage(item)[state.questionIndex];
-    const correct = activeQuestion ? state.correctChoiceIndex : 0;
+    const correct = state.correctChoiceIndex;
     if (index === correct) state.correct += 1;
     [...choices.children].forEach((button, buttonIndex) => {
       button.disabled = true;
       if (buttonIndex === correct) button.classList.add("correct");
       if (buttonIndex === index && index !== correct) button.classList.add("wrong");
     });
-    result.textContent = index === correct ? "Correct! Great reading." : `Not quite. The correct answer is ${String.fromCharCode(65 + correct)}. You will need to retry this reading check to unlock the next level.`;
+    result.textContent = index === correct ? "Correct! Great reading." : `Not quite. The correct answer is ${String.fromCharCode(65 + correct)}. Review the passage and try this reading check again.`;
     result.classList.add(index === correct ? "good" : "bad");
-    const isLastQuestion = state.questionIndex >= questionsForPassage(item).length - 1;
-    const isLastPassage = state.index >= items.length - 1;
+    const activePassage = currentPassage();
+    const isLastQuestion = state.questionIndex >= questionsForPassage(activePassage).length - 1;
+    const isLastPassage = state.passageIndex >= currentReadingItems().length - 1;
     next.textContent = isLastQuestion && isLastPassage ? "Finish Reading Check" : isLastQuestion ? "Next Passage" : "Next Question";
     next.classList.add("active");
   }
 
-  function openReadingCheck(levelNumber, pendingAdvance = false) {
+  function advanceQuestionPointer() {
+    const activePassage = currentPassage();
+    if (state.questionIndex < questionsForPassage(activePassage).length - 1) {
+      state.questionIndex += 1;
+      return true;
+    }
+    if (state.passageIndex < currentReadingItems().length - 1) {
+      state.passageIndex += 1;
+      state.questionIndex = 0;
+      return true;
+    }
+    return false;
+  }
+
+  function openReadingCheck(levelNumber, pendingAdvance = false, grade = activeReadingGrade(), selectedPassageIndex = null) {
+    state.grade = grade;
     state.level = levelNumber;
-    state.index = 0;
+    state.passageIndex = 0;
     state.questionIndex = 0;
     state.correct = 0;
+    state.answered = false;
     state.pendingAdvance = pendingAdvance;
+    state.selectedPassageIndex = selectedPassageIndex;
     page.classList.add("active");
     document.body.style.overflow = "hidden";
     render();
@@ -263,34 +338,15 @@
     document.body.style.overflow = "";
   }
 
+  function returnToReadingHub() {
+    closePage();
+    openReadingHub();
+  }
+
   function maybeAdvanceAfterReading() {
     if (!state.pendingAdvance && !passedLevels.has(levelIndex)) return;
     if (levelIndex < levels.length - 1) startLevel(levelIndex + 1);
     else startFinalTest();
-  }
-
-  function readingSortValue(level) {
-    if (level === "final") return 1000;
-    const parsed = Number.parseFloat(level);
-    return Number.isFinite(parsed) ? parsed : 999;
-  }
-
-  function readingEntriesForGrade(grade = currentGrade) {
-    const gradePassages = readingPassages[grade] || {};
-    return Object.keys(gradePassages)
-      .sort((a, b) => readingSortValue(a) - readingSortValue(b) || String(a).localeCompare(String(b)))
-      .map((level) => ({
-        level,
-        items: gradePassages[level] || [],
-        label: level === "final" ? "Final Reading Check" : `Reading Check · Level ${level}`
-      }));
-  }
-
-  function readingLaunchLevel() {
-    const mappedLevel = readingLevelForCurrentLevel();
-    if (mappedLevel) return mappedLevel;
-    const firstEntry = readingEntriesForGrade()[0];
-    return firstEntry ? firstEntry.level : null;
   }
 
   function openReadingHub() {
@@ -298,6 +354,7 @@
     hub.classList.add("active");
     document.body.style.overflow = "hidden";
   }
+  window.openReadingChecks = openReadingHub;
 
   function closeReadingHub() {
     hub.classList.remove("active");
@@ -305,27 +362,91 @@
   }
 
   function renderReadingHub() {
-    const entries = readingEntriesForGrade();
-    const gradeLabel = currentGrade === "grade4" ? "Grade 4" : "Grade 3";
-    hub.querySelector(".reading-check-hub-subtext").textContent = `${gradeLabel}: choose any available reading check. Answer choices are shuffled each time.`;
+    hub.querySelector(".reading-check-hub-subtext").textContent = "Choose a reading section. Final readings use mixed vocabulary from more than one level.";
     hubList.innerHTML = "";
-    if (!entries.length) {
-      const empty = document.createElement("p");
-      empty.className = "reading-check-hub-subtext";
-      empty.textContent = "No reading checks are available for this grade yet.";
-      hubList.append(empty);
-      return;
-    }
+    const grid = document.createElement("div");
+    grid.className = "reading-check-home-grid";
+    [
+      { label: "Grade 3 Leveled Readings", detail: "Readings matched to specific Grade 3 vocabulary levels.", action: () => renderLevelList("grade3") },
+      { label: "Grade 3 Final Readings", detail: "Mixed-level Grade 3 vocabulary practice. Choose G3-Passage 1 through G3-Passage 5.", action: () => renderFinalPassageList("grade3") },
+      { label: "Grade 4 Leveled Readings", detail: "Readings matched to specific Grade 4 vocabulary levels.", action: () => renderLevelList("grade4") },
+      { label: "Grade 4 Final Readings", detail: "Mixed-level Grade 4 passages will be added next.", disabled: true }
+    ].forEach((section) => {
+      const button = document.createElement("button");
+      button.className = `reading-check-list-button${section.disabled ? " disabled" : ""}`;
+      button.type = "button";
+      button.innerHTML = `${section.label}<span>${section.detail}</span>`;
+      if (section.disabled) {
+        button.disabled = true;
+      } else {
+        button.addEventListener("click", section.action);
+      }
+      grid.append(button);
+    });
+    hubList.append(grid);
+  }
+
+  function renderBackToHomeButton() {
+    const back = document.createElement("button");
+    back.className = "reading-check-back";
+    back.type = "button";
+    back.textContent = "Back to Reading Checks Home";
+    back.addEventListener("click", renderReadingHub);
+    hubList.append(back);
+  }
+
+  function renderLevelList(grade) {
+    const entries = readingEntriesForGrade(grade).filter((entry) => entry.level !== "final");
+    hub.querySelector(".reading-check-hub-subtext").textContent = `${grade === "grade4" ? "Grade 4" : "Grade 3"} leveled readings: choose the level you want to read.`;
+    hubList.innerHTML = "";
+    renderBackToHomeButton();
+    const heading = document.createElement("h2");
+    heading.className = "reading-check-section-title";
+    heading.textContent = grade === "grade4" ? "Grade 4 Leveled Readings" : "Grade 3 Leveled Readings";
+    hubList.append(heading);
     entries.forEach(({ level, items, label }) => {
       const button = document.createElement("button");
       button.className = "reading-check-list-button";
       button.type = "button";
       const questionCount = totalQuestions(items);
-      const status = readingPassed(level) ? "Passed" : "Not passed yet";
+      const status = readingPassed(level, grade) ? "passed" : "not passed yet";
       button.innerHTML = `${label}<span>${items.length} passage${items.length === 1 ? "" : "s"} · ${questionCount} question${questionCount === 1 ? "" : "s"} · ${status}</span>`;
       button.addEventListener("click", () => {
         closeReadingHub();
-        openReadingCheck(level, false);
+        openReadingCheck(level, false, grade);
+      });
+      hubList.append(button);
+    });
+  }
+
+  function renderFinalPassageList(grade) {
+    const items = passagesForGrade(grade).final || [];
+    hub.querySelector(".reading-check-hub-subtext").textContent = `${grade === "grade4" ? "Grade 4" : "Grade 3"} final readings use mixed-level vocabulary.`;
+    hubList.innerHTML = "";
+    renderBackToHomeButton();
+    const heading = document.createElement("h2");
+    heading.className = "reading-check-section-title";
+    heading.textContent = grade === "grade4" ? "Grade 4 Final Readings" : "Grade 3 Final Readings";
+    hubList.append(heading);
+    if (!items.length) {
+      const button = document.createElement("button");
+      button.className = "reading-check-list-button disabled";
+      button.type = "button";
+      button.disabled = true;
+      button.innerHTML = `${grade === "grade4" ? "Grade 4" : "Grade 3"} Final Readings<span>Passages have not been added yet.</span>`;
+      hubList.append(button);
+      return;
+    }
+    items.forEach((item, index) => {
+      const button = document.createElement("button");
+      button.className = "reading-check-list-button";
+      button.type = "button";
+      const label = `${grade === "grade4" ? "G4" : "G3"}-Passage ${index + 1}`;
+      const status = localStorage.getItem(readingKey("final", grade, index)) === "passed" ? "passed" : "not passed yet";
+      button.innerHTML = `${label}: ${item.title}<span>${questionsForPassage(item).length} question${questionsForPassage(item).length === 1 ? "" : "s"} · ${status}</span>`;
+      button.addEventListener("click", () => {
+        closeReadingHub();
+        openReadingCheck("final", false, grade, index);
       });
       hubList.append(button);
     });
@@ -334,18 +455,32 @@
   function updateButtons() {
     const button = document.querySelector("#readingChecksButton");
     if (!button) return;
-    const entries = readingEntriesForGrade();
+    const activeGrade = typeof currentGrade === "undefined" ? "grade3" : currentGrade;
+    const entries = readingEntriesForGrade(activeGrade);
     button.textContent = "Reading Checks";
     button.title = entries.length ? `Open ${entries.length} reading check level${entries.length === 1 ? "" : "s"}` : "No reading checks are available for this grade yet.";
+    const finalNote = document.querySelector("#finalTestNote");
+    if (finalNote && activeGrade === "grade4" && allLevelsPassed() && !allRequiredReadingPassed("grade4")) {
+      finalNote.textContent = `Complete Reading Check Level ${missingReadingLevels("grade4")[0]} before the Final Test.`;
+    }
   }
 
   function installButtons() {
     const button = document.querySelector("#readingChecksButton");
+    try {
+      installFinalTestGuard();
+    } catch (error) {
+      console.warn("Reading Checks final-test guard could not be installed.", error);
+    }
     if (button && button.dataset.readingHubInstalled !== "yes") {
       button.dataset.readingHubInstalled = "yes";
       button.addEventListener("click", openReadingHub);
     }
-    updateButtons();
+    try {
+      updateButtons();
+    } catch (error) {
+      console.warn("Reading Checks button label could not be refreshed.", error);
+    }
   }
 
   hubClose.addEventListener("click", closeReadingHub);
@@ -364,9 +499,9 @@
     nextButton.disabled = true;
     choices.innerHTML = "";
     showPromptMessage("yuè dú jiǎn chá", "阅读检查");
-    feedback.textContent = `Great word test: ${score}/${vocabulary.length} correct! Now complete Reading Check Level ${level}. You need all reading answers correct to unlock the next level.`;
+    feedback.textContent = `Great word test: ${score}/${vocabulary.length} correct! Now complete Reading Check Level ${level}. You need all reading answers correct to unlock the next step.`;
     feedback.className = "feedback good";
-    showNotice("Reading Check Required", `Nice work passing the word test. Before moving on, complete Reading Check Level ${level}. You need all answers correct to unlock the next level.`, "Start Reading Check", () => openReadingCheck(level, true));
+    showNotice("Reading Check Required", `Nice work passing the word test. Before moving on, complete Reading Check Level ${level}. You need all answers correct.`, "Start Reading Check", () => openReadingCheck(level, true));
     const button = document.createElement("button");
     button.className = "primary advance-button";
     button.type = "button";
@@ -376,44 +511,110 @@
     return true;
   }
 
+  function blockFinalForReadingIfNeeded() {
+    return false;
+  }
+
+  function installFinalTestGuard() {
+    const finalButton = document.querySelector("#finalTestButton");
+    if (!finalButton || finalButton.dataset.readingCheckGuard === "installed") return;
+    finalButton.dataset.readingCheckGuard = "installed";
+    finalButton.addEventListener("click", (event) => {
+      if (!blockFinalForReadingIfNeeded()) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }, true);
+  }
+
+  function nextReadingTarget() {
+    if (state.level === "final") {
+      const finalItems = passagesForGrade(state.grade).final || [];
+      if (state.selectedPassageIndex !== null && state.selectedPassageIndex < finalItems.length - 1) {
+        return { level: "final", grade: state.grade, passageIndex: state.selectedPassageIndex + 1, label: `Next Passage` };
+      }
+      return null;
+    }
+    const entries = readingEntriesForGrade(state.grade).filter((entry) => entry.level !== "final");
+    const currentIndex = entries.findIndex((entry) => String(entry.level) === String(state.level));
+    if (currentIndex >= 0 && currentIndex < entries.length - 1) {
+      return { level: entries[currentIndex + 1].level, grade: state.grade, passageIndex: null, label: "Next Reading Level" };
+    }
+    return null;
+  }
+
+  function showCompletion(passed, total) {
+    const nextTarget = nextReadingTarget();
+    const shouldAdvanceVocabulary = passed && state.pendingAdvance;
+    const titleText = passed ? "Reading check passed!" : "Try this reading check again";
+    const messageText = passed
+      ? `You answered all ${total} reading question${total === 1 ? "" : "s"} correctly.`
+      : `You answered ${state.correct}/${total} correctly. Review the passage and try again.`;
+    card.style.display = "none";
+    completion.classList.add("active");
+    completion.innerHTML = `
+      <h2>${titleText}</h2>
+      <p>${messageText}</p>
+      <div class="reading-completion-actions">
+        <button class="secondary" type="button" data-action="home">Back to Reading Checks</button>
+        <button class="primary" type="button" data-action="${shouldAdvanceVocabulary ? "advance" : passed && nextTarget ? "next" : "retry"}">${shouldAdvanceVocabulary ? "Go to Next Vocabulary Level" : passed && nextTarget ? nextTarget.label : "Try Again"}</button>
+      </div>
+    `;
+    completion.querySelector('[data-action="home"]').addEventListener("click", returnToReadingHub);
+    completion.querySelector('[data-action="advance"], [data-action="next"], [data-action="retry"]').addEventListener("click", () => {
+      if (shouldAdvanceVocabulary) {
+        closePage();
+        maybeAdvanceAfterReading();
+      } else if (passed && nextTarget) {
+        openReadingCheck(nextTarget.level, false, nextTarget.grade, nextTarget.passageIndex);
+      } else {
+        openReadingCheck(state.level, state.pendingAdvance, state.grade, state.selectedPassageIndex);
+      }
+    });
+  }
+
   next.addEventListener("click", () => {
-    const items = (readingPassages[currentGrade] || {})[state.level] || [];
-    const item = items[state.index];
-    if (state.questionIndex < questionsForPassage(item).length - 1) {
-      state.questionIndex += 1;
+    if (advanceQuestionPointer()) {
       render();
       return;
     }
-    if (state.index < items.length - 1) {
-      state.index += 1;
-      state.questionIndex = 0;
-      render();
-      return;
-    }
-    const total = totalQuestions(items);
-    closePage();
+    const total = totalQuestions();
     if (state.correct === total) {
-      markReadingPassed(state.level);
-      showNotice("Reading check passed!", `You answered all ${total} reading questions correctly. The next level is now unlocked.`, "Continue", maybeAdvanceAfterReading);
+      markReadingPassed(state.level, state.grade);
+      showCompletion(true, total);
     } else {
       state.pendingAdvance = false;
-      showNotice("Try the reading check again", `You answered ${state.correct}/${total} correctly. Review the passage and try again. The next level unlocks after all answers are correct.`, "Go Back to Study");
+      showCompletion(false, total);
     }
+    updateButtons();
   });
-  close.addEventListener("click", closePage);
+  close.addEventListener("click", returnToReadingHub);
 
   const installTimer = window.setInterval(() => {
     installButtons();
     const button = document.querySelector("#readingChecksButton");
     if (button && button.dataset.readingHubInstalled === "yes") window.clearInterval(installTimer);
   }, 300);
-  window.openReadingChecks = openReadingHub;
   installButtons();
 
   const originalStartLevel = startLevel;
   startLevel = function (index = levelIndex) {
     originalStartLevel(index);
-    window.setTimeout(installButtons, 0);
+    window.setTimeout(() => {
+      installButtons();
+      maybeShowGrade4ReadingIntro();
+    }, 0);
+  };
+
+  const originalUpdateFinalTestState = updateFinalTestState;
+  updateFinalTestState = function () {
+    originalUpdateFinalTestState();
+    updateButtons();
+  };
+
+  const originalStartFinalTest = startFinalTest;
+  startFinalTest = function () {
+    if (blockFinalForReadingIfNeeded()) return;
+    originalStartFinalTest();
   };
 
   const originalFinishLevel = finishLevel;
