@@ -1,6 +1,42 @@
 (function () {
   const readingPassages = {
     grade3: {
+      "1.1": [
+        { title: "称象的办法", passage: "从前，一位将军想知道大象有多重，大家都摇头。曹冲站出来，说他有一个称象的好办法。", questions: [{ question: "What did Cao Chong say?", choices: ["他喜欢那位将军", "他有一个称象的好办法", "他想把大象杀死", "他不知道大象的名字"], answer: 1 }] }
+      ],
+      "1.2": [
+        { title: "河边的大船", passage: "母亲带着孩子沿着河边赶路，看见旁边有一条大船。船上装石头后慢慢沉下去，他们马上上岸。", questions: [{ question: "Why did the mother and child go ashore?", choices: ["因为船慢慢沉下去", "因为他们要买合身的衣服", "因为他们不知道石头有多少斤", "因为他们不想继续赶路"], answer: 0 }] }
+      ],
+      "2.1": [
+        { title: "骄傲的小马", passage: "小马以前很骄傲，觉得自己跑得最快。后来它看见别人虽然慢一点，但是很认真地练习，心里不好意思。小马对朋友说：从今天起，我也要努力。", questions: [{ question: "Why did the little horse feel embarrassed?", choices: ["因为它以前太骄傲", "因为它不会说话", "因为它没有朋友", "因为它不喜欢跑步"], answer: 0 }] }
+      ],
+      final: [
+        { title: "丢失的课本", passage: "清晨，小华带着课本去学校。走到市场旁边，他看见一位母亲的两大筐饭菜歪了，便赶紧放下书去帮助她。收拾好以后，他才发现课本走丢了。小华沿着原路寻找，一位年轻人迎上来说：“这是你的书吗？”原来，他在山坡下捡到了课本。小华响亮地说谢谢。年轻人摇头说：“没关系，你愿意帮助别人，别人也愿意帮助你。”小华回到操场时虽然有点晚，但是老师听清楚事情以后，不但没有生气，还说他做得对极了。", questions: [
+          { question: "Why did Xiaohua put down his book?", choices: ["他想在市场买饭菜", "他要帮助一位母亲", "他准备在山坡休息", "他要和年轻人打球"], answer: 1 },
+          { question: "Where had the young man found the textbook?", choices: ["在大船旁边", "在破庙里面", "在操场墙边", "在山坡下面"], answer: 3 },
+          { question: "How did the teacher respond?", choices: ["老师说小华做得对极了", "老师让小华马上回家", "老师叫小华买一本书", "老师不让小华参加游戏"], answer: 0 }
+        ] },
+        { title: "森林里的办法", passage: "一位老师带着学生到森林里观察动物和植物。大家正在做实验，忽然听见很大的响声。一只梅花鹿从山坡上摔了下来，腿上有血迹，旁边还有老虎的脚印。几个学生吓得想跑，老师却不紧不慢地说：“先别胡说，我们必须看清楚。”他顺着脚印走了一趟，发现老虎早已离开。大家一起把受伤的梅花鹿运到安全的地方，又找来食物。学生们终于放心了，也懂了遇到问题时不能只害怕，要仔细寻找线索，想出好办法。", questions: [
+          { question: "What did the group hear during the experiment?", choices: ["很大的响声", "时钟的声音", "公鸡的叫声", "市场里的欢笑"], answer: 0 },
+          { question: "How did the teacher know the tiger had left?", choices: ["他问了富和尚", "他比较了两本课文", "他顺着脚印查看", "他听见老虎回答"], answer: 2 },
+          { question: "What did the students learn?", choices: ["看见野兽就必须跑回家", "森林里不能做实验", "梅花鹿只需要很多钱", "遇到问题要看清线索并想办法"], answer: 3 }
+        ] },
+        { title: "商人与和尚", passage: "从前，一位商人的骆驼走丢了。他在四川西部寻找了很久，又饿又累，只好到一座破庙休息。庙里住着一个又瘦又穷的和尚。和尚听完事情，仔细看了地上的脚印，又摸着树枝上的牙齿印，说：“骆驼一定往南海方向走了。”商人半信半疑，还是顺着脚印继续赶路。果然，他在河边找到了骆驼。商人想送给和尚很多钱，和尚却摇头说：“我只是帮助你，不需要这些钱。”商人非常感动，告别时送给他一碗米饭和一本书。", questions: [
+          { question: "Why did the merchant stop at the temple?", choices: ["他又饿又累，需要休息", "他想在那里做官", "他要去庙里称象", "他准备在庙里做实验"], answer: 0 },
+          { question: "Which clues did the monk examine?", choices: ["一条线和石头的重量", "时钟和墙上的字", "脚印和树枝上的牙齿印", "饭菜和课本"], answer: 2 },
+          { question: "What did the merchant give the monk?", choices: ["一只梅花鹿和木棒", "一碗米饭和一本书", "很多钱和一条大船", "两大筐饭菜"], answer: 1 }
+        ] },
+        { title: "一分钟的实验", passage: "昨天，一位老师给全班一个问题：“一分钟很短，我们能做什么？”第一个学生马上拿起笔，写下许多动物和植物的名字。第二个学生走到操场，听了一分钟的欢笑和打球声。小明却不声不响地坐着，好像什么也没做。时间到了，他站起来说：“我一直注意时钟，一秒钟也没有浪费。我发现等待时，时间似乎很慢；认真做事情时，又过得很快。”老师听后非常开心，说他的回答既清楚又聪明。大家终于懂了，光阴虽然看不见，但是每一分钟都很重要，必须好好利用。", questions: [
+          { question: "What did the first student do?", choices: ["他去森林寻找食物", "他听操场上的声音", "他不声不响地坐着", "他写下动物和植物的名字"], answer: 3 },
+          { question: "What did Xiaoming observe?", choices: ["做不同事情时，对时间的感觉不同", "时钟在一分钟内坏了", "打球一定会浪费光阴", "植物一分钟就能长大"], answer: 0 },
+          { question: "What was the main lesson?", choices: ["只有聪明人才需要注意时间", "每一分钟都很重要，要好好利用", "实验必须在操场进行", "回答问题时不能站起来"], answer: 1 }
+        ] },
+        { title: "小镇上的勇敢孩子", passage: "清晨，小镇的市场里来了一个又胖又高的商人。他的驴子驮着两大筐东西，走到饭店旁边时突然受惊，把一个孩子撞倒了。商人吓得眼珠一转，想转身离开。一个年轻人立刻站出来，抓住驴子旁边的绳子，又扶起受伤的孩子。孩子虽然很疼，还是勇敢地说：“我没关系，请先看看驴子。”大家发现驴子的脚也受伤了，便一起把它带到安全的地方。商人低头认错，答应付孩子看病的钱，还留下来收拾地上的东西。行人们说，敢于承认错误并帮助别人，才是真正的勇敢。", questions: [
+          { question: "What did the merchant first try to do?", choices: ["帮助孩子站起来", "转身离开", "把驴子送给饭店", "请行人收拾东西"], answer: 1 },
+          { question: "What did the child ask people to do first?", choices: ["先看看受伤的驴子", "先把商人送走", "先去市场买东西", "先找老师回答问题"], answer: 0 },
+          { question: "What showed that the merchant accepted responsibility?", choices: ["他把饭菜藏起来了", "他骑驴子返回乡下", "他付看病的钱并留下来收拾", "他让年轻人替他认错"], answer: 2 }
+        ] }
+      ],
       3: [
         { title: "皇帝的命令", passage: "皇帝下令，让一个做官的人两天之内办好一件事情。那个人低头苦笑，说实在办不到。孙子站出来，说：“让我去吧，我会帮助他。”皇帝听了，答应让孙子留下来。", questions: [{ question: "谁帮助做官的人？", choices: ["孙子", "皇帝", "公鸡", "老虎"], answer: 0 }] },
         { title: "聪明的孙子", passage: "做官的人总是想着皇帝的命令，心里有很重的心事。他在外面散步时，孙子看见他低着头。孙子问清楚事情以后，想出了一个好主意。他先说服做官的人，再请他放心。做官的人听了，才笑了。", questions: [{ question: "孙子怎样帮助做官的人？", choices: ["想出一个好主意", "让他马上走开", "把饭菜留下来", "请皇帝去散步"], answer: 0 }] },
@@ -64,7 +100,7 @@
     .reading-title{margin:0 0 16px;color:#1f2933;font-size:clamp(1.4rem,3vw,2rem)}.reading-passage{margin:0 0 26px;color:#27364a;font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;font-size:clamp(1.2rem,2.5vw,1.55rem);line-height:1.95}.reading-question{margin:0 0 14px;color:#1f2933;font-size:clamp(1.08rem,2vw,1.3rem);font-weight:800}
     .reading-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reading-choice{min-height:54px;border:2px solid #d6dde8;border-radius:14px;background:#fff;padding:12px 16px;text-align:left;color:#1f2933;font-size:1rem;font-weight:700;cursor:pointer}.reading-choice.correct{border-color:#177245;background:#eaf8f0;color:#116039}.reading-choice.wrong{border-color:#b42318;background:#fff0ee;color:#9b1c13}
     .reading-result{min-height:30px;margin:16px 0 0;font-weight:800}.reading-result.good{color:#177245}.reading-result.bad{color:#b42318}.reading-next{display:none;margin-top:14px;border:0;border-radius:14px;background:#2f6fed;color:#fff;padding:12px 20px;font-weight:800;cursor:pointer}.reading-next.active{display:inline-flex}
-    .reading-check-launch-button{display:block!important;width:100%;margin:0 0 12px!important;background:#fff7ed!important;border-color:#fed7aa!important;color:#9a3412!important}.reading-check-note{margin:-4px 0 12px;color:#667085;font-size:.82rem;font-weight:750;line-height:1.35}@media(max-width:640px){.reading-choices{grid-template-columns:1fr}.reading-check-top{display:grid}}
+    .reading-check-launch-button{display:block!important;width:100%;margin:0 0 12px!important;background:#fff7ed!important;border-color:#fed7aa!important;color:#9a3412!important}.reading-check-note{margin:-4px 0 12px;color:#667085;font-size:.82rem;font-weight:750;line-height:1.35}.reading-check-hub{position:fixed;inset:0;z-index:79;display:none;overflow:auto;background:linear-gradient(145deg,#eef5ff,#fff8ee);padding:clamp(18px,4vw,46px)}.reading-check-hub.active{display:block}.reading-check-hub-shell{width:min(980px,100%);margin:0 auto}.reading-check-hub-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}.reading-check-hub-top h1{margin:0;color:#1c2533;font-size:clamp(1.65rem,4vw,2.5rem)}.reading-check-hub-subtext{margin:6px 0 0;color:#667085;font-weight:750;line-height:1.45}.reading-check-hub-close{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:10px 16px;font-weight:750;cursor:pointer}.reading-check-list{display:grid;gap:12px}.reading-check-list-button{width:100%;border:1px solid #d6dde8;background:#fff;color:#1f2933;border-radius:14px;padding:16px;text-align:left;font-weight:850;cursor:pointer}.reading-check-list-button span{display:block;margin-top:4px;color:#667085;font-size:.84rem;font-weight:750}.reading-check-list-button:hover{border-color:#2f6fed;color:#2457bd}@media(max-width:640px){.reading-choices{grid-template-columns:1fr}.reading-check-top,.reading-check-hub-top{display:grid}}
   `;
   document.head.append(style);
 
@@ -73,6 +109,11 @@
   page.innerHTML = `<div class="reading-check-shell"><div class="reading-check-top"><div><h1>Reading Check · 阅读理解</h1><p class="reading-check-subtext">Answer all reading questions correctly to unlock the next level. If you miss one, review and try this reading check again.</p></div><button class="reading-check-close" type="button">Go Back to Study</button></div><article class="reading-card"><h2 class="reading-title"></h2><p class="reading-passage"></p><p class="reading-question"></p><div class="reading-choices"></div><p class="reading-result" aria-live="polite"></p><button class="reading-next" type="button">Next Passage</button></article></div>`;
   document.body.append(page);
 
+  const hub = document.createElement("section");
+  hub.className = "reading-check-hub";
+  hub.innerHTML = `<div class="reading-check-hub-shell"><div class="reading-check-hub-top"><div><h1>Reading Checks</h1><p class="reading-check-hub-subtext">Choose a reading check for the current grade. Answer choices are shuffled each time.</p></div><button class="reading-check-hub-close" type="button">Go Back</button></div><div class="reading-check-list"></div></div>`;
+  document.body.append(hub);
+
   const title = page.querySelector(".reading-title");
   const passage = page.querySelector(".reading-passage");
   const question = page.querySelector(".reading-question");
@@ -80,6 +121,8 @@
   const result = page.querySelector(".reading-result");
   const next = page.querySelector(".reading-next");
   const close = page.querySelector(".reading-check-close");
+  const hubClose = hub.querySelector(".reading-check-hub-close");
+  const hubList = hub.querySelector(".reading-check-list");
   const state = {
     level: 3,
     index: 0,
@@ -92,15 +135,16 @@
   };
 
   function readingLevelForCurrentLevel() {
-  try {
-    const name = levels[levelIndex] && levels[levelIndex].name;
-    const number = Number(String(name || "").split(".")[0]);
-    const gradePassages = readingPassages[currentGrade] || {};
-    return gradePassages[number] ? number : null;
-  } catch {
-    return null;
+    try {
+      const name = String((levels[levelIndex] && levels[levelIndex].name) || "");
+      const gradePassages = readingPassages[currentGrade] || {};
+      if (gradePassages[name]) return name;
+      const number = Number(name.split(".")[0]);
+      return gradePassages[number] ? number : null;
+    } catch {
+      return null;
+    }
   }
-}
 
   function readingKey(levelNumber) {
     return `mlp-reading-check-${currentGrade}-level-${levelNumber}`;
@@ -154,7 +198,8 @@
     const itemQuestions = questionsForPassage(item);
     const activeQuestion = itemQuestions[state.questionIndex];
     state.answered = false;
-    title.textContent = `Level ${state.level}: ${item.title} (${state.index + 1}/${items.length})`;
+    const levelLabel = state.level === "final" ? "Final Reading Check" : `Level ${state.level}`;
+    title.textContent = `${levelLabel}: ${item.title} (${state.index + 1}/${items.length})`;
     passage.textContent = item.passage;
     result.textContent = "";
     result.className = "reading-result";
@@ -224,52 +269,86 @@
     else startFinalTest();
   }
 
-  function makeButton() {
-    const button = document.createElement("button");
-    button.className = "review-bank-button reading-check-launch-button";
-    button.type = "button";
-    button.textContent = "Reading Check";
-    button.addEventListener("click", () => {
-      const level = readingLevelForCurrentLevel();
-      if (level) openReadingCheck(level, false);
-      else showNotice("Reading Check", "Reading checks are available in Grade 3 from Level 3 and in all Grade 4 levels.", "OK");
-    });
-    return button;
+  function readingSortValue(level) {
+    if (level === "final") return 1000;
+    const parsed = Number.parseFloat(level);
+    return Number.isFinite(parsed) ? parsed : 999;
   }
 
-  let studyButton = null;
-  let testButton = null;
+  function readingEntriesForGrade(grade = currentGrade) {
+    const gradePassages = readingPassages[grade] || {};
+    return Object.keys(gradePassages)
+      .sort((a, b) => readingSortValue(a) - readingSortValue(b) || String(a).localeCompare(String(b)))
+      .map((level) => ({
+        level,
+        items: gradePassages[level] || [],
+        label: level === "final" ? "Final Reading Check" : `Reading Check · Level ${level}`
+      }));
+  }
+
+  function readingLaunchLevel() {
+    const mappedLevel = readingLevelForCurrentLevel();
+    if (mappedLevel) return mappedLevel;
+    const firstEntry = readingEntriesForGrade()[0];
+    return firstEntry ? firstEntry.level : null;
+  }
+
+  function openReadingHub() {
+    renderReadingHub();
+    hub.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeReadingHub() {
+    hub.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  function renderReadingHub() {
+    const entries = readingEntriesForGrade();
+    const gradeLabel = currentGrade === "grade4" ? "Grade 4" : "Grade 3";
+    hub.querySelector(".reading-check-hub-subtext").textContent = `${gradeLabel}: choose any available reading check. Answer choices are shuffled each time.`;
+    hubList.innerHTML = "";
+    if (!entries.length) {
+      const empty = document.createElement("p");
+      empty.className = "reading-check-hub-subtext";
+      empty.textContent = "No reading checks are available for this grade yet.";
+      hubList.append(empty);
+      return;
+    }
+    entries.forEach(({ level, items, label }) => {
+      const button = document.createElement("button");
+      button.className = "reading-check-list-button";
+      button.type = "button";
+      const questionCount = totalQuestions(items);
+      const status = readingPassed(level) ? "Passed" : "Not passed yet";
+      button.innerHTML = `${label}<span>${items.length} passage${items.length === 1 ? "" : "s"} · ${questionCount} question${questionCount === 1 ? "" : "s"} · ${status}</span>`;
+      button.addEventListener("click", () => {
+        closeReadingHub();
+        openReadingCheck(level, false);
+      });
+      hubList.append(button);
+    });
+  }
 
   function updateButtons() {
-    const level = readingLevelForCurrentLevel();
-    [studyButton, testButton].filter(Boolean).forEach((button) => {
-      button.textContent = level ? `Reading Check · Level ${level}` : "Reading Check";
-      button.title = level ? `Open reading check for Level ${level}` : "Reading checks are available in Grade 3 from Level 3 and in all Grade 4 levels.";
-    });
+    const button = document.querySelector("#readingChecksButton");
+    if (!button) return;
+    const entries = readingEntriesForGrade();
+    button.textContent = "Reading Checks";
+    button.title = entries.length ? `Open ${entries.length} reading check level${entries.length === 1 ? "" : "s"}` : "No reading checks are available for this grade yet.";
   }
 
   function installButtons() {
-    const studyPanel = document.querySelector("#studyPanel");
-    const vocabList = document.querySelector("#vocabList");
-    const actions = document.querySelector(".review-bank-actions");
-    if (studyPanel && vocabList && !studyButton) {
-      studyButton = makeButton();
-      studyPanel.insertBefore(studyButton, vocabList);
-      const note = document.createElement("p");
-      note.className = "reading-check-note";
-      note.textContent = "After the word test, the reading check must be passed before the next level unlocks.";
-      studyPanel.insertBefore(note, vocabList);
-    }
-    if (actions && !testButton) {
-      testButton = makeButton();
-      actions.prepend(testButton);
-      const note = document.createElement("p");
-      note.className = "reading-check-note";
-      note.textContent = "Next level opens only after all reading questions are correct.";
-      actions.append(note);
+    const button = document.querySelector("#readingChecksButton");
+    if (button && button.dataset.readingHubInstalled !== "yes") {
+      button.dataset.readingHubInstalled = "yes";
+      button.addEventListener("click", openReadingHub);
     }
     updateButtons();
   }
+
+  hubClose.addEventListener("click", closeReadingHub);
 
   function completePassedWordLevel() {
     rememberMissedWords(levelMissedWords);
@@ -325,8 +404,10 @@
 
   const installTimer = window.setInterval(() => {
     installButtons();
-    if (studyButton || testButton) window.clearInterval(installTimer);
+    const button = document.querySelector("#readingChecksButton");
+    if (button && button.dataset.readingHubInstalled === "yes") window.clearInterval(installTimer);
   }, 300);
+  window.openReadingChecks = openReadingHub;
   installButtons();
 
   const originalStartLevel = startLevel;
