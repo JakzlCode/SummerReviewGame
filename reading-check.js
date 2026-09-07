@@ -98,10 +98,10 @@
     .reading-check-top h1{margin:0;color:#1c2533;font-size:clamp(1.65rem,4vw,2.5rem)}.reading-check-subtext{margin:6px 0 0;color:#667085;font-weight:750;line-height:1.45}
     .reading-check-close{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:10px 16px;font-weight:750;cursor:pointer}.reading-card{background:#fff;border:1px solid #d6dde8;border-radius:22px;padding:clamp(22px,5vw,42px);box-shadow:0 18px 45px rgba(31,41,51,.11)}
     .reading-meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}.reading-meta span{border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;border-radius:999px;padding:5px 10px;font-size:.82rem;font-weight:850}.reading-title{margin:0 0 16px;color:#1f2933;font-size:clamp(1.4rem,3vw,2rem)}.reading-passage{margin:0 0 26px;color:#27364a;font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;font-size:clamp(1.2rem,2.5vw,1.55rem);line-height:1.95}.reading-question{margin:0 0 14px;color:#1f2933;font-size:clamp(1.08rem,2vw,1.3rem);font-weight:800}
-    .reading-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reading-choice{min-height:54px;border:2px solid #d6dde8;border-radius:14px;background:#fff;padding:12px 16px;text-align:left;color:#1f2933;font-size:1rem;font-weight:700;cursor:pointer}.reading-choice.correct{border-color:#177245;background:#eaf8f0;color:#116039}.reading-choice.wrong{border-color:#b42318;background:#fff0ee;color:#9b1c13}
+    .reading-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reading-choice{min-height:54px;border:2px solid #d6dde8;border-radius:14px;background:#fff;padding:12px 16px;text-align:left;color:#1f2933;font-size:1rem;font-weight:700;cursor:pointer}.reading-choice.correct{border-color:#177245;background:#eaf8f0;color:#116039}.reading-choice.wrong{border-color:#b42318;background:#fff0ee;color:#9b1c13}.reading-final-question{border-top:1px solid #e4e9f2;padding-top:18px;margin-top:18px}.reading-final-question:first-child{border-top:0;padding-top:0;margin-top:0}.reading-final-question h3{margin:0 0 12px;color:#1f2933;font-size:clamp(1.04rem,2vw,1.22rem)}.reading-final-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reading-final-result{min-height:24px;margin:10px 0 0;font-weight:850}
     .reading-result{min-height:30px;margin:16px 0 0;font-weight:800}.reading-result.good{color:#177245}.reading-result.bad{color:#b42318}.reading-next{display:none;margin-top:14px;border:0;border-radius:14px;background:#2f6fed;color:#fff;padding:12px 20px;font-weight:800;cursor:pointer}.reading-next.active{display:inline-flex}
     .reading-completion{display:none;background:#fff;border:1px solid #d6dde8;border-radius:22px;padding:clamp(22px,5vw,42px);box-shadow:0 18px 45px rgba(31,41,51,.11)}.reading-completion.active{display:block}.reading-completion h2{margin:0 0 10px;color:#1f2933;font-size:clamp(1.35rem,3vw,2rem)}.reading-completion p{margin:0 0 18px;color:#667085;font-weight:750;line-height:1.45}.reading-completion-actions{display:flex;flex-wrap:wrap;gap:10px}.reading-completion-actions button{border:0;border-radius:14px;padding:12px 18px;font-weight:850;cursor:pointer}.reading-completion-actions .primary{background:#2f6fed;color:#fff}.reading-completion-actions .secondary{background:#eef4ff;color:#2457bd}
-    .reading-check-launch-button{display:block!important;width:100%;margin:0 0 12px!important;background:#fff7ed!important;border-color:#fed7aa!important;color:#9a3412!important}.reading-check-note{margin:-4px 0 12px;color:#667085;font-size:.82rem;font-weight:750;line-height:1.35}.reading-check-hub{position:fixed;inset:0;z-index:79;display:none;overflow:auto;background:linear-gradient(145deg,#eef5ff,#fff8ee);padding:clamp(18px,4vw,46px)}.reading-check-hub.active{display:block}.reading-check-hub-shell{width:min(980px,100%);margin:0 auto}.reading-check-hub-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}.reading-check-hub-top h1{margin:0;color:#1c2533;font-size:clamp(1.65rem,4vw,2.5rem)}.reading-check-hub-subtext{margin:6px 0 0;color:#667085;font-weight:750;line-height:1.45}.reading-check-hub-close{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:10px 16px;font-weight:750;cursor:pointer}.reading-check-list{display:grid;gap:12px}.reading-check-home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.reading-check-list-button{width:100%;border:1px solid #d6dde8;background:#fff;color:#1f2933;border-radius:14px;padding:16px;text-align:left;font-weight:850;cursor:pointer}.reading-check-list-button span{display:block;margin-top:4px;color:#667085;font-size:.84rem;font-weight:750}.reading-check-list-button:hover{border-color:#2f6fed;color:#2457bd}.reading-check-list-button.disabled{background:#f3f4f6;color:#98a2b3;cursor:not-allowed}.reading-check-list-button.disabled:hover{border-color:#d6dde8;color:#98a2b3}.reading-check-back{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:9px 14px;font-weight:800;cursor:pointer;margin-bottom:12px}.reading-check-section-title{margin:0 0 12px;color:#1f2933;font-size:1.15rem}.reading-check-home-grid .reading-check-list-button{min-height:128px}@media(max-width:640px){.reading-choices,.reading-check-home-grid{grid-template-columns:1fr}.reading-check-top,.reading-check-hub-top{display:grid}}
+    .reading-check-launch-button{display:block!important;width:100%;margin:0 0 12px!important;background:#fff7ed!important;border-color:#fed7aa!important;color:#9a3412!important}.reading-check-note{margin:-4px 0 12px;color:#667085;font-size:.82rem;font-weight:750;line-height:1.35}.reading-check-hub{position:fixed;inset:0;z-index:79;display:none;overflow:auto;background:linear-gradient(145deg,#eef5ff,#fff8ee);padding:clamp(18px,4vw,46px)}.reading-check-hub.active{display:block}.reading-check-hub-shell{width:min(980px,100%);margin:0 auto}.reading-check-hub-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}.reading-check-hub-top h1{margin:0;color:#1c2533;font-size:clamp(1.65rem,4vw,2.5rem)}.reading-check-hub-subtext{margin:6px 0 0;color:#667085;font-weight:750;line-height:1.45}.reading-check-hub-close{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:10px 16px;font-weight:750;cursor:pointer}.reading-check-list{display:grid;gap:12px}.reading-check-home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.reading-check-list-button{width:100%;border:1px solid #d6dde8;background:#fff;color:#1f2933;border-radius:14px;padding:16px;text-align:left;font-weight:850;cursor:pointer}.reading-check-list-button span{display:block;margin-top:4px;color:#667085;font-size:.84rem;font-weight:750}.reading-check-list-button:hover{border-color:#2f6fed;color:#2457bd}.reading-check-list-button.disabled{background:#f3f4f6;color:#98a2b3;cursor:not-allowed}.reading-check-list-button.disabled:hover{border-color:#d6dde8;color:#98a2b3}.reading-check-back{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:9px 14px;font-weight:800;cursor:pointer;margin-bottom:12px}.reading-check-section-title{margin:0 0 12px;color:#1f2933;font-size:1.15rem}.reading-check-home-grid .reading-check-list-button{min-height:128px}@media(max-width:640px){.reading-choices,.reading-final-choices,.reading-check-home-grid{grid-template-columns:1fr}.reading-check-top,.reading-check-hub-top{display:grid}}
   `;
   document.head.append(style);
 
@@ -127,7 +127,7 @@
   const completion = page.querySelector(".reading-completion");
   const hubClose = hub.querySelector(".reading-check-hub-close");
   const hubList = hub.querySelector(".reading-check-list");
-  const state = { grade: "grade3", level: 3, passageIndex: 0, questionIndex: 0, correct: 0, answered: false, pendingAdvance: false, displayedChoices: [], correctChoiceIndex: 0, selectedPassageIndex: null };
+  const state = { grade: "grade3", level: 3, passageIndex: 0, questionIndex: 0, correct: 0, answered: false, pendingAdvance: false, displayedChoices: [], correctChoiceIndex: 0, selectedPassageIndex: null, finalDisplayedChoices: [], finalAnswered: [] };
 
   function passagesForGrade(grade = currentGrade) {
     return readingPassagesByGrade[grade] || {};
@@ -235,6 +235,10 @@
     }
   }
 
+  function isFinalPassagePage() {
+    return state.grade === "grade3" && state.level === "final" && state.selectedPassageIndex !== null;
+  }
+
   function render() {
     const items = currentReadingItems();
     const item = currentPassage();
@@ -242,6 +246,8 @@
     state.answered = false;
     state.displayedChoices = [];
     state.correctChoiceIndex = 0;
+    state.finalDisplayedChoices = [];
+    state.finalAnswered = [];
     result.textContent = "";
     result.className = "reading-result";
     next.classList.remove("active");
@@ -266,6 +272,11 @@
     title.textContent = item.title;
     passage.textContent = item.passage;
 
+    if (isFinalPassagePage()) {
+      renderFinalPassageQuestions(item);
+      return;
+    }
+
     if (!activeQuestion) {
       question.textContent = "Question missing. Please check this reading passage data.";
       next.textContent = "Next Passage";
@@ -284,6 +295,55 @@
       button.addEventListener("click", () => answer(index));
       choices.append(button);
     });
+  }
+
+  function renderFinalPassageQuestions(item) {
+    const itemQuestions = questionsForPassage(item);
+    question.textContent = "Answer all questions for this passage.";
+    state.finalDisplayedChoices = itemQuestions.map(shuffledChoices);
+    state.finalAnswered = itemQuestions.map(() => false);
+    choices.innerHTML = "";
+    itemQuestions.forEach((itemQuestion, questionIndex) => {
+      const block = document.createElement("section");
+      block.className = "reading-final-question";
+      const heading = document.createElement("h3");
+      heading.textContent = `Q${questionIndex + 1}. ${itemQuestion.question}`;
+      const optionGrid = document.createElement("div");
+      optionGrid.className = "reading-final-choices";
+      const questionResult = document.createElement("p");
+      questionResult.className = "reading-final-result";
+
+      state.finalDisplayedChoices[questionIndex].forEach(({ choice }, choiceIndex) => {
+        const button = document.createElement("button");
+        button.className = "reading-choice";
+        button.type = "button";
+        button.textContent = `${String.fromCharCode(65 + choiceIndex)}. ${choice}`;
+        button.addEventListener("click", () => answerFinalQuestion(questionIndex, choiceIndex, optionGrid, questionResult));
+        optionGrid.append(button);
+      });
+
+      block.append(heading, optionGrid, questionResult);
+      choices.append(block);
+    });
+  }
+
+  function answerFinalQuestion(questionIndex, choiceIndex, optionGrid, questionResult) {
+    if (state.finalAnswered[questionIndex]) return;
+    state.finalAnswered[questionIndex] = true;
+    const displayedChoices = state.finalDisplayedChoices[questionIndex] || [];
+    const correctIndex = displayedChoices.findIndex((choice) => choice.isCorrect);
+    if (choiceIndex === correctIndex) state.correct += 1;
+    [...optionGrid.children].forEach((button, buttonIndex) => {
+      button.disabled = true;
+      if (buttonIndex === correctIndex) button.classList.add("correct");
+      if (buttonIndex === choiceIndex && choiceIndex !== correctIndex) button.classList.add("wrong");
+    });
+    questionResult.textContent = choiceIndex === correctIndex ? "Correct!" : `Correct answer: ${String.fromCharCode(65 + correctIndex)}`;
+    questionResult.style.color = choiceIndex === correctIndex ? "#177245" : "#b42318";
+    if (state.finalAnswered.every(Boolean)) {
+      next.textContent = "Finish Reading Check";
+      next.classList.add("active");
+    }
   }
 
   function answer(index) {
@@ -573,7 +633,7 @@
   }
 
   next.addEventListener("click", () => {
-    if (advanceQuestionPointer()) {
+    if (!isFinalPassagePage() && advanceQuestionPointer()) {
       render();
       return;
     }
