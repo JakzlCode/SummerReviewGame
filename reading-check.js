@@ -101,7 +101,7 @@
     .reading-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reading-choices.final-passage{grid-template-columns:1fr}.reading-choice{min-height:54px;border:2px solid #d6dde8;border-radius:14px;background:#fff;padding:12px 16px;text-align:left;color:#1f2933;font-size:1rem;font-weight:700;cursor:pointer}.reading-choice.correct{border-color:#177245;background:#eaf8f0;color:#116039}.reading-choice.wrong{border-color:#b42318;background:#fff0ee;color:#9b1c13}.reading-final-question{border-top:1px solid #e4e9f2;padding-top:18px;margin-top:18px}.reading-final-question:first-child{border-top:0;padding-top:0;margin-top:0}.reading-final-question h3{margin:0 0 12px;color:#1f2933;font-size:clamp(1.04rem,2vw,1.22rem)}.reading-final-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reading-final-result{min-height:24px;margin:10px 0 0;font-weight:850}
     .reading-result{min-height:30px;margin:16px 0 0;font-weight:800}.reading-result.good{color:#177245}.reading-result.bad{color:#b42318}.reading-next{display:none;margin-top:14px;border:0;border-radius:14px;background:#2f6fed;color:#fff;padding:12px 20px;font-weight:800;cursor:pointer}.reading-next.active{display:inline-flex}
     .reading-completion{display:none;background:#fff;border:1px solid #d6dde8;border-radius:22px;padding:clamp(22px,5vw,42px);box-shadow:0 18px 45px rgba(31,41,51,.11)}.reading-completion.active{display:block}.reading-completion h2{margin:0 0 10px;color:#1f2933;font-size:clamp(1.35rem,3vw,2rem)}.reading-completion p{margin:0 0 18px;color:#667085;font-weight:750;line-height:1.45}.reading-completion-actions{display:flex;flex-wrap:wrap;gap:10px}.reading-completion-actions button{border:0;border-radius:14px;padding:12px 18px;font-weight:850;cursor:pointer}.reading-completion-actions .primary{background:#2f6fed;color:#fff}.reading-completion-actions .secondary{background:#eef4ff;color:#2457bd}
-    .reading-check-launch-button{display:block!important;width:100%;margin:0 0 12px!important;background:#fff7ed!important;border-color:#fed7aa!important;color:#9a3412!important}.reading-check-note{margin:-4px 0 12px;color:#667085;font-size:.82rem;font-weight:750;line-height:1.35}.reading-check-hub{position:fixed;inset:0;z-index:79;display:none;overflow:auto;background:linear-gradient(145deg,#eef5ff,#fff8ee);padding:clamp(18px,4vw,46px)}.reading-check-hub.active{display:block}.reading-check-hub-shell{width:min(980px,100%);margin:0 auto}.reading-check-hub-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}.reading-check-hub-top h1{margin:0;color:#1c2533;font-size:clamp(1.65rem,4vw,2.5rem)}.reading-check-hub-subtext{margin:6px 0 0;color:#667085;font-weight:750;line-height:1.45}.reading-check-hub-close{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:10px 16px;font-weight:750;cursor:pointer}.reading-check-list{display:grid;gap:12px}.reading-check-home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.reading-check-list-button{width:100%;border:1px solid #d6dde8;background:#fff;color:#1f2933;border-radius:14px;padding:16px;text-align:left;font-weight:850;cursor:pointer}.reading-check-list-button span{display:block;margin-top:4px;color:#667085;font-size:.84rem;font-weight:750}.reading-check-list-button:hover{border-color:#2f6fed;color:#2457bd}.reading-check-list-button.disabled{background:#f3f4f6;color:#98a2b3;cursor:not-allowed}.reading-check-list-button.disabled:hover{border-color:#d6dde8;color:#98a2b3}.reading-check-back{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:9px 14px;font-weight:800;cursor:pointer;margin-bottom:12px}.reading-check-section-title{margin:0 0 12px;color:#1f2933;font-size:1.15rem}.reading-check-home-grid .reading-check-list-button{min-height:128px}@media(max-width:640px){.reading-choices,.reading-final-choices,.reading-check-home-grid{grid-template-columns:1fr}.reading-check-top,.reading-check-hub-top{display:grid}}
+    .reading-check-launch-button{display:block!important;width:100%;margin:0 0 12px!important;background:#fff7ed!important;border-color:#fed7aa!important;color:#9a3412!important}.reading-check-note{margin:-4px 0 12px;color:#667085;font-size:.82rem;font-weight:750;line-height:1.35}.reading-check-hub{position:fixed;inset:0;z-index:79;display:none;overflow:auto;background:linear-gradient(145deg,#eef5ff,#fff8ee);padding:clamp(18px,4vw,46px)}.reading-check-hub.active{display:block}.reading-check-hub-shell{width:min(980px,100%);margin:0 auto}.reading-check-hub-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}.reading-check-hub-top h1{margin:0;color:#1c2533;font-size:clamp(1.65rem,4vw,2.5rem)}.reading-check-hub-subtext{margin:6px 0 0;color:#667085;font-weight:750;line-height:1.45}.reading-check-hub-close{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:10px 16px;font-weight:750;cursor:pointer}.reading-check-list{display:grid;gap:12px}.reading-check-home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.reading-report-button{width:100%;border:1px solid #bae6fd;background:#ecfeff;color:#0e7490;border-radius:14px;padding:13px 16px;font-weight:900;cursor:pointer;text-align:center}.reading-report-button:hover{border-color:#06b6d4;background:#cffafe}.reading-check-list-button{width:100%;border:1px solid #d6dde8;background:#fff;color:#1f2933;border-radius:14px;padding:16px;text-align:left;font-weight:850;cursor:pointer}.reading-check-list-button span{display:block;margin-top:4px;color:#667085;font-size:.84rem;font-weight:750}.reading-check-list-button:hover{border-color:#2f6fed;color:#2457bd}.reading-check-list-button.disabled{background:#f3f4f6;color:#98a2b3;cursor:not-allowed}.reading-check-list-button.disabled:hover{border-color:#d6dde8;color:#98a2b3}.reading-check-back{border:1px solid #cbd5e1;background:#fff;color:#344054;border-radius:12px;padding:9px 14px;font-weight:800;cursor:pointer;margin-bottom:12px}.reading-check-section-title{margin:0 0 12px;color:#1f2933;font-size:1.15rem}.reading-check-home-grid .reading-check-list-button{min-height:128px}@media(max-width:640px){.reading-choices,.reading-final-choices,.reading-check-home-grid{grid-template-columns:1fr}.reading-check-top,.reading-check-hub-top{display:grid}}
   `;
   document.head.append(style);
 
@@ -219,12 +219,38 @@
     return `mlp-reading-check-${grade}-level-${levelNumber}${passagePart}`;
   }
 
+  function readingStatsKey(levelNumber, grade = state.grade, passageIndex = null) {
+    return `${readingKey(levelNumber, grade, passageIndex)}-stats`;
+  }
+
   function readingPassed(levelNumber, grade = activeReadingGrade()) {
     return localStorage.getItem(readingKey(levelNumber, grade)) === "passed";
   }
 
   function markReadingPassed(levelNumber, grade = state.grade) {
     localStorage.setItem(readingKey(levelNumber, grade, state.selectedPassageIndex), "passed");
+  }
+
+  function readingStats(levelNumber, grade = activeReadingGrade(), passageIndex = null) {
+    try {
+      return JSON.parse(localStorage.getItem(readingStatsKey(levelNumber, grade, passageIndex))) || {};
+    } catch {
+      return {};
+    }
+  }
+
+  function recordReadingAttempt(total, passed) {
+    const key = readingStatsKey(state.level, state.grade, state.selectedPassageIndex);
+    const previous = readingStats(state.level, state.grade, state.selectedPassageIndex);
+    const nextStats = {
+      attempts: (Number(previous.attempts) || 0) + 1,
+      total,
+      lastCorrect: state.correct,
+      bestCorrect: Math.max(Number(previous.bestCorrect) || 0, state.correct),
+      passed: Boolean(previous.passed) || passed,
+      lastAttemptAt: new Date().toISOString()
+    };
+    localStorage.setItem(key, JSON.stringify(nextStats));
   }
 
   function showNotice(titleText, messageText, buttonText = "OK", action = null) {
@@ -426,6 +452,12 @@
   function renderReadingHub() {
     hub.querySelector(".reading-check-hub-subtext").textContent = "Choose a reading section. Final readings use mixed vocabulary from more than one level.";
     hubList.innerHTML = "";
+    const reportButton = document.createElement("button");
+    reportButton.className = "reading-report-button";
+    reportButton.type = "button";
+    reportButton.textContent = "Copy Reading Check Report and Submit";
+    reportButton.addEventListener("click", copyReadingCheckReport);
+    hubList.append(reportButton);
     const grid = document.createElement("div");
     grid.className = "reading-check-home-grid";
     [
@@ -471,8 +503,10 @@
       button.className = "reading-check-list-button";
       button.type = "button";
       const questionCount = totalQuestions(items);
+      const stats = readingStats(level, grade);
       const status = readingPassed(level, grade) ? "passed" : "not passed yet";
-      button.innerHTML = `${label}<span>${items.length} passage${items.length === 1 ? "" : "s"} · ${questionCount} question${questionCount === 1 ? "" : "s"} · ${status}</span>`;
+      const attempts = stats.attempts ? ` · ${stats.attempts} attempt${stats.attempts === 1 ? "" : "s"}` : "";
+      button.innerHTML = `${label}<span>${items.length} passage${items.length === 1 ? "" : "s"} · ${questionCount} question${questionCount === 1 ? "" : "s"} · ${status}${attempts}</span>`;
       button.addEventListener("click", () => {
         closeReadingHub();
         openReadingCheck(level, false, grade);
@@ -504,14 +538,90 @@
       button.className = "reading-check-list-button";
       button.type = "button";
       const label = `${grade === "grade4" ? "G4" : "G3"}-Passage ${index + 1}`;
+      const stats = readingStats("final", grade, index);
       const status = localStorage.getItem(readingKey("final", grade, index)) === "passed" ? "passed" : "not passed yet";
-      button.innerHTML = `${label}: ${item.title}<span>${questionsForPassage(item).length} question${questionsForPassage(item).length === 1 ? "" : "s"} · ${status}</span>`;
+      const attempts = stats.attempts ? ` · ${stats.attempts} attempt${stats.attempts === 1 ? "" : "s"}` : "";
+      button.innerHTML = `${label}: ${item.title}<span>${questionsForPassage(item).length} question${questionsForPassage(item).length === 1 ? "" : "s"} · ${status}${attempts}</span>`;
       button.addEventListener("click", () => {
         closeReadingHub();
         openReadingCheck("final", false, grade, index);
       });
       hubList.append(button);
     });
+  }
+
+  function readingReportRowsForLevel(grade, level, label, items, passageIndex = null) {
+    const total = totalQuestions(items);
+    const stats = readingStats(level, grade, passageIndex);
+    const passed = localStorage.getItem(readingKey(level, grade, passageIndex)) === "passed" || stats.passed;
+    const attempts = Number(stats.attempts) || 0;
+    const lastCorrect = Number.isFinite(Number(stats.lastCorrect)) ? Number(stats.lastCorrect) : "";
+    const bestCorrect = Number.isFinite(Number(stats.bestCorrect)) ? Number(stats.bestCorrect) : "";
+    const lastScore = lastCorrect === "" ? "" : `${lastCorrect}/${stats.total || total}`;
+    const bestScore = bestCorrect === "" ? "" : `${bestCorrect}/${stats.total || total}`;
+    return [
+      new Date().toLocaleDateString(),
+      grade === "grade4" ? "Grade 4" : "Grade 3",
+      label,
+      passed ? "Passed" : "Not passed yet",
+      attempts,
+      lastScore,
+      bestScore,
+      stats.lastAttemptAt ? new Date(stats.lastAttemptAt).toLocaleString() : ""
+    ];
+  }
+
+  function readingCheckReportText() {
+    const rows = [[
+      "Date",
+      "Grade",
+      "Reading Check",
+      "Status",
+      "Attempts",
+      "Last Score",
+      "Best Score",
+      "Last Attempt"
+    ]];
+
+    ["grade3", "grade4"].forEach((grade) => {
+      readingEntriesForGrade(grade).filter((entry) => entry.level !== "final").forEach(({ level, items }) => {
+        rows.push(readingReportRowsForLevel(grade, level, `Leveled Reading ${level}`, items));
+      });
+      const finalItems = passagesForGrade(grade).final || [];
+      if (finalItems.length) {
+        finalItems.forEach((item, index) => {
+          rows.push(readingReportRowsForLevel(grade, "final", `${grade === "grade4" ? "G4" : "G3"}-Passage ${index + 1}: ${item.title}`, [item], index));
+        });
+      } else {
+        rows.push([
+          new Date().toLocaleDateString(),
+          grade === "grade4" ? "Grade 4" : "Grade 3",
+          "Final Readings",
+          "Not added yet",
+          "",
+          "",
+          "",
+          ""
+        ]);
+      }
+    });
+
+    return rows.map((row) => row.join("\t")).join("\n");
+  }
+
+  async function copyReadingCheckReport() {
+    const sheetUrl = typeof progressReportDocUrl === "string"
+      ? progressReportDocUrl
+      : "https://docs.google.com/spreadsheets/d/1F-4bTNZH4WUotDt9DeOK_S8lO7MaeOSpz8FZiC9vqbw/edit?gid=2140688087#gid=2140688087";
+    try {
+      await copyText(readingCheckReportText());
+      showNotice("Reading check report copied", "Your Reading Checks progress has been copied. The class Google Sheet will open in 3 seconds. Paste it into the Reading checks tab.", "OK");
+    } catch {
+      showNotice("Copy did not work", "The class Google Sheet will open in 3 seconds. Please paste or type your Reading Checks progress into the Reading checks tab.", "OK");
+    }
+    window.setTimeout(() => {
+      window.open(sheetUrl, "_blank", "noopener");
+    }, 3000);
   }
 
   function updateButtons() {
@@ -640,7 +750,9 @@
       return;
     }
     const total = totalQuestions();
-    if (state.correct === total) {
+    const passed = state.correct === total;
+    recordReadingAttempt(total, passed);
+    if (passed) {
       markReadingPassed(state.level, state.grade);
       showCompletion(true, total);
     } else {
