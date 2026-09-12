@@ -87,6 +87,33 @@
         { title: "田忌的三匹马", passage: "田忌喜欢赛马，可他的上等马、中等马和下等马都比对手同等级的马慢一点。因此他常常失败，刚才又输了，心里很不服气。孙膑却半信半疑地笑着说：“换个顺序，也许能够取胜。”", questions: [{ question: "田忌为什么常常失败？", choices: ["同等级的马都慢一点", "他没有一匹马", "他不喜欢比赛", "他打断了老师"], answer: 0 }, { question: "孙膑建议田忌做什么？", choices: ["换个顺序", "换个国家", "停止奔跑", "去晒太阳"], answer: 0 }] },
         { title: "换个顺序", passage: "比赛开始了，田忌先用下等马对对方的上等马，虽然输了，但接着用上等马赢了对方的中等马。最后，他用中等马赢了对方的下等马，结果转败为胜。齐王看见箭头一样奔跑的马，也服气了。", questions: [{ question: "田忌怎样转败为胜？", choices: ["换个顺序比赛", "换个时间睡觉", "让马穿旧衣服", "让小偷看家"], answer: 0 }, { question: "田忌第一场为什么可以输？", choices: ["因为后两场能够赢回来", "因为比赛已经结束", "因为齐王不在场", "因为马不会奔跑"], answer: 0 }] },
         { title: "得意洋洋的小将", passage: "小将军第一次出场就赢了，得意洋洋地挖苦别人：“咱们当然最强！”老师打断他说：“同样的力量，顺序不同，结果可能相反。”小将军想起田忌赛马，脸红了，因为真正的胜利不只靠快，还靠想办法。", questions: [{ question: "老师为什么打断小将军？", choices: ["因为他说话太得意，还挖苦别人", "因为他忘了戴眼镜", "因为他要去种地", "因为他把纸浆晒干了"], answer: 0 }, { question: "这段话告诉我们什么？", choices: ["胜利也需要策略", "只要跑快就一定赢", "挖苦别人很有礼貌", "失败永远不能改变"], answer: 0 }] }
+      ],
+      final: [
+        { title: "整理书架的一天", passage: "星期六早上，妈妈去上班前说：“今天家里一切都相反，你来当小主人。”小雨先戴过爸爸的眼镜，又穿过妈妈的围裙，认真地打扫地板。她把书架整理得整整齐齐，还把一个旧盒子擦得干干净净，用来放作业纸。奶奶下楼时看见了，惊奇地说：“这个盒子一点也不是毫无用处。”下午客人来喝茶，小雨不但倒茶，而且有礼貌地接待客人。尽管她忙了一天，仍然觉得很开心。", questions: [
+          { question: "Why did Xiaoyu become the “little host” at home?", choices: ["因为妈妈说今天一切都相反", "因为客人要带她去上班", "因为奶奶让她去买鞋子", "因为爸爸要她写作文"], answer: 0 },
+          { question: "What did Xiaoyu use the old box for?", choices: ["放作业纸", "装鞋子", "泡茶", "戴眼镜"], answer: 0 },
+          { question: "Which sentence shows Xiaoyu was polite?", choices: ["她有礼貌地接待客人", "她把地板弄脏了", "她觉得盒子毫无用处", "她下楼去玩了一天"], answer: 0 }
+        ] },
+        { title: "森林里的生肖大会", passage: "森林里开生肖大会，动物们都想说明自己的本领。老牛说自己会种地、拉车，是大家的好帮手。金丝猴在树上翻跟斗，白蛇和青蛇在草地上慢慢游动，银环蛇却安静地躲在石头后面。小老鼠眼珠一转，说：“我虽然个子短短，却能钻进洞里找种子。”旁边的狗认真看家，忽然发现一个小偷躲在树后。大家这才明白，每个生肖都有自己的用处，不能只看外表。", questions: [
+          { question: "What did the old ox say it could do?", choices: ["种地和拉车", "飞舞和喝茶", "整理书架", "写作业"], answer: 0 },
+          { question: "Why was the dog useful in the story?", choices: ["它发现了小偷", "它会翻跟斗", "它会种地", "它会做纸浆"], answer: 0 },
+          { question: "What is the main idea of the passage?", choices: ["每个动物都有自己的本领", "只有个子高才有用", "生肖大会毫无用处", "蛇都会飞舞"], answer: 0 }
+        ] },
+        { title: "一张纸的旅行", passage: "美术课上，老师让大家做古代造纸试验。小安把破布切碎，放进锅里煮成纸浆，再一层一层贴在渔网上。湿纸晒在墙上时，弟弟以为那是一件厚衣服，差点把它扯下来。老师笑着说：“古代没有这样方便的纸，人们写字很不舒服。造纸术后来传到亚洲和欧洲，对世界文明作出了贡献。”小安听完以后，骑自行车回家，还把试验过程画成了四大发明展览的小海报。", questions: [
+          { question: "Where did Xia An put the paper pulp?", choices: ["渔网上", "自行车上", "鞋子里", "茶杯里"], answer: 0 },
+          { question: "What did the younger brother think the wet paper was?", choices: ["一件厚衣服", "一本课本", "一条白蛇", "一个旧盒子"], answer: 0 },
+          { question: "What did the teacher say about papermaking?", choices: ["它对世界文明作出了贡献", "它只传到了一个小镇", "它让人写字更不舒服", "它和四大发明没有关系"], answer: 0 }
+        ] },
+        { title: "田忌的新比赛", passage: "学校举行赛跑比赛，小军得意洋洋地说：“我们班一定最强！”老师打断他的话，让大家先看战国时期田忌赛马的故事。田忌的上等马、中等马和下等马都比对手同等级的马慢一点，所以常常失败。孙膑却半信半疑地建议他换个顺序。比赛时，田忌先用下等马对对方的上等马，虽然输了，后面两场却赢了，最后转败为胜。小军听完脸红了，他明白真正的胜利不只靠快，还要想办法。", questions: [
+          { question: "Why did the teacher tell the story of Tian Ji’s horse race?", choices: ["让学生明白比赛也需要策略", "让小军马上停止跑步", "让大家去战国时期", "让学生买马"], answer: 0 },
+          { question: "What did Sun Bin suggest?", choices: ["换个顺序", "换个国家", "停止比赛", "买一匹上等马"], answer: 0 },
+          { question: "What did Xiaojun learn?", choices: ["胜利不只靠快，还要想办法", "得意洋洋一定会赢", "下等马永远没有用", "老师不懂比赛"], answer: 0 }
+        ] },
+        { title: "院子里的好办法", passage: "清晨，小镇饭店旁边突然传来很大的声音。一头驴子驮着两大筐东西走过山坡时摔了，筐里的饭菜洒了一地。年轻人吓得眼珠一转，不知道怎么办。一个行人没有挖苦他，而是不紧不慢地说：“先看脚印和血迹，再决定怎样帮助。”大家顺着脚印寻找，发现驴子只是腿上受伤。母亲拿来干净的布，孩子们把饭菜收拾好，年轻人也低头认错。最后，大家把驴子送到安全的地方。", questions: [
+          { question: "What happened near the restaurant?", choices: ["驴子摔了，饭菜洒了一地", "商人找到了骆驼", "孩子们在做造纸试验", "小偷进了院子"], answer: 0 },
+          { question: "What clues did people check first?", choices: ["脚印和血迹", "书架和作业纸", "眼镜和围裙", "上等马和下等马"], answer: 0 },
+          { question: "How did people solve the problem?", choices: ["一起帮助并把驴子送到安全的地方", "让年轻人马上离开", "把饭店关起来", "继续挖苦年轻人"], answer: 0 }
+        ] }
       ]
     }
   };
@@ -464,7 +491,7 @@
       { label: "Grade 3 Leveled Readings", detail: "Readings matched to specific Grade 3 vocabulary levels.", action: () => renderLevelList("grade3") },
       { label: "Grade 3 Final Readings", detail: "Mixed-level Grade 3 vocabulary practice. Choose G3-Passage 1 through G3-Passage 5.", action: () => renderFinalPassageList("grade3") },
       { label: "Grade 4 Leveled Readings", detail: "Readings matched to specific Grade 4 vocabulary levels.", action: () => renderLevelList("grade4") },
-      { label: "Grade 4 Final Readings", detail: "Mixed-level Grade 4 passages will be added next.", disabled: true }
+      { label: "Grade 4 Final Readings", detail: "Mixed-level Grade 4 vocabulary practice. Choose G4-Passage 1 through G4-Passage 5.", action: () => renderFinalPassageList("grade4") }
     ].forEach((section) => {
       const button = document.createElement("button");
       button.className = `reading-check-list-button${section.disabled ? " disabled" : ""}`;
