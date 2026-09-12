@@ -169,6 +169,46 @@
       margin-bottom: 22px;
     }
 
+    .top-level-picker {
+      display: grid;
+      gap: 8px;
+      border: 1px solid rgba(47, 111, 237, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.82);
+      padding: 10px;
+      margin: 0 0 12px;
+    }
+
+    .top-level-picker-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .top-level-picker-header strong {
+      color: var(--ink);
+      font-size: 1rem;
+    }
+
+    .top-level-current {
+      color: var(--blue-dark);
+      font-weight: 900;
+      font-size: 0.9rem;
+    }
+
+    .top-level-picker .level-tracker {
+      grid-template-columns: repeat(auto-fit, minmax(52px, 1fr));
+      gap: 6px;
+    }
+
+    .top-level-picker .level-dot {
+      min-height: 30px;
+      padding: 0 8px;
+      font-size: 0.78rem;
+    }
+
     .toolbar strong {
       display: none;
       min-height: 42px;
@@ -219,7 +259,20 @@
     }
 
     .phase-tabs {
-      display: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .phase-tabs button {
+      min-width: 150px;
+      border-color: rgba(47, 111, 237, 0.22);
+      color: var(--blue-dark);
+      font-weight: 900;
+    }
+
+    #startTestButton {
+      display: none !important;
     }
 
     .grade-tabs {
@@ -317,15 +370,15 @@
     }
 
     #studyModeButton.active {
-      background: transparent;
-      border-color: transparent;
-      color: #08746f;
+      background: var(--teal);
+      border-color: var(--teal);
+      color: white;
     }
 
     #testModeButton.active {
-      background: transparent;
-      border-color: transparent;
-      color: var(--blue-dark);
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
     }
 
     .blue-button {
@@ -840,6 +893,32 @@
       outline-offset: 2px;
     }
 
+    .level-jump {
+      display: grid;
+      gap: 6px;
+      margin-top: 10px;
+      text-align: left;
+    }
+
+    .level-jump label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .level-jump select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 800;
+      padding: 10px 12px;
+    }
+
     .advance-button {
       margin-top: 14px;
     }
@@ -1085,13 +1164,21 @@
       </section>
     </header>
 
+    <section class="top-level-picker" aria-label="Choose level">
+      <div class="top-level-picker-header">
+        <strong>Choose Level</strong>
+        <span class="top-level-current" id="topLevelCurrent">Current Level: 1.1</span>
+      </div>
+      <div class="level-tracker" id="topLevelTracker"></div>
+    </section>
+
     <section class="toolbar" aria-label="Practice settings">
       <strong id="levelTitle"></strong>
       <div class="mode-group">
         <span class="mode-status" id="modeStatus">You are currently in the <span class="mode-pill study">Study</span> mode.</span>
         <div class="phase-tabs">
-          <button id="studyModeButton" class="active" type="button">Study</button>
-          <button id="testModeButton" type="button">Test</button>
+          <button id="studyModeButton" class="active" type="button">Go to Study Mode</button>
+          <button id="testModeButton" type="button">Go to Test Mode</button>
         </div>
       </div>
       <button id="startTestButton" class="blue-button" type="button">Go Test</button>
@@ -1143,6 +1230,10 @@
               <div class="progress-fill" id="studyProgressFill"></div>
             </div>
             <p class="progress-caption">Level Progress</p>
+            <div class="level-jump">
+              <label for="levelJumpSelect">Choose Level</label>
+              <select id="levelJumpSelect" aria-label="Choose any level"></select>
+            </div>
           </div>
           <h2>Full Word List of This Level</h2>
           <button id="studyPanelReviewMissedButton" class="review-bank-button study-panel-review-button" type="button">Test Missed Words</button>
@@ -3932,6 +4023,56 @@ const gradeData = {
           { character: "换个顺序", pinyin: "huàn gè shùn xù" },
           { character: "转败为胜", pinyin: "zhuǎn bài wéi shèng" }
         ]
+      },
+      {
+        name: "5.1",
+        words: [
+          { character: "地震仪", pinyin: "dì zhèn yí" },
+          { character: "张衡", pinyin: "zhāng héng" },
+          { character: "伟大", pinyin: "wěi dà" },
+          { character: "科学家", pinyin: "kē xué jiā" },
+          { character: "负责", pinyin: "fù zé" },
+          { character: "记录", pinyin: "jì lù" },
+          { character: "全国", pinyin: "quán guó" },
+          { character: "各地", pinyin: "gè dì" },
+          { character: "情况", pinyin: "qíng kuàng" },
+          { character: "报告", pinyin: "bào gào" },
+          { character: "交通", pinyin: "jiāo tōng" },
+          { character: "方便", pinyin: "fāng biàn" },
+          { character: "苦心", pinyin: "kǔ xīn" },
+          { character: "研究", pinyin: "yán jiū" },
+          { character: "公元", pinyin: "gōng yuán" },
+          { character: "半信半疑", pinyin: "bàn xìn bàn yí" },
+          { character: "铜", pinyin: "tóng" },
+          { character: "铸着", pinyin: "zhù zhe" },
+          { character: "大酒桶", pinyin: "dà jiǔ tǒng" },
+          { character: "含着", pinyin: "hán zhe" },
+          { character: "铜球", pinyin: "tóng qiú" },
+          { character: "蹲", pinyin: "dūn" },
+          { character: "紧闭", pinyin: "jǐn bì" },
+          { character: "远处", pinyin: "yuǎn chù" },
+          { character: "吐", pinyin: "tǔ" },
+          { character: "肯定", pinyin: "kěn dìng" },
+          { character: "骑着", pinyin: "qí zhe" },
+          { character: "快马", pinyin: "kuài mǎ" },
+          { character: "不足", pinyin: "bù zú" },
+          { character: "仪", pinyin: "yí" },
+          { character: "科", pinyin: "kē" },
+          { character: "衡", pinyin: "héng" },
+          { character: "负", pinyin: "fù" },
+          { character: "责", pinyin: "zé" },
+          { character: "录", pinyin: "lù" },
+          { character: "震", pinyin: "zhèn" },
+          { character: "况", pinyin: "kuàng" },
+          { character: "研", pinyin: "yán" },
+          { character: "报", pinyin: "bào" },
+          { character: "元", pinyin: "yuán" },
+          { character: "铸", pinyin: "zhù" },
+          { character: "酒", pinyin: "jiǔ" },
+          { character: "桶", pinyin: "tǒng" },
+          { character: "含", pinyin: "hán" },
+          { character: "足", pinyin: "zú" }
+        ]
       }
     ]
   }
@@ -4022,6 +4163,8 @@ let levels = gradeData[currentGrade].levels;
     const importProgressInput = document.querySelector("#importProgressInput");
     const studyExportProgressButton = document.querySelector("#studyExportProgressButton");
     const studyImportProgressButton = document.querySelector("#studyImportProgressButton");
+    const topLevelTracker = document.querySelector("#topLevelTracker");
+    const topLevelCurrent = document.querySelector("#topLevelCurrent");
     const levelTracker = document.querySelector("#levelTracker");
     const dashboardNote = document.querySelector("#dashboardNote");
     const studyCurrentGrade = document.querySelector("#studyCurrentGrade");
@@ -4030,6 +4173,7 @@ let levels = gradeData[currentGrade].levels;
     const studyTotalLevels = document.querySelector("#studyTotalLevels");
     const studyWordCount = document.querySelector("#studyWordCount");
     const studyProgressFill = document.querySelector("#studyProgressFill");
+    const levelJumpSelect = document.querySelector("#levelJumpSelect");
 
     function currentProgressKey() {
       return `${progressKeyBase}-${currentGrade}`;
@@ -4877,7 +5021,7 @@ let levels = gradeData[currentGrade].levels;
     function startLevel(index = levelIndex) {
       levels = gradeData[currentGrade].levels;
       testMode = "level";
-      levelIndex = index;
+      levelIndex = Math.min(Math.max(Number(index) || 0, 0), levels.length - 1);
       vocabulary = levels[levelIndex].words;
       questionQueue = mixedQuestionQueue(vocabulary);
       current = null;
@@ -5026,6 +5170,13 @@ let levels = gradeData[currentGrade].levels;
 
     function startTest() {
       handleModeAction();
+    }
+
+    function startCurrentLevelTest() {
+      activeReviewSource = "";
+      testMode = "level";
+      vocabulary = levels[levelIndex].words;
+      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
     }
 
     function startFinalTest() {
@@ -5310,6 +5461,14 @@ let levels = gradeData[currentGrade].levels;
       studyTotalLevels.textContent = levels.length;
       studyWordCount.textContent = vocabulary.length;
       studyProgressFill.style.width = `${((levelIndex + 1) / levels.length) * 100}%`;
+      levelJumpSelect.innerHTML = "";
+      levels.forEach((level, index) => {
+        const option = document.createElement("option");
+        option.value = String(index);
+        option.textContent = `${level.name} (${level.words.length} words)`;
+        levelJumpSelect.append(option);
+      });
+      levelJumpSelect.value = String(levelIndex);
       dashboardNote.textContent = testMode === "final"
         ? "Final Test uses 50 random words from all levels."
         : testMode === "review" || testMode === "review-bank"
@@ -5318,8 +5477,11 @@ let levels = gradeData[currentGrade].levels;
         ? "The study list is hidden during the test."
         : "Use Study mode to review words before starting the test.";
 
-      levelTracker.innerHTML = "";
-      levels.forEach((level, index) => {
+      topLevelCurrent.textContent = `Current Level: ${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`;
+
+      function renderLevelButtons(container) {
+        container.innerHTML = "";
+        levels.forEach((level, index) => {
         const dot = document.createElement("button");
         dot.type = "button";
         dot.className = "level-dot";
@@ -5333,8 +5495,12 @@ let levels = gradeData[currentGrade].levels;
           if (index === levelIndex && phase === "study" && testMode === "level") return;
           startLevel(index);
         });
-        levelTracker.append(dot);
-      });
+          container.append(dot);
+        });
+      }
+
+      renderLevelButtons(topLevelTracker);
+      renderLevelButtons(levelTracker);
       updateFinalTestState();
     }
 
@@ -5352,7 +5518,7 @@ let levels = gradeData[currentGrade].levels;
       showPromptMessage("zài shì yí cì", "再试一次");
       rememberMissedWords(levelMissedWords);
       const passScore = Math.ceil(vocabulary.length * levelPassRate);
-      feedback.textContent = `This level stopped because ${missed} words were missed. To pass this level and unlock the next one, answer at least ${passScore}/${vocabulary.length} words correctly.`;
+      feedback.textContent = `This level stopped because ${missed} words were missed. To pass this level, answer at least ${passScore}/${vocabulary.length} words correctly. You can still choose any level from the level menu.`;
       feedback.className = "feedback bad";
       renderMissedReview(levelMissedWords, "Missed Words This Level", "Review these words before restarting this level.");
     }
@@ -5563,7 +5729,7 @@ let levels = gradeData[currentGrade].levels;
         showPromptMessage("fù xí", "复习");
         rememberMissedWords(levelMissedWords);
         const passScore = Math.ceil(vocabulary.length * levelPassRate);
-        feedback.textContent = `You answered ${score}/${vocabulary.length} correctly. To pass this level and unlock the next one, answer at least ${passScore}/${vocabulary.length} words correctly. Restart this level after reviewing the missed words.`;
+        feedback.textContent = `You answered ${score}/${vocabulary.length} correctly. To pass this level, answer at least ${passScore}/${vocabulary.length} words correctly. You can still choose any level from the level menu.`;
         feedback.className = "feedback bad";
         renderMissedReview(levelMissedWords, "Missed Words This Level", "Review these words before restarting this level.");
       }
@@ -5584,6 +5750,8 @@ let levels = gradeData[currentGrade].levels;
     grade3Button.addEventListener("click", () => switchGrade("grade3"));
     grade4Button.addEventListener("click", () => switchGrade("grade4"));
     grade4PreviewButton.addEventListener("click", teacherPreviewGrade4);
+    studyModeButton.addEventListener("click", showStudyMode);
+    testModeButton.addEventListener("click", startCurrentLevelTest);
     studyMissedButton.addEventListener("click", studyStoredMissedWords);
     reviewMissedButton.addEventListener("click", startStoredMissedPractice);
     studyPanelReviewMissedButton.addEventListener("click", startStoredMissedPractice);
@@ -5593,6 +5761,7 @@ let levels = gradeData[currentGrade].levels;
     studyExportProgressButton.addEventListener("click", exportProgressFile);
     studyImportProgressButton.addEventListener("click", () => importProgressInput.click());
     importProgressInput.addEventListener("change", importProgressFile);
+    levelJumpSelect.addEventListener("change", () => startLevel(Number(levelJumpSelect.value)));
     nextButton.addEventListener("click", handleNextQuestion);
     restartButton.addEventListener("click", restartLevelTest);
     startTestButton.addEventListener("click", startTest);
@@ -5753,7 +5922,7 @@ let levels = gradeData[currentGrade].levels;
 
   const page = document.createElement("section");
   page.className = "reading-check-page";
-  page.innerHTML = `<div class="reading-check-shell"><div class="reading-check-top"><div><h1>Reading Check · 阅读理解</h1><p class="reading-check-subtext">Answer all reading questions correctly to unlock the next level. If you miss one, review and try this reading check again.</p></div><button class="reading-check-close" type="button">Go Back to Reading Checks</button></div><article class="reading-card"><p class="reading-meta"></p><h2 class="reading-title"></h2><p class="reading-passage"></p><p class="reading-question"></p><div class="reading-choices"></div><p class="reading-result" aria-live="polite"></p><button class="reading-next" type="button">Next</button></article><section class="reading-completion" aria-live="polite"></section></div>`;
+  page.innerHTML = `<div class="reading-check-shell"><div class="reading-check-top"><div><h1>Reading Check · 阅读理解</h1><p class="reading-check-subtext">Answer the reading questions and review any missed answers. You can choose any vocabulary level at any time.</p></div><button class="reading-check-close" type="button">Go Back to Reading Checks</button></div><article class="reading-card"><p class="reading-meta"></p><h2 class="reading-title"></h2><p class="reading-passage"></p><p class="reading-question"></p><div class="reading-choices"></div><p class="reading-result" aria-live="polite"></p><button class="reading-next" type="button">Next</button></article><section class="reading-completion" aria-live="polite"></section></div>`;
   document.body.append(page);
 
   const hub = document.createElement("section");
@@ -6317,7 +6486,7 @@ let levels = gradeData[currentGrade].levels;
     nextButton.disabled = true;
     choices.innerHTML = "";
     showPromptMessage("yuè dú jiǎn chá", "阅读检查");
-    feedback.textContent = `Great word test: ${score}/${vocabulary.length} correct! Now complete Reading Check Level ${level}. You need all reading answers correct to unlock the next step.`;
+    feedback.textContent = `Great word test: ${score}/${vocabulary.length} correct! Now complete Reading Check Level ${level}. You can still choose any vocabulary level from the level menu.`;
     feedback.className = "feedback good";
     showNotice("Reading Check Required", `Nice work passing the word test. Before moving on, complete Reading Check Level ${level}. You need all answers correct.`, "Start Reading Check", () => openReadingCheck(level, true));
     const button = document.createElement("button");
