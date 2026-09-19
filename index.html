@@ -275,16 +275,11 @@
       display: none !important;
     }
 
-    .practice-game-button {
+    .phase-tabs .practice-game-button {
       display: none;
-      min-width: 210px;
-      border-color: rgba(8, 116, 111, 0.28);
-      background: rgba(232, 248, 246, 0.96);
-      color: #08746f;
-      font-weight: 850;
     }
 
-    .practice-game-button.active {
+    .phase-tabs .practice-game-button.available {
       display: inline-flex;
       justify-content: center;
       align-items: center;
@@ -453,6 +448,24 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+    }
+
+    .prompt-label.active {
+      display: block;
+    }
+
+    .prompt-label.practice-instruction {
+      margin-bottom: 14px;
+      border: 1px solid rgba(20, 167, 160, 0.3);
+      border-radius: 8px;
+      background: rgba(232, 248, 246, 0.98);
+      color: #08746f;
+      padding: 12px 14px;
+      font-size: 1rem;
+      font-weight: 850;
+      line-height: 1.35;
+      text-transform: none;
+      letter-spacing: 0;
     }
 
     .character {
@@ -626,12 +639,6 @@
     .choice-word b {
       font-size: clamp(1.55rem, 4vw, 2.25rem);
       white-space: nowrap;
-    }
-
-    .choice-word span {
-      color: var(--muted);
-      font-size: 1rem;
-      font-weight: 800;
     }
 
     .choice:nth-child(2) {
@@ -1229,13 +1236,13 @@
       <strong id="levelTitle"></strong>
       <div class="mode-group">
         <span class="mode-status" id="modeStatus">You are currently in the <span class="mode-pill study">Study</span> mode.</span>
-        <div class="phase-tabs">
-          <button id="studyModeButton" class="active" type="button">Go to Study Mode</button>
-          <button id="testModeButton" type="button">Go to Test Mode</button>
-        </div>
+	        <div class="phase-tabs">
+	          <button id="studyModeButton" class="active" type="button">Go to Study Mode</button>
+	          <button id="practiceGameButton" class="practice-game-button" type="button">Go to Practice Mode</button>
+	          <button id="testModeButton" type="button">Go to Test Mode</button>
+	        </div>
 	      </div>
 	      <button id="startTestButton" class="blue-button" type="button">Go Test</button>
-	      <button id="practiceGameButton" class="practice-game-button" type="button">Practice Character + Word Match</button>
 	      <div class="final-test-area">
         <button id="finalTestButton" class="blue-button" type="button">Final Test</button>
         <button id="teacherPreviewButton" class="teacher-preview-button" type="button">Teacher Preview</button>
@@ -4628,8 +4635,9 @@ let levels = gradeData[currentGrade].levels;
 	        : "I'm ready. Start the test.";
 	      startTestButton.classList.toggle("study-action-button", inTest);
 	      startTestButton.classList.toggle("blue-button", !inTest);
-	      practiceGameButton.classList.toggle("active", hasCharacterWordPractice() && testMode === "level" && phase !== "test");
-	      practiceGameButton.textContent = inPractice ? "Restart Character + Word Match" : "Practice Character + Word Match";
+	      practiceGameButton.classList.toggle("available", hasCharacterWordPractice() && testMode === "level");
+	      practiceGameButton.classList.toggle("active", inPractice);
+	      practiceGameButton.textContent = "Go to Practice Mode";
 	    }
 
     function remindMissedReviewIfNeeded() {
@@ -5294,12 +5302,15 @@ let levels = gradeData[currentGrade].levels;
       restartButton.classList.remove("restart-test-button");
       finalTestButton.style.display = "";
       updateFinalTestState();
-      studyModeButton.classList.add("active");
-      testModeButton.classList.remove("active");
+	      studyModeButton.classList.add("active");
+	      practiceGameButton.classList.remove("active");
+	      testModeButton.classList.remove("active");
       studyPanel.classList.add("active");
       dashboardPanel.classList.remove("active");
-      promptLabel.textContent = "";
-      updateModeAction();
+	      promptLabel.textContent = "";
+	      promptLabel.className = "prompt-label";
+	      promptLabel.className = "prompt-label";
+	      updateModeAction();
       updateDashboard();
     }
 
@@ -5385,12 +5396,14 @@ let levels = gradeData[currentGrade].levels;
       startTestButton.style.display = "";
       restartButton.classList.remove("restart-test-button");
       finalTestButton.style.display = "";
-      studyModeButton.classList.add("active");
-      testModeButton.classList.remove("active");
+	      studyModeButton.classList.add("active");
+	      practiceGameButton.classList.remove("active");
+	      testModeButton.classList.remove("active");
       studyPanel.classList.add("active");
       dashboardPanel.classList.remove("active");
-      promptLabel.textContent = "";
-      updateModeAction();
+	      promptLabel.textContent = "";
+	      promptLabel.className = "prompt-label";
+	      updateModeAction();
       updateStudyCard();
       renderVocabularyList();
       updateDashboard();
@@ -5419,8 +5432,9 @@ let levels = gradeData[currentGrade].levels;
       studyCard.classList.remove("active");
       studyControls.classList.remove("active");
       prompt.style.display = "";
-      studyModeButton.classList.remove("active");
-      testModeButton.classList.add("active");
+	      studyModeButton.classList.remove("active");
+	      practiceGameButton.classList.remove("active");
+	      testModeButton.classList.add("active");
       studyPanel.classList.remove("active");
       dashboardPanel.classList.add("active");
       updateScore();
@@ -5480,9 +5494,12 @@ let levels = gradeData[currentGrade].levels;
 	      restartButton.classList.remove("restart-test-button");
 	      finalTestButton.style.display = "";
 	      studyModeButton.classList.remove("active");
+	      practiceGameButton.classList.add("active");
 	      testModeButton.classList.remove("active");
 	      studyPanel.classList.add("active");
 	      dashboardPanel.classList.remove("active");
+	      promptLabel.className = "prompt-label active practice-instruction";
+	      promptLabel.textContent = "Character + Word Match: look at the big character, then choose a word that contains that character.";
 	      updateModeAction();
 	      updateDashboard();
 	      renderPracticeQuestion();
@@ -5500,7 +5517,8 @@ let levels = gradeData[currentGrade].levels;
 	      nextButton.style.display = "none";
 	      feedback.textContent = "";
 	      feedback.className = "feedback";
-	      promptLabel.textContent = `Match ${practiceIndex + 1}/${practiceQueue.length}: choose a word that contains this character.`;
+		      promptLabel.className = "prompt-label active practice-instruction";
+		      promptLabel.textContent = `Character + Word Match ${practiceIndex + 1}/${practiceQueue.length}: choose a word that contains this character.`;
 	      showPromptMessage(item.characterItem.pinyin, item.characterItem.character);
 	      choices.innerHTML = "";
 
@@ -5518,9 +5536,7 @@ let levels = gradeData[currentGrade].levels;
 	        stack.className = "choice-word";
 	        const text = document.createElement("b");
 	        text.textContent = word.character;
-	        const pinyin = document.createElement("span");
-	        pinyin.textContent = word.pinyin;
-	        stack.append(text, pinyin);
+		        stack.append(text);
 	        button.append(stack);
 	        button.addEventListener("click", () => checkPracticeAnswer(button, item.characterItem, correctWord));
 	        choices.append(button);
@@ -5559,6 +5575,7 @@ let levels = gradeData[currentGrade].levels;
 	    function finishCharacterWordPractice() {
 	      choices.innerHTML = "";
 	      promptLabel.textContent = "";
+	      promptLabel.className = "prompt-label";
 	      showPromptMessage("liàn xí", "练习");
 	      feedback.textContent = `Character-word match complete: ${practiceScore}/${practiceQueue.length} correct.`;
 	      feedback.className = practiceScore === practiceQueue.length ? "feedback good" : "feedback bad";
