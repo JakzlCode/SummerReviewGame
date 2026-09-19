@@ -275,6 +275,21 @@
       display: none !important;
     }
 
+    .practice-game-button {
+      display: none;
+      min-width: 210px;
+      border-color: rgba(8, 116, 111, 0.28);
+      background: rgba(232, 248, 246, 0.96);
+      color: #08746f;
+      font-weight: 850;
+    }
+
+    .practice-game-button.active {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     .grade-tabs {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -596,6 +611,27 @@
       min-height: 64px;
       font-size: clamp(1.08rem, 2.5vw, 1.35rem);
       line-height: 1.15;
+    }
+
+    .choice.practice-choice {
+      border-radius: 18px;
+    }
+
+    .choice-word {
+      display: grid;
+      gap: 3px;
+      line-height: 1.1;
+    }
+
+    .choice-word b {
+      font-size: clamp(1.55rem, 4vw, 2.25rem);
+      white-space: nowrap;
+    }
+
+    .choice-word span {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 800;
     }
 
     .choice:nth-child(2) {
@@ -1197,9 +1233,10 @@
           <button id="studyModeButton" class="active" type="button">Go to Study Mode</button>
           <button id="testModeButton" type="button">Go to Test Mode</button>
         </div>
-      </div>
-      <button id="startTestButton" class="blue-button" type="button">Go Test</button>
-      <div class="final-test-area">
+	      </div>
+	      <button id="startTestButton" class="blue-button" type="button">Go Test</button>
+	      <button id="practiceGameButton" class="practice-game-button" type="button">Practice Character + Word Match</button>
+	      <div class="final-test-area">
         <button id="finalTestButton" class="blue-button" type="button">Final Test</button>
         <button id="teacherPreviewButton" class="teacher-preview-button" type="button">Teacher Preview</button>
         <span class="final-test-note" id="finalTestNote">Available anytime: 50 random words.</span>
@@ -4178,10 +4215,13 @@ let levels = gradeData[currentGrade].levels;
     let levelMissedWords = [];
     let storedMissedWords = [];
     let reviewBankCorrectWords = [];
-    let activeReviewSource = "";
-    let missedWordsReviewedForFinal = false;
-    let nextAction = null;
-    let modalAction = null;
+	    let activeReviewSource = "";
+	    let missedWordsReviewedForFinal = false;
+	    let nextAction = null;
+	    let modalAction = null;
+	    let practiceQueue = [];
+	    let practiceIndex = 0;
+	    let practiceScore = 0;
     const finalTestSize = 50;
     const levelPassRate = 0.9;
     const finalTestPassRate = 0.9;
@@ -4214,9 +4254,10 @@ let levels = gradeData[currentGrade].levels;
     const grade3Button = document.querySelector("#grade3Button");
     const grade4Button = document.querySelector("#grade4Button");
     const grade4PreviewButton = document.querySelector("#grade4PreviewButton");
-    const studyModeButton = document.querySelector("#studyModeButton");
-    const testModeButton = document.querySelector("#testModeButton");
-    const modeStatus = document.querySelector("#modeStatus");
+	    const studyModeButton = document.querySelector("#studyModeButton");
+	    const testModeButton = document.querySelector("#testModeButton");
+	    const practiceGameButton = document.querySelector("#practiceGameButton");
+	    const modeStatus = document.querySelector("#modeStatus");
     const studyCard = document.querySelector("#studyCard");
     const studyControls = document.querySelector("#studyControls");
     const studyWord = document.querySelector("#studyWord");
@@ -4574,19 +4615,22 @@ let levels = gradeData[currentGrade].levels;
       if (action) action();
     }
 
-    function updateModeAction() {
-      const inTest = phase === "test";
-      const modeLabel = inTest ? "Test" : "Study";
-      const completedStoredMissedTest = inTest && testStopped && testMode === "review-bank" && activeReviewSource === "stored";
-      modeStatus.innerHTML = `You are currently in the <span class="mode-pill ${inTest ? "test" : "study"}">${modeLabel}</span> mode.`;
-      startTestButton.textContent = inTest
-        ? completedStoredMissedTest
-          ? "Go study for the next level"
-          : "Go study for this level"
-        : "I'm ready. Start the test.";
-      startTestButton.classList.toggle("study-action-button", inTest);
-      startTestButton.classList.toggle("blue-button", !inTest);
-    }
+	    function updateModeAction() {
+	      const inTest = phase === "test";
+	      const inPractice = phase === "practice";
+	      const modeLabel = inTest ? "Test" : inPractice ? "Practice" : "Study";
+	      const completedStoredMissedTest = inTest && testStopped && testMode === "review-bank" && activeReviewSource === "stored";
+	      modeStatus.innerHTML = `You are currently in the <span class="mode-pill ${inTest ? "test" : "study"}">${modeLabel}</span> mode.`;
+	      startTestButton.textContent = inTest
+	        ? completedStoredMissedTest
+	          ? "Go study for the next level"
+	          : "Go study for this level"
+	        : "I'm ready. Start the test.";
+	      startTestButton.classList.toggle("study-action-button", inTest);
+	      startTestButton.classList.toggle("blue-button", !inTest);
+	      practiceGameButton.classList.toggle("active", hasCharacterWordPractice() && testMode === "level" && phase !== "test");
+	      practiceGameButton.textContent = inPractice ? "Restart Character + Word Match" : "Practice Character + Word Match";
+	    }
 
     function remindMissedReviewIfNeeded() {
       if (storedMissedWords.length < 15) return;
@@ -4655,6 +4699,10 @@ let levels = gradeData[currentGrade].levels;
 
 	    function levelItemCount(level) {
 	      return levelTestItems(level).length;
+	    }
+	
+	    function hasCharacterWordPractice(level = currentLevel()) {
+	      return Boolean(level.characterItems && level.characterItems.length && level.words && level.words.length);
 	    }
 
 	    function questionQueueForCurrentTest() {
@@ -5394,14 +5442,148 @@ let levels = gradeData[currentGrade].levels;
       element.dataset.wordSize = wordSizeLabel(text);
     }
 
-    function updateStudyCard() {
-      const item = vocabulary[studyIndex];
-      setSingleLineWord(studyWord, item.character);
-      studyPinyin.textContent = item.pinyin;
-      studyMeaning.textContent = item.meaning || "";
-    }
+	    function updateStudyCard() {
+	      const item = vocabulary[studyIndex];
+	      setSingleLineWord(studyWord, item.character);
+	      studyPinyin.textContent = item.pinyin;
+	      studyMeaning.textContent = item.meaning || "";
+	    }
 
-    function chooseQuestion() {
+	    function startCharacterWordPractice() {
+	      if (!hasCharacterWordPractice()) {
+	        showModal("Practice not available", "This level does not have a separate character-and-word practice set.", "OK");
+	        return;
+	      }
+	      phase = "practice";
+	      testMode = "level";
+	      vocabulary = levelStudyItems(currentLevel());
+	      practiceQueue = shuffle(currentLevel().characterItems)
+	        .map((characterItem) => ({
+	          characterItem,
+	          matches: currentLevel().words.filter((word) => word.character.includes(characterItem.character))
+	        }))
+	        .filter((item) => item.matches.length);
+	      practiceIndex = 0;
+	      practiceScore = 0;
+	      answered = false;
+	      testStopped = false;
+	      nextAction = null;
+	      scoreboard.style.display = "none";
+	      questionPanel.classList.remove("is-study");
+	      studyCard.classList.remove("active");
+	      studyControls.classList.remove("active");
+	      prompt.style.display = "";
+	      choices.innerHTML = "";
+	      feedback.textContent = "";
+	      feedback.className = "feedback";
+	      nextButton.style.display = "none";
+	      restartButton.classList.remove("restart-test-button");
+	      finalTestButton.style.display = "";
+	      studyModeButton.classList.remove("active");
+	      testModeButton.classList.remove("active");
+	      studyPanel.classList.add("active");
+	      dashboardPanel.classList.remove("active");
+	      updateModeAction();
+	      updateDashboard();
+	      renderPracticeQuestion();
+	    }
+
+	    function renderPracticeQuestion() {
+	      if (practiceIndex >= practiceQueue.length) {
+	        finishCharacterWordPractice();
+	        return;
+	      }
+	      const item = practiceQueue[practiceIndex];
+	      answered = false;
+	      nextAction = null;
+	      nextButton.disabled = true;
+	      nextButton.style.display = "none";
+	      feedback.textContent = "";
+	      feedback.className = "feedback";
+	      promptLabel.textContent = `Match ${practiceIndex + 1}/${practiceQueue.length}: choose a word that contains this character.`;
+	      showPromptMessage(item.characterItem.pinyin, item.characterItem.character);
+	      choices.innerHTML = "";
+
+	      const correctWord = shuffle(item.matches)[0];
+	      const distractors = shuffle(currentLevel().words.filter((word) => !word.character.includes(item.characterItem.character))).slice(0, 3);
+	      const options = shuffle([correctWord, ...distractors]);
+
+	      options.forEach((word) => {
+	        const button = document.createElement("button");
+	        button.className = "choice practice-choice";
+	        button.type = "button";
+	        button.dataset.answer = word.character;
+	        button.dataset.correct = word.character === correctWord.character ? "true" : "false";
+	        const stack = document.createElement("span");
+	        stack.className = "choice-word";
+	        const text = document.createElement("b");
+	        text.textContent = word.character;
+	        const pinyin = document.createElement("span");
+	        pinyin.textContent = word.pinyin;
+	        stack.append(text, pinyin);
+	        button.append(stack);
+	        button.addEventListener("click", () => checkPracticeAnswer(button, item.characterItem, correctWord));
+	        choices.append(button);
+	      });
+	    }
+
+	    function checkPracticeAnswer(selectedButton, characterItem, correctWord) {
+	      if (answered) return;
+	      answered = true;
+	      const isCorrect = selectedButton.dataset.correct === "true";
+	      [...choices.querySelectorAll(".choice")].forEach((button) => {
+	        button.disabled = true;
+	        if (button.dataset.correct === "true") button.classList.add("correct-answer");
+	        if (button === selectedButton && !isCorrect) button.classList.add("wrong-answer");
+	      });
+
+	      if (isCorrect) {
+	        practiceScore += 1;
+	        feedback.textContent = `Correct: ${correctWord.character} contains ${characterItem.character}.`;
+	        feedback.className = "feedback good";
+	        practiceIndex += 1;
+	        setTimeout(renderPracticeQuestion, 900);
+	      } else {
+	        feedback.innerHTML = `<span class="answer-action-row"></span>`;
+	        feedback.classList.add("bad");
+	        const message = document.createElement("span");
+	        message.textContent = `The matching word is ${correctWord.character} (${correctWord.pinyin}).`;
+	        feedback.prepend(message);
+	        showNextStep("Next Match", () => {
+	          practiceIndex += 1;
+	          renderPracticeQuestion();
+	        });
+	      }
+	    }
+
+	    function finishCharacterWordPractice() {
+	      choices.innerHTML = "";
+	      promptLabel.textContent = "";
+	      showPromptMessage("liàn xí", "练习");
+	      feedback.textContent = `Character-word match complete: ${practiceScore}/${practiceQueue.length} correct.`;
+	      feedback.className = practiceScore === practiceQueue.length ? "feedback good" : "feedback bad";
+	      const actionRow = document.createElement("div");
+	      actionRow.className = "answer-action-row advance-button";
+	      const againButton = document.createElement("button");
+	      againButton.className = "primary";
+	      againButton.type = "button";
+	      againButton.textContent = "Practice Again";
+	      againButton.addEventListener("click", startCharacterWordPractice);
+	      const studyButton = document.createElement("button");
+	      studyButton.className = "primary";
+	      studyButton.type = "button";
+	      studyButton.textContent = "Back to Study";
+	      studyButton.addEventListener("click", showStudyMode);
+	      const testButton = document.createElement("button");
+	      testButton.className = "primary";
+	      testButton.type = "button";
+	      testButton.textContent = "Start Level Test";
+	      testButton.addEventListener("click", startCurrentLevelTest);
+	      actionRow.append(againButton, studyButton, testButton);
+	      feedback.append(document.createElement("br"), actionRow);
+	    }
+
+	    function chooseQuestion() {
       if (phase !== "test" || testStopped) return;
 
       if (answeredCount === vocabulary.length) {
@@ -5874,9 +6056,10 @@ let levels = gradeData[currentGrade].levels;
     grade3Button.addEventListener("click", () => switchGrade("grade3"));
     grade4Button.addEventListener("click", () => switchGrade("grade4"));
     grade4PreviewButton.addEventListener("click", teacherPreviewGrade4);
-    studyModeButton.addEventListener("click", showStudyMode);
-    testModeButton.addEventListener("click", startCurrentLevelTest);
-    studyMissedButton.addEventListener("click", studyStoredMissedWords);
+	    studyModeButton.addEventListener("click", showStudyMode);
+	    testModeButton.addEventListener("click", startCurrentLevelTest);
+	    practiceGameButton.addEventListener("click", startCharacterWordPractice);
+	    studyMissedButton.addEventListener("click", studyStoredMissedWords);
     reviewMissedButton.addEventListener("click", startStoredMissedPractice);
     studyPanelReviewMissedButton.addEventListener("click", startStoredMissedPractice);
     copyProgressButton.addEventListener("click", copyProgressReport);
