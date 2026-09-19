@@ -1058,6 +1058,23 @@
       min-width: 0;
     }
 
+    .vocab-section-heading {
+      margin: 8px 0 2px;
+      color: var(--blue-dark);
+      font-size: 0.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .vocab-item small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 750;
+    }
+
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -4069,14 +4086,78 @@ const gradeData = {
           { character: "元", pinyin: "yuán" },
           { character: "铸", pinyin: "zhù" },
           { character: "酒", pinyin: "jiǔ" },
-          { character: "桶", pinyin: "tǒng" },
-          { character: "含", pinyin: "hán" },
-          { character: "足", pinyin: "zú" }
-        ]
-      }
-    ]
-  }
-};
+	          { character: "桶", pinyin: "tǒng" },
+	          { character: "含", pinyin: "hán" },
+	          { character: "足", pinyin: "zú" }
+	        ]
+	      },
+	      {
+	        name: "中秋节",
+	        label: "中秋节生词",
+	        studyNote: "先认生字，再读例词。英文只作为学习提示。",
+	        words: [
+	          { character: "起床", pinyin: "qǐ chuáng", meaning: "from 床: bed", itemType: "word" },
+	          { character: "床上", pinyin: "chuáng shàng", meaning: "from 床: bed", itemType: "word" },
+	          { character: "怀疑", pinyin: "huái yí", meaning: "from 疑: to doubt / suspect", itemType: "word" },
+	          { character: "冰霜", pinyin: "bīng shuāng", meaning: "from 霜: frost", itemType: "word" },
+	          { character: "举手", pinyin: "jǔ shǒu", meaning: "from 举: to raise", itemType: "word" },
+	          { character: "看望", pinyin: "kàn wàng", meaning: "from 望: to look / hope", itemType: "word" },
+	          { character: "希望", pinyin: "xī wàng", meaning: "from 望: to look / hope", itemType: "word" },
+	          { character: "低头", pinyin: "dī tóu", meaning: "from 低: low / to lower", itemType: "word" },
+	          { character: "低音", pinyin: "dī yīn", meaning: "from 低: low / to lower", itemType: "word" },
+	          { character: "思念", pinyin: "sī niàn", meaning: "from 思: to think / miss", itemType: "word" },
+	          { character: "思想", pinyin: "sī xiǎng", meaning: "from 思: to think / miss", itemType: "word" },
+	          { character: "故乡", pinyin: "gù xiāng", meaning: "from 故: former / old", itemType: "word" },
+	          { character: "故事", pinyin: "gù shi", meaning: "from 故: former / old", itemType: "word" },
+	          { character: "家乡", pinyin: "jiā xiāng", meaning: "from 乡: countryside / hometown", itemType: "word" },
+	          { character: "悲伤", pinyin: "bēi shāng", meaning: "from 悲: sorrow / sad", itemType: "word" },
+	          { character: "欢乐", pinyin: "huān lè", meaning: "from 欢: joy / happy", itemType: "word" },
+	          { character: "喜欢", pinyin: "xǐ huan", meaning: "from 欢: joy / happy", itemType: "word" },
+	          { character: "离开", pinyin: "lí kāi", meaning: "from 离: to leave / separate", itemType: "word" },
+	          { character: "分离", pinyin: "fēn lí", meaning: "from 离: to leave / separate", itemType: "word" },
+	          { character: "合作", pinyin: "hé zuò", meaning: "from 合: to join / come together", itemType: "word" },
+	          { character: "集合", pinyin: "jí hé", meaning: "from 合: to join / come together", itemType: "word" },
+	          { character: "阴天", pinyin: "yīn tiān", meaning: "from 阴: cloudy / shaded", itemType: "word" },
+	          { character: "缺少", pinyin: "quē shǎo", meaning: "from 缺: to lack / be incomplete", itemType: "word" },
+	          { character: "因此", pinyin: "yīn cǐ", meaning: "from 此: this", itemType: "word" },
+	          { character: "彼此", pinyin: "bǐ cǐ", meaning: "from 此: this", itemType: "word" },
+	          { character: "困难", pinyin: "kùn nan", meaning: "from 难: difficult / hard to", itemType: "word" },
+	          { character: "难过", pinyin: "nán guò", meaning: "from 难: difficult / hard to", itemType: "word" },
+	          { character: "愿望", pinyin: "yuàn wàng", meaning: "from 愿: wish / hope", itemType: "word" },
+	          { character: "但愿", pinyin: "dàn yuàn", meaning: "from 愿: wish / hope", itemType: "word" },
+	          { character: "很久", pinyin: "hěn jiǔ", meaning: "from 久: long (time)", itemType: "word" },
+	          { character: "长久", pinyin: "cháng jiǔ", meaning: "from 久: long (time)", itemType: "word" },
+	          { character: "一共", pinyin: "yí gòng", meaning: "from 共: together / shared", itemType: "word" },
+	          { character: "共同", pinyin: "gòng tóng", meaning: "from 共: together / shared", itemType: "word" },
+	          { character: "千里共婵娟", pinyin: "qiān lǐ gòng chán juān", meaning: "from 婵娟: the moon (poetic)", itemType: "word" }
+	        ],
+	        characterItems: [
+	          { character: "床", pinyin: "chuáng", meaning: "bed", itemType: "character" },
+	          { character: "疑", pinyin: "yí", meaning: "to doubt / suspect", itemType: "character" },
+	          { character: "霜", pinyin: "shuāng", meaning: "frost", itemType: "character" },
+	          { character: "举", pinyin: "jǔ", meaning: "to raise", itemType: "character" },
+	          { character: "望", pinyin: "wàng", meaning: "to look / hope", itemType: "character" },
+	          { character: "低", pinyin: "dī", meaning: "low / to lower", itemType: "character" },
+	          { character: "思", pinyin: "sī", meaning: "to think / miss", itemType: "character" },
+	          { character: "故", pinyin: "gù", meaning: "former / old", itemType: "character" },
+	          { character: "乡", pinyin: "xiāng", meaning: "countryside / hometown", itemType: "character" },
+	          { character: "悲", pinyin: "bēi", meaning: "sorrow / sad", itemType: "character" },
+	          { character: "欢", pinyin: "huān", meaning: "joy / happy", itemType: "character" },
+	          { character: "离", pinyin: "lí", meaning: "to leave / separate", itemType: "character" },
+	          { character: "合", pinyin: "hé", meaning: "to join / come together", itemType: "character" },
+	          { character: "阴", pinyin: "yīn", meaning: "cloudy / shaded", itemType: "character" },
+	          { character: "缺", pinyin: "quē", meaning: "to lack / be incomplete", itemType: "character" },
+	          { character: "此", pinyin: "cǐ", meaning: "this", itemType: "character" },
+	          { character: "难", pinyin: "nán", meaning: "difficult / hard to", itemType: "character" },
+	          { character: "愿", pinyin: "yuàn", meaning: "wish / hope", itemType: "character" },
+	          { character: "久", pinyin: "jiǔ", meaning: "long (time)", itemType: "character" },
+	          { character: "共", pinyin: "gòng", meaning: "together / shared", itemType: "character" },
+	          { character: "婵娟", pinyin: "chán juān", meaning: "the moon (poetic)", itemType: "character" }
+	        ]
+	      }
+	    ]
+	  }
+	};
 
 let currentGrade = "grade3";
 let levels = gradeData[currentGrade].levels;
@@ -4529,10 +4610,10 @@ let levels = gradeData[currentGrade].levels;
       return [...items].sort(() => Math.random() - 0.5);
     }
 
-    function mixedQuestionQueue(items) {
-      const p2cItems = shuffle(items.filter(isPinyinToCharacter));
-      const c2pItems = shuffle(items.filter((item) => !isPinyinToCharacter(item)));
-      if (!p2cItems.length || !c2pItems.length) return shuffle(items);
+	    function mixedQuestionQueue(items) {
+	      const p2cItems = shuffle(items.filter(isPinyinToCharacter));
+	      const c2pItems = shuffle(items.filter((item) => !isPinyinToCharacter(item)));
+	      if (!p2cItems.length || !c2pItems.length) return shuffle(items);
 
       const queue = [];
       let p2cIndex = 0;
@@ -4556,17 +4637,38 @@ let levels = gradeData[currentGrade].levels;
           c2pIndex += 1;
         }
       }
+	
+	      return queue;
+	    }
+	
+	    function currentLevel() {
+	      return levels[levelIndex];
+	    }
 
-      return queue;
-    }
+	    function levelStudyItems(level) {
+	      return level.characterItems ? [...level.characterItems, ...level.words] : level.words;
+	    }
 
-    function allWords() {
-      const seen = new Set();
-      return levels.flatMap((level) => level.words).filter((item) => {
-        const key = `${item.character}|${item.pinyin}`;
-        if (seen.has(key)) return false;
-        seen.add(key);
-        return true;
+	    function levelTestItems(level) {
+	      return level.characterItems ? [...level.words, ...level.characterItems] : level.words;
+	    }
+
+	    function levelItemCount(level) {
+	      return levelTestItems(level).length;
+	    }
+
+	    function questionQueueForCurrentTest() {
+	      if (testMode === "level" && currentLevel().characterItems) return [...vocabulary];
+	      return mixedQuestionQueue(vocabulary);
+	    }
+
+	    function allWords() {
+	      const seen = new Set();
+	      return levels.flatMap(levelTestItems).filter((item) => {
+	        const key = `${item.character}|${item.pinyin}`;
+	        if (seen.has(key)) return false;
+	        seen.add(key);
+	        return true;
       });
     }
 
@@ -5019,11 +5121,11 @@ let levels = gradeData[currentGrade].levels;
     }
 
     function startLevel(index = levelIndex) {
-      levels = gradeData[currentGrade].levels;
-      testMode = "level";
-      levelIndex = Math.min(Math.max(Number(index) || 0, 0), levels.length - 1);
-      vocabulary = levels[levelIndex].words;
-      questionQueue = mixedQuestionQueue(vocabulary);
+	      levels = gradeData[currentGrade].levels;
+	      testMode = "level";
+	      levelIndex = Math.min(Math.max(Number(index) || 0, 0), levels.length - 1);
+	      vocabulary = levelStudyItems(currentLevel());
+	      questionQueue = questionQueueForCurrentTest();
       current = null;
       score = 0;
       missed = 0;
@@ -5044,11 +5146,11 @@ let levels = gradeData[currentGrade].levels;
     }
 
     function restartLevelTest() {
-      levels = gradeData[currentGrade].levels;
-      activeReviewSource = "";
-      testMode = "level";
-      vocabulary = levels[levelIndex].words;
-      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
+	      levels = gradeData[currentGrade].levels;
+	      activeReviewSource = "";
+	      testMode = "level";
+	      vocabulary = levelTestItems(currentLevel());
+	      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
     }
 
     function loadSavedProgress() {
@@ -5124,9 +5226,9 @@ let levels = gradeData[currentGrade].levels;
     }
 
     function showStudyMode() {
-      levels = gradeData[currentGrade].levels;
-      testMode = "level";
-      vocabulary = levels[levelIndex].words;
+	      levels = gradeData[currentGrade].levels;
+	      testMode = "level";
+	      vocabulary = levelStudyItems(currentLevel());
       phase = "study";
       testStopped = false;
       questionPanel.classList.add("is-study");
@@ -5162,10 +5264,10 @@ let levels = gradeData[currentGrade].levels;
         startStoredMissedPractice();
         return;
       }
-      activeReviewSource = "";
-      testMode = "level";
-      vocabulary = levels[levelIndex].words;
-      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
+	      activeReviewSource = "";
+	      testMode = "level";
+	      vocabulary = levelTestItems(currentLevel());
+	      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
     }
 
     function startTest() {
@@ -5173,10 +5275,10 @@ let levels = gradeData[currentGrade].levels;
     }
 
     function startCurrentLevelTest() {
-      activeReviewSource = "";
-      testMode = "level";
-      vocabulary = levels[levelIndex].words;
-      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
+	      activeReviewSource = "";
+	      testMode = "level";
+	      vocabulary = levelTestItems(currentLevel());
+	      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
     }
 
     function startFinalTest() {
@@ -5246,9 +5348,9 @@ let levels = gradeData[currentGrade].levels;
       updateDashboard();
     }
 
-    function beginTest(title) {
-      phase = "test";
-      questionQueue = mixedQuestionQueue(vocabulary);
+	    function beginTest(title) {
+	      phase = "test";
+	      questionQueue = questionQueueForCurrentTest();
       current = null;
       score = 0;
       missed = 0;
@@ -5455,19 +5557,19 @@ let levels = gradeData[currentGrade].levels;
       studyPanelReviewMissedButton.textContent = storedMissedWords.length
         ? `Test Missed Words (${storedMissedWords.length})`
         : "Test Missed Words";
-      studyCurrentGrade.textContent = gradeData[currentGrade].shortLabel;
-      studyCurrentLevel.textContent = levels[levelIndex].name;
-      studyLevelPosition.textContent = `${levelIndex + 1}/${levels.length}`;
-      studyTotalLevels.textContent = levels.length;
-      studyWordCount.textContent = vocabulary.length;
-      studyProgressFill.style.width = `${((levelIndex + 1) / levels.length) * 100}%`;
-      levelJumpSelect.innerHTML = "";
-      levels.forEach((level, index) => {
-        const option = document.createElement("option");
-        option.value = String(index);
-        option.textContent = `${level.name} (${level.words.length} words)`;
-        levelJumpSelect.append(option);
-      });
+	      studyCurrentGrade.textContent = gradeData[currentGrade].shortLabel;
+	      studyCurrentLevel.textContent = levels[levelIndex].name;
+	      studyLevelPosition.textContent = `${levelIndex + 1}/${levels.length}`;
+	      studyTotalLevels.textContent = levels.length;
+	      studyWordCount.textContent = levelItemCount(levels[levelIndex]);
+	      studyProgressFill.style.width = `${((levelIndex + 1) / levels.length) * 100}%`;
+	      levelJumpSelect.innerHTML = "";
+	      levels.forEach((level, index) => {
+	        const option = document.createElement("option");
+	        option.value = String(index);
+	        option.textContent = `${level.name} (${levelItemCount(level)} ${level.characterItems ? "items" : "words"})`;
+	        levelJumpSelect.append(option);
+	      });
       levelJumpSelect.value = String(levelIndex);
       dashboardNote.textContent = testMode === "final"
         ? "Final Test uses 50 random words from all levels."
@@ -5484,13 +5586,13 @@ let levels = gradeData[currentGrade].levels;
         levels.forEach((level, index) => {
         const dot = document.createElement("button");
         dot.type = "button";
-        dot.className = "level-dot";
-        dot.textContent = level.name;
-        if (passedLevels.has(index)) dot.classList.add("passed");
-        if (index === levelIndex) dot.classList.add("current");
-        dot.setAttribute("aria-label", `Open Level ${level.name}: ${level.words.length} words`);
-        dot.setAttribute("aria-pressed", index === levelIndex ? "true" : "false");
-        dot.title = `Open Level ${level.name}: ${level.words.length} words`;
+	        dot.className = "level-dot";
+	        dot.textContent = level.name;
+	        if (passedLevels.has(index)) dot.classList.add("passed");
+	        if (index === levelIndex) dot.classList.add("current");
+	        dot.setAttribute("aria-label", `Open Level ${level.name}: ${levelItemCount(level)} ${level.characterItems ? "items" : "words"}`);
+	        dot.setAttribute("aria-pressed", index === levelIndex ? "true" : "false");
+	        dot.title = `Open Level ${level.name}: ${levelItemCount(level)} ${level.characterItems ? "items" : "words"}`;
         dot.addEventListener("click", () => {
           if (index === levelIndex && phase === "study" && testMode === "level") return;
           startLevel(index);
@@ -5735,17 +5837,39 @@ let levels = gradeData[currentGrade].levels;
       }
     }
 
-    function renderVocabularyList() {
-      const list = document.querySelector("#vocabList");
-      list.innerHTML = "";
+	    function renderVocabularyList() {
+	      const list = document.querySelector("#vocabList");
+	      list.innerHTML = "";
+	
+	      if (currentLevel().characterItems && testMode === "level") {
+	        const note = document.createElement("div");
+	        note.className = "vocab-section-heading";
+	        note.textContent = currentLevel().studyNote || "Study the characters first, then read the words.";
+	        list.append(note);
+	        renderVocabularySection(list, "生字 Characters", currentLevel().characterItems);
+	        renderVocabularySection(list, "例词 Words", currentLevel().words);
+	        return;
+	      }
 
-      vocabulary.forEach((item) => {
-        const row = document.createElement("div");
-        row.className = "vocab-item";
-        row.innerHTML = `<b>${item.character}</b><span>${item.pinyin}${item.level ? ` · ${item.level}` : ""}</span>`;
-        list.append(row);
-      });
-    }
+	      vocabulary.forEach((item) => {
+	        renderVocabularyRow(list, item);
+	      });
+	    }
+
+	    function renderVocabularySection(list, title, items) {
+	      const heading = document.createElement("div");
+	      heading.className = "vocab-section-heading";
+	      heading.textContent = title;
+	      list.append(heading);
+	      items.forEach((item) => renderVocabularyRow(list, item));
+	    }
+
+	    function renderVocabularyRow(list, item) {
+	        const row = document.createElement("div");
+	        row.className = "vocab-item";
+	        row.innerHTML = `<b>${item.character}</b><span>${item.pinyin}${item.level ? ` · ${item.level}` : ""}${item.meaning ? `<small>${item.meaning}</small>` : ""}</span>`;
+	        list.append(row);
+	    }
 
     grade3Button.addEventListener("click", () => switchGrade("grade3"));
     grade4Button.addEventListener("click", () => switchGrade("grade4"));
@@ -5876,33 +6000,7 @@ let levels = gradeData[currentGrade].levels;
         { title: "换个顺序", passage: "比赛开始了，田忌先用下等马对对方的上等马，虽然输了，但接着用上等马赢了对方的中等马。最后，他用中等马赢了对方的下等马，结果转败为胜。齐王看见箭头一样奔跑的马，也服气了。", questions: [{ question: "田忌怎样转败为胜？", choices: ["换个顺序比赛", "换个时间睡觉", "让马穿旧衣服", "让小偷看家"], answer: 0 }, { question: "田忌第一场为什么可以输？", choices: ["因为后两场能够赢回来", "因为比赛已经结束", "因为齐王不在场", "因为马不会奔跑"], answer: 0 }] },
         { title: "得意洋洋的小将", passage: "小将军第一次出场就赢了，得意洋洋地挖苦别人：“咱们当然最强！”老师打断他说：“同样的力量，顺序不同，结果可能相反。”小将军想起田忌赛马，脸红了，因为真正的胜利不只靠快，还靠想办法。", questions: [{ question: "老师为什么打断小将军？", choices: ["因为他说话太得意，还挖苦别人", "因为他忘了戴眼镜", "因为他要去种地", "因为他把纸浆晒干了"], answer: 0 }, { question: "这段话告诉我们什么？", choices: ["胜利也需要策略", "只要跑快就一定赢", "挖苦别人很有礼貌", "失败永远不能改变"], answer: 0 }] }
       ],
-      final: [
-        { title: "整理书架的一天", passage: "星期六早上，妈妈去上班前说：“今天家里一切都相反，你来当小主人。”小雨先戴过爸爸的眼镜，又穿过妈妈的围裙，认真地打扫地板。她把书架整理得整整齐齐，还把一个旧盒子擦得干干净净，用来放作业纸。奶奶下楼时看见了，惊奇地说：“这个盒子一点也不是毫无用处。”下午客人来喝茶，小雨不但倒茶，而且有礼貌地接待客人。尽管她忙了一天，仍然觉得很开心。", questions: [
-          { question: "Why did Xiaoyu become the “little host” at home?", choices: ["因为妈妈说今天一切都相反", "因为客人要带她去上班", "因为奶奶让她去买鞋子", "因为爸爸要她写作文"], answer: 0 },
-          { question: "What did Xiaoyu use the old box for?", choices: ["放作业纸", "装鞋子", "泡茶", "戴眼镜"], answer: 0 },
-          { question: "Which sentence shows Xiaoyu was polite?", choices: ["她有礼貌地接待客人", "她把地板弄脏了", "她觉得盒子毫无用处", "她下楼去玩了一天"], answer: 0 }
-        ] },
-        { title: "森林里的生肖大会", passage: "森林里开生肖大会，动物们都想说明自己的本领。老牛说自己会种地、拉车，是大家的好帮手。金丝猴在树上翻跟斗，白蛇和青蛇在草地上慢慢游动，银环蛇却安静地躲在石头后面。小老鼠眼珠一转，说：“我虽然个子短短，却能钻进洞里找种子。”旁边的狗认真看家，忽然发现一个小偷躲在树后。大家这才明白，每个生肖都有自己的用处，不能只看外表。", questions: [
-          { question: "What did the old ox say it could do?", choices: ["种地和拉车", "飞舞和喝茶", "整理书架", "写作业"], answer: 0 },
-          { question: "Why was the dog useful in the story?", choices: ["它发现了小偷", "它会翻跟斗", "它会种地", "它会做纸浆"], answer: 0 },
-          { question: "What is the main idea of the passage?", choices: ["每个动物都有自己的本领", "只有个子高才有用", "生肖大会毫无用处", "蛇都会飞舞"], answer: 0 }
-        ] },
-        { title: "一张纸的旅行", passage: "美术课上，老师让大家做古代造纸试验。小安把破布切碎，放进锅里煮成纸浆，再一层一层贴在渔网上。湿纸晒在墙上时，弟弟以为那是一件厚衣服，差点把它扯下来。老师笑着说：“古代没有这样方便的纸，人们写字很不舒服。造纸术后来传到亚洲和欧洲，对世界文明作出了贡献。”小安听完以后，骑自行车回家，还把试验过程画成了四大发明展览的小海报。", questions: [
-          { question: "Where did Xia An put the paper pulp?", choices: ["渔网上", "自行车上", "鞋子里", "茶杯里"], answer: 0 },
-          { question: "What did the younger brother think the wet paper was?", choices: ["一件厚衣服", "一本课本", "一条白蛇", "一个旧盒子"], answer: 0 },
-          { question: "What did the teacher say about papermaking?", choices: ["它对世界文明作出了贡献", "它只传到了一个小镇", "它让人写字更不舒服", "它和四大发明没有关系"], answer: 0 }
-        ] },
-        { title: "田忌的新比赛", passage: "学校举行赛跑比赛，小军得意洋洋地说：“我们班一定最强！”老师打断他的话，让大家先看战国时期田忌赛马的故事。田忌的上等马、中等马和下等马都比对手同等级的马慢一点，所以常常失败。孙膑却半信半疑地建议他换个顺序。比赛时，田忌先用下等马对对方的上等马，虽然输了，后面两场却赢了，最后转败为胜。小军听完脸红了，他明白真正的胜利不只靠快，还要想办法。", questions: [
-          { question: "Why did the teacher tell the story of Tian Ji’s horse race?", choices: ["让学生明白比赛也需要策略", "让小军马上停止跑步", "让大家去战国时期", "让学生买马"], answer: 0 },
-          { question: "What did Sun Bin suggest?", choices: ["换个顺序", "换个国家", "停止比赛", "买一匹上等马"], answer: 0 },
-          { question: "What did Xiaojun learn?", choices: ["胜利不只靠快，还要想办法", "得意洋洋一定会赢", "下等马永远没有用", "老师不懂比赛"], answer: 0 }
-        ] },
-        { title: "院子里的好办法", passage: "清晨，小镇饭店旁边突然传来很大的声音。一头驴子驮着两大筐东西走过山坡时摔了，筐里的饭菜洒了一地。年轻人吓得眼珠一转，不知道怎么办。一个行人没有挖苦他，而是不紧不慢地说：“先看脚印和血迹，再决定怎样帮助。”大家顺着脚印寻找，发现驴子只是腿上受伤。母亲拿来干净的布，孩子们把饭菜收拾好，年轻人也低头认错。最后，大家把驴子送到安全的地方。", questions: [
-          { question: "What happened near the restaurant?", choices: ["驴子摔了，饭菜洒了一地", "商人找到了骆驼", "孩子们在做造纸试验", "小偷进了院子"], answer: 0 },
-          { question: "What clues did people check first?", choices: ["脚印和血迹", "书架和作业纸", "眼镜和围裙", "上等马和下等马"], answer: 0 },
-          { question: "How did people solve the problem?", choices: ["一起帮助并把驴子送到安全的地方", "让年轻人马上离开", "把饭店关起来", "继续挖苦年轻人"], answer: 0 }
-        ] }
-      ]
+      final: window.grade4FinalReadings || []
     }
   };
 
@@ -5922,7 +6020,7 @@ let levels = gradeData[currentGrade].levels;
 
   const page = document.createElement("section");
   page.className = "reading-check-page";
-  page.innerHTML = `<div class="reading-check-shell"><div class="reading-check-top"><div><h1>Reading Check · 阅读理解</h1><p class="reading-check-subtext">Answer the reading questions and review any missed answers. You can choose any vocabulary level at any time.</p></div><button class="reading-check-close" type="button">Go Back to Reading Checks</button></div><article class="reading-card"><p class="reading-meta"></p><h2 class="reading-title"></h2><p class="reading-passage"></p><p class="reading-question"></p><div class="reading-choices"></div><p class="reading-result" aria-live="polite"></p><button class="reading-next" type="button">Next</button></article><section class="reading-completion" aria-live="polite"></section></div>`;
+  page.innerHTML = `<div class="reading-check-shell"><div class="reading-check-top"><div><h1>Reading Check · 阅读理解</h1><p class="reading-check-subtext">Answer all reading questions correctly to unlock the next level. If you miss one, review and try this reading check again.</p></div><button class="reading-check-close" type="button">Go Back to Reading Checks</button></div><article class="reading-card"><p class="reading-meta"></p><h2 class="reading-title"></h2><p class="reading-passage"></p><p class="reading-question"></p><div class="reading-choices"></div><p class="reading-result" aria-live="polite"></p><button class="reading-next" type="button">Next</button></article><section class="reading-completion" aria-live="polite"></section></div>`;
   document.body.append(page);
 
   const hub = document.createElement("section");
@@ -6279,7 +6377,7 @@ let levels = gradeData[currentGrade].levels;
       { label: "Grade 3 Leveled Readings", detail: "Readings matched to specific Grade 3 vocabulary levels.", action: () => renderLevelList("grade3") },
       { label: "Grade 3 Final Readings", detail: "Mixed-level Grade 3 vocabulary practice. Choose G3-Passage 1 through G3-Passage 5.", action: () => renderFinalPassageList("grade3") },
       { label: "Grade 4 Leveled Readings", detail: "Readings matched to specific Grade 4 vocabulary levels.", action: () => renderLevelList("grade4") },
-      { label: "Grade 4 Final Readings", detail: "Mixed-level Grade 4 vocabulary practice. Choose G4-Passage 1 through G4-Passage 5.", action: () => renderFinalPassageList("grade4") }
+      { label: "Grade 4 Final Readings", detail: "Grade 4 mixed-level reading passages will be added later.", disabled: true }
     ].forEach((section) => {
       const button = document.createElement("button");
       button.className = `reading-check-list-button${section.disabled ? " disabled" : ""}`;
@@ -6486,7 +6584,7 @@ let levels = gradeData[currentGrade].levels;
     nextButton.disabled = true;
     choices.innerHTML = "";
     showPromptMessage("yuè dú jiǎn chá", "阅读检查");
-    feedback.textContent = `Great word test: ${score}/${vocabulary.length} correct! Now complete Reading Check Level ${level}. You can still choose any vocabulary level from the level menu.`;
+    feedback.textContent = `Great word test: ${score}/${vocabulary.length} correct! Now complete Reading Check Level ${level}. You need all reading answers correct to unlock the next step.`;
     feedback.className = "feedback good";
     showNotice("Reading Check Required", `Nice work passing the word test. Before moving on, complete Reading Check Level ${level}. You need all answers correct.`, "Start Reading Check", () => openReadingCheck(level, true));
     const button = document.createElement("button");
