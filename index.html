@@ -4268,6 +4268,13 @@ const gradeData = {
 	  }
 	};
 
+	const grade4MidAutumnIndex = gradeData.grade4.levels.findIndex(level => level.name === "中秋节");
+	const grade4Level6Index = gradeData.grade4.levels.findIndex(level => level.name === "6");
+	if (grade4MidAutumnIndex > grade4Level6Index && grade4Level6Index >= 0) {
+	  const [midAutumnLevel] = gradeData.grade4.levels.splice(grade4MidAutumnIndex, 1);
+	  gradeData.grade4.levels.splice(grade4Level6Index, 0, midAutumnLevel);
+	}
+
 let currentGrade = "grade3";
 let levels = gradeData[currentGrade].levels;
 
