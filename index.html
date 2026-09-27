@@ -636,6 +636,13 @@
       line-height: 1.1;
     }
 
+    .choice-word span {
+      font-size: clamp(0.78rem, 1.8vw, 1rem);
+      color: #65728a;
+      white-space: nowrap;
+      overflow: visible;
+    }
+
     .choice-word b {
       font-size: clamp(1.55rem, 4vw, 2.25rem);
       white-space: nowrap;
@@ -5606,9 +5613,11 @@ let levels = gradeData[currentGrade].levels;
 	        button.dataset.correct = word.character === correctWord.character ? "true" : "false";
 	        const stack = document.createElement("span");
 	        stack.className = "choice-word";
+	        const pinyin = document.createElement("span");
+	        pinyin.textContent = word.pinyin;
 	        const text = document.createElement("b");
 	        text.textContent = word.character;
-		        stack.append(text);
+		        stack.append(pinyin, text);
 	        button.append(stack);
 	        button.addEventListener("click", () => checkPracticeAnswer(button, item.characterItem, correctWord));
 	        choices.append(button);
