@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>2026 Summer Review</title>
+  <title>心玉中文词汇学习</title>
   <style>
     :root {
       color-scheme: light;
@@ -1211,7 +1211,7 @@
   <main>
     <header>
       <div class="hero-copy">
-        <h1>2026 Summer Review</h1>
+        <h1>心玉中文词汇学习</h1>
         <p class="subtitle">Study the words, then clear each level by choosing the correct pinyin.</p>
         <div class="grade-tabs" aria-label="Grade selection">
           <button id="grade3Button" class="active" type="button">Grade 3</button>
@@ -4143,8 +4143,8 @@ const gradeData = {
 	        ]
 	      },
 	      {
-	        name: "6",
-	        label: "Level 6 生词",
+	        name: "6.1",
+	        label: "Level 6.1 生词",
 	        studyNote: "先认重点字，再读完整词语。完成学习后，可以进入 Character + Word Match 练习。",
 	        words: [
 	          { character: "神医", pinyin: "shén yī", itemType: "word" },
@@ -4205,6 +4205,64 @@ const gradeData = {
 	          { character: "痒", pinyin: "yǎng", itemType: "character" },
 	          { character: "挑", pinyin: "tiāo", itemType: "character" },
 	          { character: "找", pinyin: "zhǎo", itemType: "character" }
+	        ]
+	      },
+	      {
+	        name: "6.2",
+	        label: "Level 6.2 生词",
+	        studyNote: "先认重点字，再读完整词语。完成学习后，可以进入 Character + Word Match 练习。",
+	        words: [
+	          { character: "严重", pinyin: "yán zhòng", itemType: "word" },
+	          { character: "肌肉", pinyin: "jī ròu", itemType: "word" },
+	          { character: "不然", pinyin: "bù rán", itemType: "word" },
+	          { character: "理睬", pinyin: "lǐ cǎi", itemType: "word" },
+	          { character: "敷着", pinyin: "fū zhe", itemType: "word" },
+	          { character: "眉头", pinyin: "méi tóu", itemType: "word" },
+	          { character: "进入", pinyin: "jìn rù", itemType: "word" },
+	          { character: "肠胃", pinyin: "cháng wèi", itemType: "word" },
+	          { character: "危险", pinyin: "wēi xiǎn", itemType: "word" },
+	          { character: "不耐烦", pinyin: "bù nài fán", itemType: "word" },
+	          { character: "挥挥手", pinyin: "huī hui shǒu", itemType: "word" },
+	          { character: "根本", pinyin: "gēn běn", itemType: "word" },
+	          { character: "经过", pinyin: "jīng guò", itemType: "word" },
+	          { character: "遇见", pinyin: "yù jiàn", itemType: "word" },
+	          { character: "脸色", pinyin: "liǎn sè", itemType: "word" },
+	          { character: "转身", pinyin: "zhuǎn shēn", itemType: "word" },
+	          { character: "派人", pinyin: "pài rén", itemType: "word" },
+	          { character: "追问", pinyin: "zhuī wèn", itemType: "word" },
+	          { character: "热水", pinyin: "rè shuǐ", itemType: "word" },
+	          { character: "敷", pinyin: "fū", itemType: "word" },
+	          { character: "针灸", pinyin: "zhēn jiǔ", itemType: "word" },
+	          { character: "汤药", pinyin: "tāng yào", itemType: "word" },
+	          { character: "骨髓", pinyin: "gǔ suǐ", itemType: "word" },
+	          { character: "即使", pinyin: "jí shǐ", itemType: "word" },
+	          { character: "急步", pinyin: "jí bù", itemType: "word" },
+	          { character: "果然", pinyin: "guǒ rán", itemType: "word" },
+	          { character: "疼痛", pinyin: "téng tòng", itemType: "word" },
+	          { character: "寻找", pinyin: "xún zhǎo", itemType: "word" },
+	          { character: "愿意", pinyin: "yuàn yì", itemType: "word" },
+	          { character: "承认", pinyin: "chéng rèn", itemType: "word" },
+	          { character: "过错", pinyin: "guò cuò", itemType: "word" },
+	          { character: "改正", pinyin: "gǎi zhèng", itemType: "word" },
+	          { character: "差不多", pinyin: "chà bu duō", itemType: "word" }
+	        ],
+	        characterItems: [
+	          { character: "肌", pinyin: "jī", itemType: "character" },
+	          { character: "睬", pinyin: "cǎi", itemType: "character" },
+	          { character: "入", pinyin: "rù", itemType: "character" },
+	          { character: "胃", pinyin: "wèi", itemType: "character" },
+	          { character: "耐", pinyin: "nài", itemType: "character" },
+	          { character: "烦", pinyin: "fán", itemType: "character" },
+	          { character: "挥", pinyin: "huī", itemType: "character" },
+	          { character: "巧", pinyin: "qiǎo", itemType: "character" },
+	          { character: "遇", pinyin: "yù", itemType: "character" },
+	          { character: "敷", pinyin: "fū", itemType: "character" },
+	          { character: "灸", pinyin: "jiǔ", itemType: "character" },
+	          { character: "汤", pinyin: "tāng", itemType: "character" },
+	          { character: "药", pinyin: "yào", itemType: "character" },
+	          { character: "髓", pinyin: "suǐ", itemType: "character" },
+	          { character: "即", pinyin: "jí", itemType: "character" },
+	          { character: "承", pinyin: "chéng", itemType: "character" }
 	        ]
 	      },
 	      {
@@ -4439,7 +4497,7 @@ let levels = gradeData[currentGrade].levels;
       const gradeLabel = gradeData[currentGrade].shortLabel;
       const currentLevel = levels[levelIndex].name;
       const lines = [
-        "2026 Summer Review Progress Report",
+        "心玉中文词汇学习 Progress Report",
         `DATE: ${new Date().toLocaleDateString()}`,
         `GRADE LEVEL: ${gradeLabel}`,
         `CURRENT LEVEL: ${currentLevel}`,
@@ -4589,7 +4647,7 @@ let levels = gradeData[currentGrade].levels;
 
     function applyImportedProgress(snapshot) {
       if (!snapshot || snapshot.app !== "mlp-2026-summer-review" || !snapshot.grades || typeof snapshot.grades !== "object") {
-        throw new Error("This does not look like a 2026 Summer Review progress file.");
+        throw new Error("This does not look like a 心玉中文词汇学习 progress file.");
       }
       Object.keys(gradeData).forEach((gradeKey) => {
         const imported = snapshot.grades[gradeKey];
