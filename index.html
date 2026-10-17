@@ -258,6 +258,10 @@
       color: var(--blue-dark);
     }
 
+    .mode-pill.pretest {
+      color: #8a5a00;
+    }
+
     .phase-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -389,6 +393,12 @@
       background: var(--blue);
       border-color: var(--blue);
       color: white;
+    }
+
+    #preTestModeButton.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #382407;
     }
 
     .blue-button {
@@ -1246,7 +1256,8 @@
 	        <div class="phase-tabs">
 	          <button id="studyModeButton" class="active" type="button">Go to Study Mode</button>
 	          <button id="practiceGameButton" class="practice-game-button" type="button">Go to Practice Mode</button>
-	          <button id="testModeButton" type="button">Go to Test Mode</button>
+	          <button id="preTestModeButton" type="button">Start Pre-Test</button>
+	          <button id="testModeButton" type="button">Start Formal Test</button>
 	        </div>
 	      </div>
 	      <button id="startTestButton" class="blue-button" type="button">Go Test</button>
@@ -4516,10 +4527,10 @@ const gradeData = {
 	  gradeData.grade4.levels.splice(grade4Level6Index, 0, midAutumnLevel);
 	}
 
-let currentGrade = "grade3";
-let levels = gradeData[currentGrade].levels;
+	let currentGrade = "grade4";
+	let levels = gradeData[currentGrade].levels;
 
-    let levelIndex = 0;
+	    let levelIndex = Math.max(0, levels.findIndex((level) => level.name === "8.1"));
     let vocabulary = levels[levelIndex].words;
     let questionQueue = [];
     let current = null;
@@ -4542,6 +4553,8 @@ let levels = gradeData[currentGrade].levels;
 	    let practiceQueue = [];
 	    let practiceIndex = 0;
 	    let practiceScore = 0;
+	    let formalAttemptStartedAt = null;
+	    let formalAttemptNumber = 0;
     const finalTestSize = 50;
     const levelPassRate = 0.9;
     const finalTestPassRate = 0.9;
@@ -4575,6 +4588,7 @@ let levels = gradeData[currentGrade].levels;
     const grade4Button = document.querySelector("#grade4Button");
     const grade4PreviewButton = document.querySelector("#grade4PreviewButton");
 	    const studyModeButton = document.querySelector("#studyModeButton");
+	    const preTestModeButton = document.querySelector("#preTestModeButton");
 	    const testModeButton = document.querySelector("#testModeButton");
 	    const practiceGameButton = document.querySelector("#practiceGameButton");
 	    const modeStatus = document.querySelector("#modeStatus");
@@ -4620,6 +4634,41 @@ let levels = gradeData[currentGrade].levels;
     function currentProgressKey() {
       return `${progressKeyBase}-${currentGrade}`;
     }
+
+	    function formalTestHistoryKey() {
+	      return `${progressKeyBase}-formal-test-history-${currentGrade}`;
+	    }
+
+	    function formalTestHistory() {
+	      try {
+	        const history = JSON.parse(localStorage.getItem(formalTestHistoryKey()) || "[]");
+	        return Array.isArray(history) ? history : [];
+	      } catch {
+	        return [];
+	      }
+	    }
+
+	    function recordFormalTestSummary(status) {
+	      if (!formalAttemptStartedAt) return;
+	      const history = formalTestHistory();
+	      history.push({
+	        date: new Date().toISOString(),
+	        grade: gradeData[currentGrade].shortLabel,
+	        level: currentLevel().name,
+	        attempt: formalAttemptNumber,
+	        firstTryCorrect: score,
+	        totalQuestions: vocabulary.length,
+	        successRate: Math.round((score / vocabulary.length) * 100),
+	        missed: levelMissedWords.map((item) => item.character),
+	        status
+	      });
+	      try {
+	        localStorage.setItem(formalTestHistoryKey(), JSON.stringify(history.slice(-100)));
+	      } catch {
+	        // Keep the test usable if browser storage is unavailable.
+	      }
+	      formalAttemptStartedAt = null;
+	    }
 
     function progressKeyForGrade(gradeKey) {
       return `${progressKeyBase}-${gradeKey}`;
@@ -4671,16 +4720,25 @@ let levels = gradeData[currentGrade].levels;
       const saved = savedProgressForGrade(currentGrade);
       const passed = new Set(saved.passedLevels);
       const gradeLabel = gradeData[currentGrade].shortLabel;
-      const currentLevel = levels[levelIndex].name;
-      const lines = [
+	      const currentLevel = levels[levelIndex].name;
+	      const latestFormalTest = formalTestHistory().at(-1);
+	      const lines = [
         "心玉中文词汇学习 Progress Report",
         `DATE: ${new Date().toLocaleDateString()}`,
         `GRADE LEVEL: ${gradeLabel}`,
         `CURRENT LEVEL: ${currentLevel}`,
         `LEVELS COMPLETED: ${passed.size}/${levels.length}`,
-        `SAVED MISSED WORDS: ${storedMissedWords.length}`,
-        ""
-      ];
+	        `SAVED MISSED WORDS: ${storedMissedWords.length}`,
+	        ""
+	      ];
+
+	      if (latestFormalTest) {
+	        lines.push(
+	          "LATEST FORMAL TEST:",
+	          `Level ${latestFormalTest.level} | Attempt ${latestFormalTest.attempt} | ${latestFormalTest.firstTryCorrect}/${latestFormalTest.totalQuestions} correct (${latestFormalTest.successRate}%) | ${latestFormalTest.status}`,
+	          ""
+	        );
+	      }
 
       lines.push("CURRENT SAVED MISSED WORDS:");
       if (storedMissedWords.length) {
@@ -4938,9 +4996,10 @@ let levels = gradeData[currentGrade].levels;
 	    function updateModeAction() {
 	      const inTest = phase === "test";
 	      const inPractice = phase === "practice";
-	      const modeLabel = inTest ? "Test" : inPractice ? "Practice" : "Study";
+	      const inPreTest = inTest && testMode === "pretest";
+	      const modeLabel = inPreTest ? "Pre-Test" : inTest ? "Formal Test" : inPractice ? "Practice" : "Study";
 	      const completedStoredMissedTest = inTest && testStopped && testMode === "review-bank" && activeReviewSource === "stored";
-	      modeStatus.innerHTML = `You are currently in the <span class="mode-pill ${inTest ? "test" : "study"}">${modeLabel}</span> mode.`;
+	      modeStatus.innerHTML = `You are currently in the <span class="mode-pill ${inPreTest ? "pretest" : inTest ? "test" : "study"}">${modeLabel}</span> mode.`;
 	      startTestButton.textContent = inTest
 	        ? completedStoredMissedTest
 	          ? "Go study for the next level"
@@ -4951,6 +5010,7 @@ let levels = gradeData[currentGrade].levels;
 	      practiceGameButton.classList.toggle("available", hasCharacterWordPractice() && testMode === "level");
 	      practiceGameButton.classList.toggle("active", inPractice);
 	      practiceGameButton.textContent = "Go to Practice Mode";
+	      preTestModeButton.classList.toggle("active", inPreTest);
 	    }
 
     function remindMissedReviewIfNeeded() {
@@ -5027,7 +5087,7 @@ let levels = gradeData[currentGrade].levels;
 	    }
 
 	    function questionQueueForCurrentTest() {
-	      if (testMode === "level" && currentLevel().characterItems) return [...vocabulary];
+	      if ((testMode === "level" || testMode === "pretest") && currentLevel().characterItems) return [...vocabulary];
 	      return mixedQuestionQueue(vocabulary);
 	    }
 
@@ -5516,10 +5576,7 @@ let levels = gradeData[currentGrade].levels;
 
     function restartLevelTest() {
 	      levels = gradeData[currentGrade].levels;
-	      activeReviewSource = "";
-	      testMode = "level";
-	      vocabulary = levelTestItems(currentLevel());
-	      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
+	      startCurrentLevelTest();
     }
 
     function loadSavedProgress() {
@@ -5617,11 +5674,11 @@ let levels = gradeData[currentGrade].levels;
       updateFinalTestState();
 	      studyModeButton.classList.add("active");
 	      practiceGameButton.classList.remove("active");
+	      preTestModeButton.classList.remove("active");
 	      testModeButton.classList.remove("active");
       studyPanel.classList.add("active");
       dashboardPanel.classList.remove("active");
 	      promptLabel.textContent = "";
-	      promptLabel.className = "prompt-label";
 	      promptLabel.className = "prompt-label";
 	      updateModeAction();
       updateDashboard();
@@ -5636,22 +5693,28 @@ let levels = gradeData[currentGrade].levels;
         startStoredMissedPractice();
         return;
       }
-	      activeReviewSource = "";
-	      testMode = "level";
-	      vocabulary = levelTestItems(currentLevel());
-	      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
+	      startCurrentLevelTest();
     }
 
     function startTest() {
       handleModeAction();
     }
 
-    function startCurrentLevelTest() {
+	    function startCurrentLevelTest() {
 	      activeReviewSource = "";
 	      testMode = "level";
 	      vocabulary = levelTestItems(currentLevel());
+	      formalAttemptStartedAt = new Date().toISOString();
+	      formalAttemptNumber = formalTestHistory().filter((entry) => entry.level === currentLevel().name).length + 1;
 	      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
-    }
+	    }
+
+	    function startPreTest() {
+	      activeReviewSource = "";
+	      testMode = "pretest";
+	      vocabulary = levelTestItems(currentLevel());
+	      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name} Pre-Test`);
+	    }
 
     function startFinalTest() {
       startFinalTestPreview();
@@ -5711,10 +5774,17 @@ let levels = gradeData[currentGrade].levels;
       finalTestButton.style.display = "";
 	      studyModeButton.classList.add("active");
 	      practiceGameButton.classList.remove("active");
+	      preTestModeButton.classList.remove("active");
 	      testModeButton.classList.remove("active");
       studyPanel.classList.add("active");
       dashboardPanel.classList.remove("active");
-	      promptLabel.textContent = "";
+	      if (testMode === "pretest") {
+	        promptLabel.className = "prompt-label active practice-instruction";
+	        promptLabel.textContent = "Pre-Test: check what you know. This result does not affect your progress.";
+	      } else {
+	        promptLabel.className = "prompt-label";
+	        promptLabel.textContent = "";
+	      }
 	      promptLabel.className = "prompt-label";
 	      updateModeAction();
       updateStudyCard();
@@ -5747,13 +5817,18 @@ let levels = gradeData[currentGrade].levels;
       prompt.style.display = "";
 	      studyModeButton.classList.remove("active");
 	      practiceGameButton.classList.remove("active");
-	      testModeButton.classList.add("active");
+	      preTestModeButton.classList.toggle("active", testMode === "pretest");
+	      testModeButton.classList.toggle("active", testMode !== "pretest");
       studyPanel.classList.remove("active");
       dashboardPanel.classList.add("active");
       updateScore();
       updateModeAction();
-      updateDashboard();
-      chooseQuestion();
+	      updateDashboard();
+	      if (testMode === "pretest") {
+	        promptLabel.className = "prompt-label active practice-instruction";
+	        promptLabel.textContent = "Pre-Test: check what you know. You may repeat this anytime; the result does not affect your level progress.";
+	      }
+	      chooseQuestion();
     }
 
     function wordSizeLabel(text) {
@@ -5808,6 +5883,7 @@ let levels = gradeData[currentGrade].levels;
 	      finalTestButton.style.display = "";
 	      studyModeButton.classList.remove("active");
 	      practiceGameButton.classList.add("active");
+	      preTestModeButton.classList.remove("active");
 	      testModeButton.classList.remove("active");
 	      studyPanel.classList.add("active");
 	      dashboardPanel.classList.remove("active");
@@ -5933,8 +6009,14 @@ let levels = gradeData[currentGrade].levels;
       const correctAnswer = isPinyinToCharacter(current) ? current.character : current.pinyin;
       const answers = answerChoicesFor(current);
 
-      promptLabel.textContent = "";
-      if (isPinyinToCharacter(current)) {
+	      if (testMode === "pretest") {
+	        promptLabel.className = "prompt-label active practice-instruction";
+	        promptLabel.textContent = "Pre-Test: check what you know. This result does not affect your progress.";
+	      } else {
+	        promptLabel.className = "prompt-label";
+	        promptLabel.textContent = "";
+	      }
+	      if (isPinyinToCharacter(current)) {
         showPinyinPrompt(current.pinyin);
       } else {
         setSingleLineWord(prompt, current.character);
@@ -5964,18 +6046,20 @@ let levels = gradeData[currentGrade].levels;
         if (buttonAnswer === answer && answer !== correctAnswer) button.classList.add("wrong-answer");
       });
 
-      if (answer === correctAnswer) {
+	      if (answer === correctAnswer) {
         score += 1;
         if (testMode === "review-bank") reviewBankCorrectWords.push(current);
         feedback.textContent = "";
         feedback.className = "feedback";
-      } else {
+	      } else {
         missed += 1;
         if (testMode === "final") finalMissedWords.push(current);
         if (testMode === "level") levelMissedWords.push(current);
-        showPromptMessage(current.pinyin, current.character);
-        feedback.innerHTML = `<span class="answer-action-row"></span>`;
-        feedback.classList.add("bad");
+	        showPromptMessage(current.pinyin, current.character);
+	        promptLabel.className = "prompt-label active practice-instruction";
+	        promptLabel.textContent = "Correct answer";
+	        feedback.innerHTML = `<strong>Take a moment to review the correct answer above.</strong><span class="answer-action-row"></span>`;
+	        feedback.classList.add("bad");
       }
 
       updateScore();
@@ -5984,7 +6068,7 @@ let levels = gradeData[currentGrade].levels;
         finishTest();
       } else if (answer === correctAnswer) {
         setTimeout(chooseQuestion, 900);
-      } else if (testMode === "level" && missed >= Math.ceil(vocabulary.length * 0.2)) {
+	      } else if (testMode === "level" && missed >= Math.ceil(vocabulary.length * 0.2)) {
         showNextStep("Continue", stopForRestart);
       } else if (answeredCount === vocabulary.length) {
         showNextStep("Finish Test", finishTest);
@@ -6085,9 +6169,11 @@ let levels = gradeData[currentGrade].levels;
 	        levelJumpSelect.append(option);
 	      });
       levelJumpSelect.value = String(levelIndex);
-      dashboardNote.textContent = testMode === "final"
-        ? "Final Test uses 50 random words from all levels."
-        : testMode === "review" || testMode === "review-bank"
+	      dashboardNote.textContent = testMode === "final"
+	        ? "Final Test uses 50 random words from all levels."
+	        : testMode === "pretest"
+	        ? "Pre-Test is private practice. Repeat it freely; it does not affect passing or saved progress."
+	        : testMode === "review" || testMode === "review-bank"
         ? "Practice mode uses missed words saved from recent tests."
         : phase === "test"
         ? "The study list is hidden during the test."
@@ -6137,17 +6223,52 @@ let levels = gradeData[currentGrade].levels;
       feedback.textContent = `This level stopped because ${missed} words were missed. To pass this level, answer at least ${passScore}/${vocabulary.length} words correctly. You can still choose any level from the level menu.`;
       feedback.className = "feedback bad";
       renderMissedReview(levelMissedWords, "Missed Words This Level", "Review these words before restarting this level.");
+	      recordFormalTestSummary("stopped");
     }
 
     function finishTest() {
       if (testMode === "final") {
         finishFinalTest();
+	      } else if (testMode === "pretest") {
+	        finishPreTest();
       } else if (testMode === "review" || testMode === "review-bank") {
         finishMissedWordPractice();
       } else {
+	        recordFormalTestSummary(score / vocabulary.length >= levelPassRate ? "passed" : "not passed");
         finishLevel();
       }
     }
+
+	    function finishPreTest() {
+	      testStopped = true;
+	      nextButton.disabled = true;
+	      choices.innerHTML = "";
+	      showPromptMessage("zhǔn bèi hǎo le", "准备好了");
+	      promptLabel.className = "prompt-label active practice-instruction";
+	      promptLabel.textContent = "Pre-Test complete — this score does not affect your progress.";
+	      feedback.textContent = `You knew ${score}/${vocabulary.length} on this check. Review anything that felt uncertain, or begin the Formal Test when you are ready.`;
+	      feedback.className = score / vocabulary.length >= levelPassRate ? "feedback good" : "feedback bad";
+	      const actions = document.createElement("div");
+	      actions.className = "answer-action-row advance-button";
+	      const retry = document.createElement("button");
+	      retry.className = "primary";
+	      retry.type = "button";
+	      retry.textContent = "Try Pre-Test Again";
+	      retry.addEventListener("click", startPreTest);
+	      const study = document.createElement("button");
+	      study.className = "primary";
+	      study.type = "button";
+	      study.textContent = "Back to Study";
+	      study.addEventListener("click", showStudyMode);
+	      const formal = document.createElement("button");
+	      formal.className = "primary blue-button";
+	      formal.type = "button";
+	      formal.textContent = "I'm Ready — Start Formal Test";
+	      formal.addEventListener("click", startCurrentLevelTest);
+	      actions.append(retry, study, formal);
+	      feedback.append(document.createElement("br"), actions);
+	      updateModeAction();
+	    }
 
     function finishFinalTest() {
       testStopped = true;
@@ -6389,6 +6510,7 @@ let levels = gradeData[currentGrade].levels;
     grade4Button.addEventListener("click", () => switchGrade("grade4"));
     grade4PreviewButton.addEventListener("click", teacherPreviewGrade4);
 	    studyModeButton.addEventListener("click", showStudyMode);
+	    preTestModeButton.addEventListener("click", startPreTest);
 	    testModeButton.addEventListener("click", startCurrentLevelTest);
 	    practiceGameButton.addEventListener("click", startCharacterWordPractice);
 	    studyMissedButton.addEventListener("click", studyStoredMissedWords);
@@ -6420,8 +6542,9 @@ let levels = gradeData[currentGrade].levels;
       updateStudyCard();
     });
 
-    loadSavedProgress();
-    startLevel(levelIndex);
+	    loadSavedProgress();
+	    levelIndex = Math.max(0, levels.findIndex((level) => level.name === "8.1"));
+	    startLevel(levelIndex);
   </script>
   <script src="grade4-final-readings.js"></script>
   <script id="reading-check-inline">
