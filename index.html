@@ -401,6 +401,49 @@
       color: #382407;
     }
 
+    .formal-result-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(18, 29, 45, 0.72);
+    }
+
+    .formal-result-dialog {
+      width: min(680px, 100%);
+      max-height: 92vh;
+      overflow: auto;
+      border-radius: 8px;
+      background: white;
+      padding: 22px;
+      box-shadow: 0 24px 70px rgba(18, 29, 45, 0.3);
+    }
+
+    .formal-result-dialog h2 {
+      margin: 0 0 8px;
+    }
+
+    .formal-result-dialog p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .formal-result-preview {
+      display: block;
+      width: 100%;
+      margin: 16px 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .formal-result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
     .blue-button {
       background: var(--blue);
       border-color: var(--blue);
@@ -4649,9 +4692,9 @@ const gradeData = {
 	    }
 
 	    function recordFormalTestSummary(status) {
-	      if (!formalAttemptStartedAt) return;
+	      if (!formalAttemptStartedAt) return null;
 	      const history = formalTestHistory();
-	      history.push({
+	      const summary = {
 	        date: new Date().toISOString(),
 	        grade: gradeData[currentGrade].shortLabel,
 	        level: currentLevel().name,
@@ -4661,13 +4704,141 @@ const gradeData = {
 	        successRate: Math.round((score / vocabulary.length) * 100),
 	        missed: levelMissedWords.map((item) => item.character),
 	        status
-	      });
+	      };
+	      history.push(summary);
 	      try {
 	        localStorage.setItem(formalTestHistoryKey(), JSON.stringify(history.slice(-100)));
 	      } catch {
 	        // Keep the test usable if browser storage is unavailable.
 	      }
 	      formalAttemptStartedAt = null;
+	      return summary;
+	    }
+
+	    function formalResultCanvas(summary) {
+	      const canvas = document.createElement("canvas");
+	      canvas.width = 1200;
+	      canvas.height = 900;
+	      const context = canvas.getContext("2d");
+	      context.fillStyle = "#f7fbff";
+	      context.fillRect(0, 0, canvas.width, canvas.height);
+	      context.fillStyle = "#ffffff";
+	      context.strokeStyle = "#cbd8eb";
+	      context.lineWidth = 4;
+	      context.beginPath();
+	      context.roundRect(55, 55, 1090, 790, 20);
+	      context.fill();
+	      context.stroke();
+
+	      context.fillStyle = "#2859b8";
+	      context.font = "800 56px Arial, sans-serif";
+	      context.fillText("心玉中文学习 · Formal Test Result", 105, 145);
+	      context.fillStyle = "#1d2734";
+	      context.font = "700 42px Arial, sans-serif";
+	      context.fillText(`${summary.grade} · Level ${summary.level}`, 105, 225);
+
+	      const resultColor = summary.status === "passed" ? "#157347" : "#b42318";
+	      context.fillStyle = resultColor;
+	      context.font = "800 72px Arial, sans-serif";
+	      context.fillText(`${summary.firstTryCorrect}/${summary.totalQuestions} · ${summary.successRate}%`, 105, 330);
+	      context.font = "800 38px Arial, sans-serif";
+	      context.fillText(summary.status === "passed" ? "PASSED" : summary.status.toUpperCase(), 105, 390);
+
+	      context.fillStyle = "#536174";
+	      context.font = "32px Arial, sans-serif";
+	      const date = new Date(summary.date).toLocaleString();
+	      context.fillText(`Date: ${date}`, 105, 465);
+	      context.fillText(`Formal-test attempt: ${summary.attempt}`, 105, 515);
+	      context.fillText(`Correct on first try: ${summary.firstTryCorrect}`, 105, 565);
+
+	      context.fillStyle = "#1d2734";
+	      context.font = "700 32px Arial, sans-serif";
+	      context.fillText(`Words to review (${summary.missed.length}):`, 105, 635);
+	      context.font = "30px Arial, sans-serif";
+	      const missedText = summary.missed.length ? summary.missed.join("、") : "None";
+	      const maxWidth = 970;
+	      let line = "";
+	      let y = 685;
+	      Array.from(missedText).forEach((character) => {
+	        const next = line + character;
+	        if (context.measureText(next).width > maxWidth) {
+	          context.fillText(line, 105, y);
+	          line = character;
+	          y += 42;
+	        } else {
+	          line = next;
+	        }
+	      });
+	      if (line) context.fillText(line, 105, y);
+	      context.fillStyle = "#7a8798";
+	      context.font = "24px Arial, sans-serif";
+	      context.fillText("Generated automatically by the vocabulary practice website", 105, 810);
+	      return canvas;
+	    }
+
+	    function canvasBlob(canvas) {
+	      return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+	    }
+
+	    async function copyResultCard(blob) {
+	      if (!navigator.clipboard || typeof ClipboardItem === "undefined") throw new Error("Image clipboard is unavailable");
+	      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+	    }
+
+	    function downloadResultCard(blob, summary) {
+	      const link = document.createElement("a");
+	      link.href = URL.createObjectURL(blob);
+	      link.download = `${summary.grade.replace(/\s+/g, "-")}-Level-${summary.level}-Formal-Test.png`;
+	      link.click();
+	      window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+	    }
+
+	    async function presentFormalResult(summary) {
+	      if (!summary) return;
+	      const canvas = formalResultCanvas(summary);
+	      const blob = await canvasBlob(canvas);
+	      const overlay = document.createElement("div");
+	      overlay.className = "formal-result-overlay";
+	      const dialog = document.createElement("section");
+	      dialog.className = "formal-result-dialog";
+	      const title = document.createElement("h2");
+	      title.textContent = "Your formal-test result card is ready";
+	      const note = document.createElement("p");
+	      note.textContent = "Copy this result card, then paste it into your weekly Google Doc. A PNG copy can also be downloaded.";
+	      const preview = document.createElement("img");
+	      preview.className = "formal-result-preview";
+	      preview.src = canvas.toDataURL("image/png");
+	      preview.alt = "Formal test result card";
+	      const status = document.createElement("p");
+	      const actions = document.createElement("div");
+	      actions.className = "formal-result-actions";
+	      const copyButton = document.createElement("button");
+	      copyButton.className = "primary";
+	      copyButton.textContent = "Copy Result Card";
+	      copyButton.addEventListener("click", async () => {
+	        try {
+	          await copyResultCard(blob);
+	          status.textContent = "Result card copied. Open your Google Doc and paste it.";
+	        } catch {
+	          status.textContent = "Your browser blocked image copying. Use Download PNG instead.";
+	        }
+	      });
+	      const downloadButton = document.createElement("button");
+	      downloadButton.textContent = "Download PNG";
+	      downloadButton.addEventListener("click", () => downloadResultCard(blob, summary));
+	      const closeButton = document.createElement("button");
+	      closeButton.textContent = "Done";
+	      closeButton.addEventListener("click", () => overlay.remove());
+	      actions.append(copyButton, downloadButton, closeButton);
+	      dialog.append(title, note, preview, status, actions);
+	      overlay.append(dialog);
+	      document.body.append(overlay);
+	      try {
+	        await copyResultCard(blob);
+	        status.textContent = "Result card copied. Open your Google Doc and paste it.";
+	      } catch {
+	        status.textContent = "Click Copy Result Card, or download the PNG and insert it into your Google Doc.";
+	      }
 	    }
 
     function progressKeyForGrade(gradeKey) {
@@ -5709,6 +5880,15 @@ const gradeData = {
 	      beginTest(`${gradeData[currentGrade].shortLabel} ${levels[levelIndex].name}`);
 	    }
 
+	    function confirmFormalTest() {
+	      showModal(
+	        "Ready for the Formal Test?",
+	        "This attempt counts as your formal result. When you finish, the website will create a result-card image for you to copy and paste into your weekly Google Doc.",
+	        "Begin Formal Test",
+	        startCurrentLevelTest
+	      );
+	    }
+
 	    function startPreTest() {
 	      activeReviewSource = "";
 	      testMode = "pretest";
@@ -5986,7 +6166,7 @@ const gradeData = {
 	      testButton.className = "primary";
 	      testButton.type = "button";
 	      testButton.textContent = "Start Level Test";
-	      testButton.addEventListener("click", startCurrentLevelTest);
+	      testButton.addEventListener("click", confirmFormalTest);
 	      actionRow.append(againButton, studyButton, testButton);
 	      feedback.append(document.createElement("br"), actionRow);
 	    }
@@ -6223,7 +6403,8 @@ const gradeData = {
       feedback.textContent = `This level stopped because ${missed} words were missed. To pass this level, answer at least ${passScore}/${vocabulary.length} words correctly. You can still choose any level from the level menu.`;
       feedback.className = "feedback bad";
       renderMissedReview(levelMissedWords, "Missed Words This Level", "Review these words before restarting this level.");
-	      recordFormalTestSummary("stopped");
+	      const formalSummary = recordFormalTestSummary("stopped");
+	      window.setTimeout(() => presentFormalResult(formalSummary), 350);
     }
 
     function finishTest() {
@@ -6234,8 +6415,9 @@ const gradeData = {
       } else if (testMode === "review" || testMode === "review-bank") {
         finishMissedWordPractice();
       } else {
-	        recordFormalTestSummary(score / vocabulary.length >= levelPassRate ? "passed" : "not passed");
-        finishLevel();
+	        const formalSummary = recordFormalTestSummary(score / vocabulary.length >= levelPassRate ? "passed" : "not passed");
+	        finishLevel();
+	        window.setTimeout(() => presentFormalResult(formalSummary), 350);
       }
     }
 
@@ -6264,7 +6446,7 @@ const gradeData = {
 	      formal.className = "primary blue-button";
 	      formal.type = "button";
 	      formal.textContent = "I'm Ready — Start Formal Test";
-	      formal.addEventListener("click", startCurrentLevelTest);
+	      formal.addEventListener("click", confirmFormalTest);
 	      actions.append(retry, study, formal);
 	      feedback.append(document.createElement("br"), actions);
 	      updateModeAction();
@@ -6511,7 +6693,7 @@ const gradeData = {
     grade4PreviewButton.addEventListener("click", teacherPreviewGrade4);
 	    studyModeButton.addEventListener("click", showStudyMode);
 	    preTestModeButton.addEventListener("click", startPreTest);
-	    testModeButton.addEventListener("click", startCurrentLevelTest);
+	    testModeButton.addEventListener("click", confirmFormalTest);
 	    practiceGameButton.addEventListener("click", startCharacterWordPractice);
 	    studyMissedButton.addEventListener("click", studyStoredMissedWords);
     reviewMissedButton.addEventListener("click", startStoredMissedPractice);
